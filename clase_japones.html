@@ -149,6 +149,38 @@
   #vocab-table .none-row td { text-align:center; color:#9a8f80; font-style:italic; padding:22px; }
   .lz { display:inline-block; background:#f0e6d8; color:#8a7f6e; border-radius:6px; padding:1px 7px; font-size:0.78rem; }
 
+
+  /* CLASES PLEGABLES */
+  .clases-nav { position:sticky; top:var(--menu-h, 0px); z-index:20; display:flex; gap:7px; overflow-x:auto; padding:10px 2px; margin:10px 0 4px; background:#fbeedf; scrollbar-width:none; }
+  .clases-nav::-webkit-scrollbar { display:none; }
+  .clases-nav .lbl { align-self:center; font-size:0.85rem; color:#9a8f80; flex:none; }
+  .clase-chip { flex:none; cursor:pointer; border:1.5px solid var(--morado); background:#fff; color:var(--morado); border-radius:999px; padding:5px 12px; font-size:0.85rem; font-weight:600; font-family:inherit; }
+  .clase-chip.nueva::after { content:" ★"; }
+  .clase-chip[aria-current="true"] { background:var(--morado); color:#fff; }
+  .clase { background:#fff; border-radius:14px; box-shadow:var(--sombra); margin:14px 0; padding:0 16px; border-left:5px solid #e8dcef; scroll-margin-top:calc(var(--menu-h, 0px) + 62px); }
+  .clase[open] { padding-bottom:12px; border-left-color:var(--morado); }
+  .clase > summary { cursor:pointer; list-style:none; padding:13px 0; display:flex; flex-wrap:wrap; gap:4px 10px; align-items:baseline; }
+  .clase > summary::-webkit-details-marker { display:none; }
+  .clase > summary::before { content:"▸"; color:var(--morado); font-weight:700; }
+  .clase[open] > summary::before { content:"▾"; }
+  .clase > summary:focus-visible { outline:2px solid var(--morado); outline-offset:3px; border-radius:6px; }
+  .clase .c-fecha { font-weight:700; color:var(--rojo); }
+  .clase.nueva .c-fecha::after { content:"★ nuevo"; background:var(--morado); color:#fff; border-radius:999px; padding:1px 9px; font-size:0.72rem; margin-left:8px; vertical-align:middle; }
+  .clase .c-temas { font-size:0.9rem; color:#5a524a; flex:1 1 220px; }
+  .clase[open] > summary { border-bottom:1px dashed #e8dcef; margin-bottom:6px; }
+  .ultima-clase { cursor:pointer; display:block; text-decoration:none; color:inherit; }
+  @media print { .clases-nav { display:none; } }
+  @media (max-width: 600px) {
+    .clase { padding:0 10px; }
+    .clase table, .clase tbody { display:block; }
+    .clase tr { display:grid; border-bottom:1px solid #f0e6d8; }
+    .clase tr:first-child:has(> th) { display:none; }
+    .clase tr:nth-child(even) td { background:none; } .clase tr:nth-child(even) { background:#fdf8f1; }
+    .clase td { border-bottom:none; padding:3px 12px; }
+    .clase td:first-child { padding-top:9px; } .clase td:last-child { padding-bottom:9px; }
+    .clase th[colspan] { display:block; }
+  }
+
   footer { text-align:center; margin-top:46px; color:#9a8f80; font-size:0.88rem; }
 
   @media (max-width: 760px) {
@@ -229,6 +261,7 @@
         💡 <b>Cómo está organizada:</b> cada <b>lección</b> tiene su gramática, frases (japonés · romaji · español) e imágenes.
         El <b>vocabulario</b> nuevo de cada clase se va sumando a la sección 🗂️, donde puedes buscar y filtrar por categoría.
       </div>
+      <div id="ultima-clase"></div>
       <h3>📊 Progreso</h3>
       <table>
         <tr><th>Lección</th><th>Tema</th><th>Estado</th></tr>
@@ -236,7 +269,7 @@
         <tr><td>⚽ <b>Mundial</b></td><td>Vocabulario y expresiones de la Copa Mundial</td><td>✅ Completa</td></tr>
         <tr><td><b>L8</b></td><td>Adjetivos な e い (とても／あまり, な/い+sustantivo, negativo くない, 〜ですか, どう／どんな)</td><td>✅ Completa</td></tr>
         <tr><td>🎴 <b>Vocab clave</b></td><td>Todo el vocabulario nuevo junto (kanji · kana · romaji) para el examen</td><td>✅ Lista</td></tr>
-        <tr><td><b>L9</b></td><td>Gustos y habilidad: 〜が すき／きらい／じょうず／へた／にがて, とても／あまり, 〜が すきですか？, どんな〜が すきですか？, 〔verbo〕＋こと, わかる／ある, よく・だいたい・すこし・あまり・ぜんぜん, 〜が あります（たくさん・すこし）, じかん／ようじ／やくそく, 〜が ありますか？, わたしも + vocabulario<div class="ro-cell">~ga suki / kirai / jōzu / heta / nigate, totemo / amari, ~ga suki desu ka?, donna ~ ga suki desu ka?, ~koto, wakaru / aru, yoku · daitai · sukoshi · amari · zenzen, ~ga arimasu (takusan · sukoshi), jikan / yōji / yakusoku, ~ga arimasu ka?, watashi mo</div></td><td>🌱 Empezada</td></tr>
+        <tr><td><b>L9</b></td><td>Gustos y habilidad: 〜が すき／きらい／じょうず／へた／にがて, とても／あまり, 〜が すきですか？, どんな〜が すきですか？, 〔verbo〕＋こと, わかる／ある, よく・だいたい・すこし・あまり・ぜんぜん, 〜が あります（たくさん・すこし）, じかん／ようじ／やくそく, 〜が ありますか？, わたしも, どうして〜か？ → 〜から + vocabulario<div class="ro-cell">~ga suki / kirai / jōzu / heta / nigate, totemo / amari, ~ga suki desu ka?, donna ~ ga suki desu ka?, ~koto, wakaru / aru, yoku · daitai · sukoshi · amari · zenzen, ~ga arimasu (takusan · sukoshi), jikan / yōji / yakusoku, ~ga arimasu ka?, watashi mo, dōshite ~ka? → ~kara</div></td><td>🌱 Empezada</td></tr>
         <tr><td>L10+</td><td>—</td><td>⏳ Cuando traigas los PDFs</td></tr>
       </table>
     </section>
@@ -360,8 +393,8 @@
 
       <h3>🎁 Dar / recibir <span class="badge">あげる / もらう</span></h3>
       <div class="ilustra">
-        <figure><img src="clase_japones_img_0604/p02_1.jpeg" alt="Dani da flores a Ami"><figcaption>🌷 Dani le da flores a Ami</figcaption></figure>
-        <figure><img src="clase_japones_img_0604/p04_1.jpeg" alt="Ami da regalo a Dani"><figcaption>🎁 Ami le da un regalo a Dani</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0604/p02_1.jpeg" alt="Dani da flores a Ami"><figcaption>🌷 Dani le da flores a Ami</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0604/p04_1.jpeg" alt="Ami da regalo a Dani"><figcaption>🎁 Ami le da un regalo a Dani</figcaption></figure>
       </div>
       <table>
         <tr><th>Japonés</th><th>Romaji</th><th>Español</th></tr>
@@ -379,9 +412,9 @@
 
       <h3>👨‍🏫 Enseñar / aprender <span class="badge">おしえる / ならう</span></h3>
       <div class="ilustra">
-        <figure><img src="clase_japones_img_0604/p13_1.jpeg" alt="profesor"><figcaption>せんせい → がくせい（にほんご）<br><i style="color:var(--azul)">sensei → gakusei (nihongo)</i></figcaption></figure>
-        <figure><img src="clase_japones_img_0604/p19_1.jpeg" alt="Matt enseña inglés"><figcaption>マット → ここ：inglés 🐱<br><i style="color:var(--azul)">Matto → Koko</i></figcaption></figure>
-        <figure><img src="clase_japones_img_0604/p20_1.jpeg" alt="Koko aprende compu"><figcaption>ここ ← マット：computación 💻<br><i style="color:var(--azul)">Koko ← Matto</i></figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0604/p13_1.jpeg" alt="profesor"><figcaption>せんせい → がくせい（にほんご）<br><i style="color:var(--azul)">sensei → gakusei (nihongo)</i></figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0604/p19_1.jpeg" alt="Matt enseña inglés"><figcaption>マット → ここ：inglés 🐱<br><i style="color:var(--azul)">Matto → Koko</i></figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0604/p20_1.jpeg" alt="Koko aprende compu"><figcaption>ここ ← マット：computación 💻<br><i style="color:var(--azul)">Koko ← Matto</i></figcaption></figure>
       </div>
       <table>
         <tr><th>Japonés</th><th>Romaji</th><th>Español</th></tr>
@@ -411,9 +444,9 @@
         <span class="p1">(persona1)</span>は <span class="p1">(persona2)</span><span class="part">に</span>　<span class="obj">(objeto)</span>を　かします／かります
       </div>
       <div class="ilustra">
-        <figure><img src="clase_japones_img_0604/p27_1.jpeg" alt="prestar dinero"><figcaption>💵 おかね <i style="color:var(--azul)">okane</i> (dinero)</figcaption></figure>
-        <figure><img src="clase_japones_img_0604/p29_2.jpeg" alt="prestar paraguas"><figcaption>☂️ かさ <i style="color:var(--azul)">kasa</i> (paraguas)</figcaption></figure>
-        <figure><img src="clase_japones_img_0604/p35_1.jpeg" alt="prestar cámara"><figcaption>📷 カメラ <i style="color:var(--azul)">kamera</i> (cámara)</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0604/p27_1.jpeg" alt="prestar dinero"><figcaption>💵 おかね <i style="color:var(--azul)">okane</i> (dinero)</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0604/p29_2.jpeg" alt="prestar paraguas"><figcaption>☂️ かさ <i style="color:var(--azul)">kasa</i> (paraguas)</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0604/p35_1.jpeg" alt="prestar cámara"><figcaption>📷 カメラ <i style="color:var(--azul)">kamera</i> (cámara)</figcaption></figure>
       </div>
       <table class="morado">
         <tr><th>Japonés</th><th>Romaji</th><th>Español</th></tr>
@@ -489,9 +522,9 @@
         <small>は = sujeto · に = la otra persona · を = lo que se escribe o envía</small>
       </div>
       <div class="ilustra">
-        <figure><img src="clase_japones_img_0618/kenny_escribe.png" alt="Kenny escribe a Matt"><figcaption>✍️ ケニー → マット：てがみを かきます<br><i style="color:var(--azul)">tegami o kakimasu</i></figcaption></figure>
-        <figure><img src="clase_japones_img_0618/buzon_enviar.png" alt="Echar carta al buzón"><figcaption>📮 てがみを おくります<br><i style="color:var(--azul)">tegami o okurimasu</i> (enviar)</figcaption></figure>
-        <figure><img src="clase_japones_img_0618/koko_mail.png" alt="Koko envía un mail"><figcaption>📧 ここ：メール／メッセージを おくります<br><i style="color:var(--azul)">mēru / messēji o okurimasu</i></figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0618/kenny_escribe.png" alt="Kenny escribe a Matt"><figcaption>✍️ ケニー → マット：てがみを かきます<br><i style="color:var(--azul)">tegami o kakimasu</i></figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0618/buzon_enviar.png" alt="Echar carta al buzón"><figcaption>📮 てがみを おくります<br><i style="color:var(--azul)">tegami o okurimasu</i> (enviar)</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0618/koko_mail.png" alt="Koko envía un mail"><figcaption>📧 ここ：メール／メッセージを おくります<br><i style="color:var(--azul)">mēru / messēji o okurimasu</i></figcaption></figure>
       </div>
       <table>
         <tr><th>Japonés</th><th>Romaji</th><th>Español</th></tr>
@@ -530,9 +563,9 @@
         <small>はい、もう〜ました &nbsp;·&nbsp; いいえ、まだです &nbsp;·&nbsp; いいえ、いま〜ています</small>
       </div>
       <div class="ilustra">
-        <figure><img src="clase_japones_img_0625/yorugohan.png" alt="Cenando de noche"><figcaption>🌙 もう　よるごはんを　たべましたか？<br><i style="color:var(--azul)">mō yorugohan o tabemashita ka?</i></figcaption></figure>
-        <figure><img src="clase_japones_img_0625/mou_tabeta.png" alt="Ya comió, llena"><figcaption>✅ はい、<b>もう</b>　たべました<br><i style="color:var(--azul)">hai, mō tabemashita</i></figcaption></figure>
-        <figure><img src="clase_japones_img_0625/mada_onigiri.png" alt="Todavía con hambre"><figcaption>🍙 いいえ、<b>まだ</b>です<br><i style="color:var(--azul)">iie, mada desu</i></figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0625/yorugohan.png" alt="Cenando de noche"><figcaption>🌙 もう　よるごはんを　たべましたか？<br><i style="color:var(--azul)">mō yorugohan o tabemashita ka?</i></figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0625/mou_tabeta.png" alt="Ya comió, llena"><figcaption>✅ はい、<b>もう</b>　たべました<br><i style="color:var(--azul)">hai, mō tabemashita</i></figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0625/mada_onigiri.png" alt="Todavía con hambre"><figcaption>🍙 いいえ、<b>まだ</b>です<br><i style="color:var(--azul)">iie, mada desu</i></figcaption></figure>
       </div>
       <table class="morado">
         <tr><th>Japonés</th><th>Romaji</th><th>Español</th></tr>
@@ -569,12 +602,12 @@
       <h3 style="color:var(--verde)">🗣️ Conversación útil <span class="badge">★ 会話 (kaiwa)</span></h3>
       <p class="sub">Expresiones fijas para el día a día (recibir visitas, comer, elogiar).</p>
       <div class="ilustra">
-        <figure><img src="clase_japones_img_0702/irasshai.png" alt="Bienvenida con noren"><figcaption><b>いらっしゃい(ませ)</b><br><i style="color:var(--azul)">irasshai(mase)</i><br>¡Bienvenido!</figcaption></figure>
-        <figure><img src="clase_japones_img_0702/oagari.png" alt="Invitar a entrar"><figcaption><b>どうぞ おあがりください</b><br><i style="color:var(--azul)">dōzo oagari kudasai</i><br>Pase, adelante</figcaption></figure>
-        <figure><img src="clase_japones_img_0702/ikaga.png" alt="Ofrecer algo"><figcaption><b>〜は いかがですか？</b><br><i style="color:var(--azul)">~ wa ikaga desu ka?</i><br>¿Le gustaría ~?</figcaption></figure>
-        <figure><img src="clase_japones_img_0702/itadakimasu.png" alt="Antes de comer"><figcaption><b>いただきます</b><br><i style="color:var(--azul)">itadakimasu</i><br>(antes de comer)</figcaption></figure>
-        <figure><img src="clase_japones_img_0702/suteki.png" alt="Qué lindo"><figcaption><b>すてきですね</b><br><i style="color:var(--azul)">suteki desu ne</i><br>¡Qué lindo!</figcaption></figure>
-        <figure><img src="clase_japones_img_0702/omiyage.png" alt="Souvenir"><figcaption><b>おみやげ</b><br><i style="color:var(--azul)">omiyage</i><br>souvenir / regalo de viaje</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0702/irasshai.png" alt="Bienvenida con noren"><figcaption><b>いらっしゃい(ませ)</b><br><i style="color:var(--azul)">irasshai(mase)</i><br>¡Bienvenido!</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0702/oagari.png" alt="Invitar a entrar"><figcaption><b>どうぞ おあがりください</b><br><i style="color:var(--azul)">dōzo oagari kudasai</i><br>Pase, adelante</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0702/ikaga.png" alt="Ofrecer algo"><figcaption><b>〜は いかがですか？</b><br><i style="color:var(--azul)">~ wa ikaga desu ka?</i><br>¿Le gustaría ~?</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0702/itadakimasu.png" alt="Antes de comer"><figcaption><b>いただきます</b><br><i style="color:var(--azul)">itadakimasu</i><br>(antes de comer)</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0702/suteki.png" alt="Qué lindo"><figcaption><b>すてきですね</b><br><i style="color:var(--azul)">suteki desu ne</i><br>¡Qué lindo!</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0702/omiyage.png" alt="Souvenir"><figcaption><b>おみやげ</b><br><i style="color:var(--azul)">omiyage</i><br>souvenir / regalo de viaje</figcaption></figure>
       </div>
       <table>
         <tr><th>Japonés</th><th>Romaji</th><th>Cuándo se usa</th></tr>
@@ -589,10 +622,10 @@
 
       <h4 class="kana-h" style="color:var(--verde)">☕ En una visita — ofrecer, rechazar y despedirse</h4>
       <div class="ilustra">
-        <figure><img src="clase_japones_img_0903/mou_ippai.png" alt="Ofrecer más café"><figcaption><b>もういっぱい いかがですか？</b><br><i style="color:var(--azul)">mō ippai ikaga desu ka?</i><br>¿Le gustaría otra taza?</figcaption></figure>
-        <figure><img src="clase_japones_img_0903/kekkou.png" alt="Rechazar cortésmente"><figcaption><b>いいえ、けっこうです</b><br><i style="color:var(--azul)">iie, kekkō desu</i><br>No, gracias (así estoy bien)</figcaption></figure>
-        <figure><img src="clase_japones_img_0903/shitsurei.png" alt="Despedirse"><figcaption><b>そろそろ しつれいします</b><br><i style="color:var(--azul)">sorosoro shitsurei shimasu</i><br>Ya me tengo que ir</figcaption></figure>
-        <figure><img src="clase_japones_img_0903/mata_kite.png" alt="Vuelva a visitarnos"><figcaption><b>また いらっしゃってください</b><br><i style="color:var(--azul)">mata irasshatte kudasai</i><br>Vuelva a visitarnos</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0903/mou_ippai.png" alt="Ofrecer más café"><figcaption><b>もういっぱい いかがですか？</b><br><i style="color:var(--azul)">mō ippai ikaga desu ka?</i><br>¿Le gustaría otra taza?</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0903/kekkou.png" alt="Rechazar cortésmente"><figcaption><b>いいえ、けっこうです</b><br><i style="color:var(--azul)">iie, kekkō desu</i><br>No, gracias (así estoy bien)</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0903/shitsurei.png" alt="Despedirse"><figcaption><b>そろそろ しつれいします</b><br><i style="color:var(--azul)">sorosoro shitsurei shimasu</i><br>Ya me tengo que ir</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0903/mata_kite.png" alt="Vuelva a visitarnos"><figcaption><b>また いらっしゃってください</b><br><i style="color:var(--azul)">mata irasshatte kudasai</i><br>Vuelva a visitarnos</figcaption></figure>
       </div>
       <table>
         <tr><th>Japonés</th><th>Romaji</th><th>Cuándo se usa</th></tr>
@@ -729,10 +762,10 @@
 
       <h3 style="color:var(--morado)">🔗 Ejemplos con な + sustantivo</h3>
       <div class="ilustra">
-        <figure><img src="clase_japones_img_0716/sakura.png" alt="Sakura"><figcaption>さくらは きれい<b class="hlp">な</b> はなです<br><i style="color:var(--azul)">sakura wa kirei na hana desu</i></figcaption></figure>
-        <figure><img src="clase_japones_img_0716/tokyo.png" alt="Tokio"><figcaption>とうきょうは ゆうめい<b class="hlp">な</b> ところです<br><i style="color:var(--azul)">Tōkyō wa yūmei na tokoro desu</i></figcaption></figure>
-        <figure><img src="clase_japones_img_0716/anya.png" alt="Anya"><figcaption>アーニャは げんき<b class="hlp">な</b> こどもです<br><i style="color:var(--azul)">Ānya wa genki na kodomo desu</i></figcaption></figure>
-        <figure><img src="clase_japones_img_0716/karina.png" alt="Karina"><figcaption>かりなさんは しんせつ<b class="hlp">な</b> せんせいです<br><i style="color:var(--azul)">Karina-san wa shinsetsu na sensei desu</i></figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0716/sakura.png" alt="Sakura"><figcaption>さくらは きれい<b class="hlp">な</b> はなです<br><i style="color:var(--azul)">sakura wa kirei na hana desu</i></figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0716/tokyo.png" alt="Tokio"><figcaption>とうきょうは ゆうめい<b class="hlp">な</b> ところです<br><i style="color:var(--azul)">Tōkyō wa yūmei na tokoro desu</i></figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0716/anya.png" alt="Anya"><figcaption>アーニャは げんき<b class="hlp">な</b> こどもです<br><i style="color:var(--azul)">Ānya wa genki na kodomo desu</i></figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0716/karina.png" alt="Karina"><figcaption>かりなさんは しんせつ<b class="hlp">な</b> せんせいです<br><i style="color:var(--azul)">Karina-san wa shinsetsu na sensei desu</i></figcaption></figure>
       </div>
       <table class="morado">
         <tr><th>Japonés</th><th>Romaji</th><th>Español</th></tr>
@@ -748,8 +781,8 @@
 
       <h3 style="color:var(--azul)">❓ Ejemplos con どうですか (pedir opinión)</h3>
       <div class="ilustra">
-        <figure><img src="clase_japones_img_0716/conbini.png" alt="Konbini"><figcaption>AMPMは どうですか？→ べんりです<br><i style="color:var(--azul)">AMPM wa dō desu ka? → benri desu</i></figcaption></figure>
-        <figure><img src="clase_japones_img_0716/ryouri.png" alt="Comida japonesa"><figcaption>にほんりょうりは どうですか？→ とても おいしいです<br><i style="color:var(--azul)">nihon ryōri wa dō desu ka? → totemo oishii desu</i></figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0716/conbini.png" alt="Konbini"><figcaption>AMPMは どうですか？→ べんりです<br><i style="color:var(--azul)">AMPM wa dō desu ka? → benri desu</i></figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0716/ryouri.png" alt="Comida japonesa"><figcaption>にほんりょうりは どうですか？→ とても おいしいです<br><i style="color:var(--azul)">nihon ryōri wa dō desu ka? → totemo oishii desu</i></figcaption></figure>
       </div>
       <table>
         <tr><th>Japonés</th><th>Romaji</th><th>Español</th></tr>
@@ -774,9 +807,9 @@
         <small>おおさかは どんな ところですか？ → にぎやかな ところです</small>
       </div>
       <div class="ilustra">
-        <figure><img src="clase_japones_img_0723/osaka.png" alt="Osaka"><figcaption>おおさかは どんなところですか？<br><i style="color:var(--azul)">Ōsaka wa donna tokoro desu ka?</i><br>→ にぎやかな ところです (animado)</figcaption></figure>
-        <figure><img src="clase_japones_img_0723/onepiece.png" alt="One Piece"><figcaption>ワンピースは どんなマンガですか？<br><i style="color:var(--azul)">Wanpīsu wa donna manga desu ka?</i><br>→ ゆうめいな マンガです</figcaption></figure>
-        <figure><img src="clase_japones_img_0723/ramen.png" alt="Ramen"><figcaption>どんなラーメンを たべましたか？<br><i style="color:var(--azul)">donna rāmen o tabemashita ka?</i><br>→ とんこつラーメンを たべました</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0723/osaka.png" alt="Osaka"><figcaption>おおさかは どんなところですか？<br><i style="color:var(--azul)">Ōsaka wa donna tokoro desu ka?</i><br>→ にぎやかな ところです (animado)</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0723/onepiece.png" alt="One Piece"><figcaption>ワンピースは どんなマンガですか？<br><i style="color:var(--azul)">Wanpīsu wa donna manga desu ka?</i><br>→ ゆうめいな マンガです</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0723/ramen.png" alt="Ramen"><figcaption>どんなラーメンを たべましたか？<br><i style="color:var(--azul)">donna rāmen o tabemashita ka?</i><br>→ とんこつラーメンを たべました</figcaption></figure>
       </div>
       <table>
         <tr><th>Japonés</th><th>Romaji</th><th>Español</th></tr>
@@ -808,13 +841,13 @@
 
       <h3 style="color:var(--rojo)">↔️ Pares de opuestos (い)</h3>
       <div class="ilustra">
-        <figure><img src="clase_japones_img_0723/atsui_samui.png" alt="Calor y frío"><figcaption>あつい ↔ さむい<br><i style="color:var(--azul)">atsui ↔ samui</i><br>暑い/寒い — calor/frío (clima)</figcaption></figure>
-        <figure><img src="clase_japones_img_0723/atsui_tsumetai.png" alt="Caliente y frío"><figcaption>あつい ↔ つめたい<br><i style="color:var(--azul)">atsui ↔ tsumetai</i><br>熱い/冷たい — caliente/frío (cosa)</figcaption></figure>
-        <figure><img src="clase_japones_img_0723/takai_hikui.png" alt="Alto y bajo"><figcaption>たかい ↔ ひくい<br><i style="color:var(--azul)">takai ↔ hikui</i><br>高い/低い — alto/bajo</figcaption></figure>
-        <figure><img src="clase_japones_img_0723/ookii_chiisai.png" alt="Grande y pequeño"><figcaption>おおきい ↔ ちいさい<br><i style="color:var(--azul)">ōkii ↔ chiisai</i><br>大きい/小さい — grande/pequeño</figcaption></figure>
-        <figure><img src="clase_japones_img_0723/muzukashii_yasashii.png" alt="Difícil y fácil"><figcaption>むずかしい ↔ やさしい<br><i style="color:var(--azul)">muzukashii ↔ yasashii</i><br>難しい/易しい — difícil/fácil</figcaption></figure>
-        <figure><img src="clase_japones_img_0723/shiroi_kuroi.png" alt="Blanco y negro"><figcaption>しろい ↔ くろい<br><i style="color:var(--azul)">shiroi ↔ kuroi</i><br>白い/黒い — blanco/negro</figcaption></figure>
-        <figure><img src="clase_japones_img_0723/akai_aoi.png" alt="Rojo y azul"><figcaption>あかい ↔ あおい<br><i style="color:var(--azul)">akai ↔ aoi</i><br>赤い/青い — rojo/azul</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0723/atsui_samui.png" alt="Calor y frío"><figcaption>あつい ↔ さむい<br><i style="color:var(--azul)">atsui ↔ samui</i><br>暑い/寒い — calor/frío (clima)</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0723/atsui_tsumetai.png" alt="Caliente y frío"><figcaption>あつい ↔ つめたい<br><i style="color:var(--azul)">atsui ↔ tsumetai</i><br>熱い/冷たい — caliente/frío (cosa)</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0723/takai_hikui.png" alt="Alto y bajo"><figcaption>たかい ↔ ひくい<br><i style="color:var(--azul)">takai ↔ hikui</i><br>高い/低い — alto/bajo</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0723/ookii_chiisai.png" alt="Grande y pequeño"><figcaption>おおきい ↔ ちいさい<br><i style="color:var(--azul)">ōkii ↔ chiisai</i><br>大きい/小さい — grande/pequeño</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0723/muzukashii_yasashii.png" alt="Difícil y fácil"><figcaption>むずかしい ↔ やさしい<br><i style="color:var(--azul)">muzukashii ↔ yasashii</i><br>難しい/易しい — difícil/fácil</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0723/shiroi_kuroi.png" alt="Blanco y negro"><figcaption>しろい ↔ くろい<br><i style="color:var(--azul)">shiroi ↔ kuroi</i><br>白い/黒い — blanco/negro</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0723/akai_aoi.png" alt="Rojo y azul"><figcaption>あかい ↔ あおい<br><i style="color:var(--azul)">akai ↔ aoi</i><br>赤い/青い — rojo/azul</figcaption></figure>
       </div>
       <table class="morado">
         <tr><th>Kanji</th><th>Kana</th><th>Romaji</th><th>Español</th></tr>
@@ -833,10 +866,10 @@
 
       <h3 style="color:var(--rojo)">➕ Más adjetivos い</h3>
       <div class="ilustra">
-        <figure><img src="clase_japones_img_0730/ii_warui.png" alt="Bueno y malo"><figcaption>いい／よい ↔ わるい<br><i style="color:var(--azul)">ii / yoi ↔ warui</i><br>良い/悪い — bueno/malo</figcaption></figure>
-        <figure><img src="clase_japones_img_0730/omoshiroi.png" alt="Interesante"><figcaption>おもしろい<br><i style="color:var(--azul)">omoshiroi</i><br>interesante / divertido</figcaption></figure>
-        <figure><img src="clase_japones_img_0730/isogashii.png" alt="Ocupado"><figcaption>いそがしい<br><i style="color:var(--azul)">isogashii</i><br>ocupado</figcaption></figure>
-        <figure><img src="clase_japones_img_0730/tanoshii.png" alt="Divertido"><figcaption>たのしい<br><i style="color:var(--azul)">tanoshii</i><br>divertido / entretenido</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0730/ii_warui.png" alt="Bueno y malo"><figcaption>いい／よい ↔ わるい<br><i style="color:var(--azul)">ii / yoi ↔ warui</i><br>良い/悪い — bueno/malo</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0730/omoshiroi.png" alt="Interesante"><figcaption>おもしろい<br><i style="color:var(--azul)">omoshiroi</i><br>interesante / divertido</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0730/isogashii.png" alt="Ocupado"><figcaption>いそがしい<br><i style="color:var(--azul)">isogashii</i><br>ocupado</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0730/tanoshii.png" alt="Divertido"><figcaption>たのしい<br><i style="color:var(--azul)">tanoshii</i><br>divertido / entretenido</figcaption></figure>
       </div>
       <table class="morado">
         <tr><th>Kanji</th><th>Kana</th><th>Romaji</th><th>Español</th></tr>
@@ -870,10 +903,10 @@
         </ul>
       </div>
       <div class="ilustra">
-        <figure><img src="clase_japones_img_0730/benkyou.png" alt="Estudiar aburrido"><figcaption>べんきょうは おもしろくないです<br><i style="color:var(--azul)">benkyō wa omoshiroku nai desu</i><br>Estudiar no es interesante</figcaption></figure>
-        <figure><img src="clase_japones_img_0730/aisu.png" alt="Helado"><figcaption>アイスは あつくないです<br><i style="color:var(--azul)">aisu wa atsuku nai desu</i><br>El helado no está caliente</figcaption></figure>
-        <figure><img src="clase_japones_img_0730/tokei.png" alt="Reloj"><figcaption>とけいは たかくないです<br><i style="color:var(--azul)">tokei wa takaku nai desu</i><br>El reloj no es caro</figcaption></figure>
-        <figure><img src="clase_japones_img_0730/party.png" alt="Fiesta"><figcaption>パーティーは たのしくないです<br><i style="color:var(--azul)">pātī wa tanoshiku nai desu</i><br>La fiesta no es divertida</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0730/benkyou.png" alt="Estudiar aburrido"><figcaption>べんきょうは おもしろくないです<br><i style="color:var(--azul)">benkyō wa omoshiroku nai desu</i><br>Estudiar no es interesante</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0730/aisu.png" alt="Helado"><figcaption>アイスは あつくないです<br><i style="color:var(--azul)">aisu wa atsuku nai desu</i><br>El helado no está caliente</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0730/tokei.png" alt="Reloj"><figcaption>とけいは たかくないです<br><i style="color:var(--azul)">tokei wa takaku nai desu</i><br>El reloj no es caro</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0730/party.png" alt="Fiesta"><figcaption>パーティーは たのしくないです<br><i style="color:var(--azul)">pātī wa tanoshiku nai desu</i><br>La fiesta no es divertida</figcaption></figure>
       </div>
       <table class="morado">
         <tr><th>Japonés</th><th>Romaji</th><th>Español</th></tr>
@@ -917,8 +950,8 @@
         </ul>
       </div>
       <div class="ilustra">
-        <figure><img src="clase_japones_img_0806/usagi.png" alt="Conejo"><figcaption>うさぎは おおきいですか？<br><i style="color:var(--azul)">usagi wa ōkii desu ka?</i><br>→ いいえ、ちいさいです</figcaption></figure>
-        <figure><img src="clase_japones_img_0806/salsa.png" alt="Salsa"><figcaption>サルサダンスは たのしいですか？<br><i style="color:var(--azul)">sarusa dansu wa tanoshii desu ka?</i><br>→ はい、たのしいです</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0806/usagi.png" alt="Conejo"><figcaption>うさぎは おおきいですか？<br><i style="color:var(--azul)">usagi wa ōkii desu ka?</i><br>→ いいえ、ちいさいです</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0806/salsa.png" alt="Salsa"><figcaption>サルサダンスは たのしいですか？<br><i style="color:var(--azul)">sarusa dansu wa tanoshii desu ka?</i><br>→ はい、たのしいです</figcaption></figure>
       </div>
       <table>
         <tr><th>Japonés</th><th>Romaji</th><th>Español</th></tr>
@@ -958,9 +991,9 @@
         </div>
       </div>
       <div class="ilustra">
-        <figure><img src="clase_japones_img_0813/pizza.png" alt="Pizza"><figcaption>ピザは おいしいです。<b class="hl">そして</b> やすいです<br><i style="color:var(--azul)">piza wa oishii desu. soshite yasui desu</i><br>La pizza es rica y barata</figcaption></figure>
-        <figure><img src="clase_japones_img_0813/sumo.png" alt="Sumo"><figcaption>おすもうさんは おおきいです<b class="hl">が</b>、はやいです<br><i style="color:var(--azul)">osumōsan wa ōkii desu ga, hayai desu</i><br>El luchador de sumo es grande pero rápido</figcaption></figure>
-        <figure><img src="clase_japones_img_0813/fuji.png" alt="Monte Fuji"><figcaption>ふじさんは ゆうめいです。<b class="hl">そして</b> きれいです<br><i style="color:var(--azul)">Fuji-san wa yūmei desu. soshite kirei desu</i><br>El monte Fuji es famoso y bonito</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0813/pizza.png" alt="Pizza"><figcaption>ピザは おいしいです。<b class="hl">そして</b> やすいです<br><i style="color:var(--azul)">piza wa oishii desu. soshite yasui desu</i><br>La pizza es rica y barata</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0813/sumo.png" alt="Sumo"><figcaption>おすもうさんは おおきいです<b class="hl">が</b>、はやいです<br><i style="color:var(--azul)">osumōsan wa ōkii desu ga, hayai desu</i><br>El luchador de sumo es grande pero rápido</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0813/fuji.png" alt="Monte Fuji"><figcaption>ふじさんは ゆうめいです。<b class="hl">そして</b> きれいです<br><i style="color:var(--azul)">Fuji-san wa yūmei desu. soshite kirei desu</i><br>El monte Fuji es famoso y bonito</figcaption></figure>
       </div>
       <table>
         <tr><th>Japonés</th><th>Romaji</th><th>Español</th></tr>
@@ -1011,6 +1044,8 @@
         <div class="card prestar"><div class="kanji">へた（下手）</div><div class="romaji">heta</div><div class="es">malo / torpe 🙈</div></div>
       </div>
 
+      <details class="clase" id="c-0910" data-fecha="10/09">
+        <summary><span class="c-fecha">Clase 10/09</span> <span class="c-temas">すき／きらい <i style="color:var(--azul)">(suki / kirai)</i> · わかります・あります <i style="color:var(--azul)">(wakarimasu · arimasu)</i></span></summary>
       <h3 style="color:var(--morado)">📏 La regla — 〔sustantivo〕が すきです <i style="color:var(--azul); font-size:0.75em; font-weight:400">~ga suki desu</i></h3>
       <div class="formula morado">
         <span class="obj">〔sustantivo〕</span><span class="hlp">が</span>　すき／きらい／じょうず／へた　です
@@ -1018,16 +1053,16 @@
       </div>
       <div class="nota morado">⭐ <b>Ojo:</b> lo que te gusta NO lleva を <i style="color:var(--azul)">(o)</i> sino <b class="hlp">が</b> <i style="color:var(--azul)">(ga)</i> → コーヒー<b>が</b> すきです <i style="color:var(--azul)">(kōhī ga suki desu)</i> = me gusta el café. Y como すき/きらい/じょうず/へた <i style="color:var(--azul)">(suki/kirai/jōzu/heta)</i> son adjetivos <b>な</b> <i style="color:var(--azul)">(na)</i>, el negativo es <b>すきじゃありません</b> <i style="color:var(--azul)">(suki ja arimasen)</i>, no すきくない <i style="color:var(--azul)">(sukikunai)</i>.</div>
       <div class="ilustra">
-        <figure><img src="clase_japones_img_0910/suki.png" alt="Gustar"><figcaption><b class="hlp">すき</b>です<br><i style="color:var(--azul)">suki desu</i><br>me gusta 😍</figcaption></figure>
-        <figure><img src="clase_japones_img_0910/kirai.png" alt="No gustar"><figcaption><b class="hl">きらい</b>です<br><i style="color:var(--azul)">kirai desu</i><br>no me gusta 😖</figcaption></figure>
-        <figure><img src="clase_japones_img_0910/jouzu.png" alt="Bueno en algo"><figcaption><b>じょうず</b>です<br><i style="color:var(--azul)">jōzu desu</i><br>lo hace bien / es hábil 👏</figcaption></figure>
-        <figure><img src="clase_japones_img_0910/heta.png" alt="Malo en algo"><figcaption><b>へた</b>です<br><i style="color:var(--azul)">heta desu</i><br>lo hace mal / es torpe 🙈</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0910/suki.png" alt="Gustar"><figcaption><b class="hlp">すき</b>です<br><i style="color:var(--azul)">suki desu</i><br>me gusta 😍</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0910/kirai.png" alt="No gustar"><figcaption><b class="hl">きらい</b>です<br><i style="color:var(--azul)">kirai desu</i><br>no me gusta 😖</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0910/jouzu.png" alt="Bueno en algo"><figcaption><b>じょうず</b>です<br><i style="color:var(--azul)">jōzu desu</i><br>lo hace bien / es hábil 👏</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0910/heta.png" alt="Malo en algo"><figcaption><b>へた</b>です<br><i style="color:var(--azul)">heta desu</i><br>lo hace mal / es torpe 🙈</figcaption></figure>
       </div>
 
       <h3 style="color:var(--verde)">💚 Ejemplos — 〜が すき／きらい <i style="color:var(--azul); font-size:0.75em; font-weight:400">~ga suki / kirai</i></h3>
       <div class="ilustra">
-        <figure><img src="clase_japones_img_0910/sports.png" alt="Deportes"><figcaption>スポーツが すきです<br><i style="color:var(--azul)">supōtsu ga suki desu</i><br>Me gustan los deportes</figcaption></figure>
-        <figure><img src="clase_japones_img_0910/karaoke.png" alt="Karaoke"><figcaption>カラオケが すきです<br><i style="color:var(--azul)">karaoke ga suki desu</i><br>Me gusta el karaoke</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0910/sports.png" alt="Deportes"><figcaption>スポーツが すきです<br><i style="color:var(--azul)">supōtsu ga suki desu</i><br>Me gustan los deportes</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0910/karaoke.png" alt="Karaoke"><figcaption>カラオケが すきです<br><i style="color:var(--azul)">karaoke ga suki desu</i><br>Me gusta el karaoke</figcaption></figure>
       </div>
       <table class="morado">
         <tr><th>Japonés</th><th>Romaji</th><th>Español</th></tr>
@@ -1054,17 +1089,21 @@
         </ul>
       </div>
 
+      </details>
+
       <!-- Clase 17/09 -->
+      <details class="clase" id="c-1709" data-fecha="17/09">
+        <summary><span class="c-fecha">Clase 17/09</span> <span class="c-temas">にがて <i style="color:var(--azul)">(nigate)</i> · とても／あまり <i style="color:var(--azul)">(totemo / amari)</i> · すきですか？ <i style="color:var(--azul)">(suki desu ka?)</i> · どんな〜？ <i style="color:var(--azul)">(donna ~?)</i></span></summary>
       <h3 style="color:var(--rojo)">😣 Lo que no se te da — 〜が にがてです <i style="color:var(--azul); font-size:0.75em; font-weight:400">~ga nigate desu</i> <span class="badge">★ 苦手 <i>nigate</i></span></h3>
       <div class="formula">
         <span class="obj">〔sustantivo〕</span><span class="hlp">が</span>　にがて（苦手）です
         <small><i style="color:var(--azul)">〔sustantivo〕 ga nigate desu</i> — “no se me da / no me llevo bien con ~”. Igual que すき: el objeto lleva <b>が</b> y にがて es adjetivo <b>な</b>.</small>
       </div>
       <div class="ilustra">
-        <figure><img src="clase_japones_img_0917/tabako.png" alt="Cigarrillo"><figcaption>たばこ<b class="hlp">が</b> にがてです<br><i style="color:var(--azul)">tabako ga nigate desu</i><br>No soporto el cigarrillo 🚬</figcaption></figure>
-        <figure><img src="clase_japones_img_0917/benkyou.png" alt="Estudiar"><figcaption>べんきょう<b class="hlp">が</b> にがてです<br><i style="color:var(--azul)">benkyō ga nigate desu</i><br>Estudiar no es lo mío 📚</figcaption></figure>
-        <figure><img src="clase_japones_img_0917/yasai.png" alt="Verduras"><figcaption>やさい<b class="hlp">が</b> にがてです<br><i style="color:var(--azul)">yasai ga nigate desu</i><br>No me llevo bien con las verduras 🥦</figcaption></figure>
-        <figure><img src="clase_japones_img_0917/osake.png" alt="Bebidas alcohólicas"><figcaption>おさけ<b class="hlp">が</b> にがてです<br><i style="color:var(--azul)">osake ga nigate desu</i><br>No me sienta el alcohol 🍶</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0917/tabako.png" alt="Cigarrillo"><figcaption>たばこ<b class="hlp">が</b> にがてです<br><i style="color:var(--azul)">tabako ga nigate desu</i><br>No soporto el cigarrillo 🚬</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0917/benkyou.png" alt="Estudiar"><figcaption>べんきょう<b class="hlp">が</b> にがてです<br><i style="color:var(--azul)">benkyō ga nigate desu</i><br>Estudiar no es lo mío 📚</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0917/yasai.png" alt="Verduras"><figcaption>やさい<b class="hlp">が</b> にがてです<br><i style="color:var(--azul)">yasai ga nigate desu</i><br>No me llevo bien con las verduras 🥦</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0917/osake.png" alt="Bebidas alcohólicas"><figcaption>おさけ<b class="hlp">が</b> にがてです<br><i style="color:var(--azul)">osake ga nigate desu</i><br>No me sienta el alcohol 🍶</figcaption></figure>
       </div>
       <table>
         <tr><th>Japonés</th><th>Romaji</th><th>Español</th></tr>
@@ -1088,14 +1127,14 @@
       <div class="destacado">
         <h3>🧪 Práctica — 〜が すきです／すきじゃありません <i style="color:var(--azul); font-size:0.75em; font-weight:400">~ga suki desu / suki ja arimasen</i></h3>
         <div class="ilustra">
-          <figure><img src="clase_japones_img_0910/sports.png" alt="Deportes"><figcaption>1) スポーツが とても すきです<br><i style="color:var(--azul)">supōtsu ga totemo suki desu</i><br>Me gustan mucho los deportes</figcaption></figure>
-          <figure><img src="clase_japones_img_0917/yakyuu.png" alt="Béisbol"><figcaption>2) やきゅうが あまり すきじゃありません<br><i style="color:var(--azul)">yakyū ga amari suki ja arimasen</i><br>No me gusta mucho el béisbol</figcaption></figure>
-          <figure><img src="clase_japones_img_0917/dansu.png" alt="Baile"><figcaption>3) ダンスが すきじゃありません<br><i style="color:var(--azul)">dansu ga suki ja arimasen</i><br>No me gusta bailar</figcaption></figure>
-          <figure><img src="clase_japones_img_0917/ongaku.png" alt="Música"><figcaption>4) おんがくが とても すきです<br><i style="color:var(--azul)">ongaku ga totemo suki desu</i><br>Me gusta mucho la música</figcaption></figure>
-          <figure><img src="clase_japones_img_0917/ryokou.png" alt="Viaje"><figcaption>5) りょこうが とても すきです<br><i style="color:var(--azul)">ryokō ga totemo suki desu</i><br>Me gusta mucho viajar</figcaption></figure>
-          <figure><img src="clase_japones_img_0917/sushi.png" alt="Sushi"><figcaption>6) おすしが とても すきです<br><i style="color:var(--azul)">osushi ga totemo suki desu</i><br>Me gusta mucho el sushi</figcaption></figure>
-          <figure><img src="clase_japones_img_0910/karaoke.png" alt="Karaoke"><figcaption>7) カラオケが すきです<br><i style="color:var(--azul)">karaoke ga suki desu</i><br>Me gusta el karaoke</figcaption></figure>
-          <figure><img src="clase_japones_img_0917/biiru.png" alt="Cerveza"><figcaption>8) ビールが あまり きらいじゃありません<br><i style="color:var(--azul)">bīru ga amari kirai ja arimasen</i><br>La cerveza no me disgusta tanto</figcaption></figure>
+          <figure><img loading="lazy" decoding="async" src="clase_japones_img_0910/sports.png" alt="Deportes"><figcaption>1) スポーツが とても すきです<br><i style="color:var(--azul)">supōtsu ga totemo suki desu</i><br>Me gustan mucho los deportes</figcaption></figure>
+          <figure><img loading="lazy" decoding="async" src="clase_japones_img_0917/yakyuu.png" alt="Béisbol"><figcaption>2) やきゅうが あまり すきじゃありません<br><i style="color:var(--azul)">yakyū ga amari suki ja arimasen</i><br>No me gusta mucho el béisbol</figcaption></figure>
+          <figure><img loading="lazy" decoding="async" src="clase_japones_img_0917/dansu.png" alt="Baile"><figcaption>3) ダンスが すきじゃありません<br><i style="color:var(--azul)">dansu ga suki ja arimasen</i><br>No me gusta bailar</figcaption></figure>
+          <figure><img loading="lazy" decoding="async" src="clase_japones_img_0917/ongaku.png" alt="Música"><figcaption>4) おんがくが とても すきです<br><i style="color:var(--azul)">ongaku ga totemo suki desu</i><br>Me gusta mucho la música</figcaption></figure>
+          <figure><img loading="lazy" decoding="async" src="clase_japones_img_0917/ryokou.png" alt="Viaje"><figcaption>5) りょこうが とても すきです<br><i style="color:var(--azul)">ryokō ga totemo suki desu</i><br>Me gusta mucho viajar</figcaption></figure>
+          <figure><img loading="lazy" decoding="async" src="clase_japones_img_0917/sushi.png" alt="Sushi"><figcaption>6) おすしが とても すきです<br><i style="color:var(--azul)">osushi ga totemo suki desu</i><br>Me gusta mucho el sushi</figcaption></figure>
+          <figure><img loading="lazy" decoding="async" src="clase_japones_img_0910/karaoke.png" alt="Karaoke"><figcaption>7) カラオケが すきです<br><i style="color:var(--azul)">karaoke ga suki desu</i><br>Me gusta el karaoke</figcaption></figure>
+          <figure><img loading="lazy" decoding="async" src="clase_japones_img_0917/biiru.png" alt="Cerveza"><figcaption>8) ビールが あまり きらいじゃありません<br><i style="color:var(--azul)">bīru ga amari kirai ja arimasen</i><br>La cerveza no me disgusta tanto</figcaption></figure>
         </div>
         <div class="nota">🍣 <b>おすし</b> <i style="color:var(--azul)">(osushi)</i> = すし <i style="color:var(--azul)">(sushi)</i> con お de cortesía, igual que おさけ <i style="color:var(--azul)">(osake)</i>. En la 8, きらい <i style="color:var(--azul)">(kirai)</i> también es adjetivo な <i style="color:var(--azul)">(na)</i>: <b>きらいじゃありません</b> <i style="color:var(--azul)">(kirai ja arimasen)</i> = “no me disgusta”.</div>
       </div>
@@ -1106,17 +1145,17 @@
         <small><i style="color:var(--azul)">〔sustantivo〕 ga suki desu ka?</i> — ¿te gusta ~? → はい <i style="color:var(--azul)">(hai)</i>／いいえ <i style="color:var(--azul)">(iie)</i> + la escala de arriba</small>
       </div>
       <div class="ilustra">
-        <figure><img src="clase_japones_img_0910/suki.png" alt="Le gusta el pastel, no le gustan las verduras"><figcaption>ケーキが すきですか？<br><i style="color:var(--azul)">kēki ga suki desu ka?</i><br>¿Te gusta el pastel? 🍰 / 🥦</figcaption></figure>
-        <figure><img src="clase_japones_img_0917/kaiwa_ab.png" alt="Dos personas conversando"><figcaption>A：〔S〕が すきですか？<br><i style="color:var(--azul)">A: 〔S〕 ga suki desu ka?</i><br>B：〜。Aさんは？<br><i style="color:var(--azul)">B: ~. A-san wa?</i><br>(¿y vos, A?)</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0910/suki.png" alt="Le gusta el pastel, no le gustan las verduras"><figcaption>ケーキが すきですか？<br><i style="color:var(--azul)">kēki ga suki desu ka?</i><br>¿Te gusta el pastel? 🍰 / 🥦</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0917/kaiwa_ab.png" alt="Dos personas conversando"><figcaption>A：〔S〕が すきですか？<br><i style="color:var(--azul)">A: 〔S〕 ga suki desu ka?</i><br>B：〜。Aさんは？<br><i style="color:var(--azul)">B: ~. A-san wa?</i><br>(¿y vos, A?)</figcaption></figure>
       </div>
       <div class="nota">🗣️ <b>Aさんは？</b> <i style="color:var(--azul)">(A-san wa?)</i> = “¿y vos?” / “¿y a usted?”. Después de contestar, le devolvés la pregunta a la otra persona usando su nombre + は. En japonés casi no se usa あなた <i style="color:var(--azul)">(anata)</i>.</div>
       <div class="ilustra">
-        <figure><img src="clase_japones_img_0917/neko.png" alt="Gato"><figcaption>ねこ<br><i style="color:var(--azul)">neko</i><br>gato</figcaption></figure>
-        <figure><img src="clase_japones_img_0917/raamen.png" alt="Ramen"><figcaption>ラーメン<br><i style="color:var(--azul)">rāmen</i><br>ramen</figcaption></figure>
-        <figure><img src="clase_japones_img_0917/piza.png" alt="Pizza"><figcaption>ピザ<br><i style="color:var(--azul)">piza</i><br>pizza</figcaption></figure>
-        <figure><img src="clase_japones_img_0917/benkyou.png" alt="Estudio"><figcaption>べんきょう<br><i style="color:var(--azul)">benkyō</i><br>estudio</figcaption></figure>
-        <figure><img src="clase_japones_img_0917/eiga.png" alt="Película"><figcaption>えいが<br><i style="color:var(--azul)">eiga</i><br>película</figcaption></figure>
-        <figure><img src="clase_japones_img_0917/costarica_ryouri.png" alt="Comida costarricense"><figcaption>コスタリカのりょうり<br><i style="color:var(--azul)">kosutarika no ryōri</i><br>comida costarricense</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0917/neko.png" alt="Gato"><figcaption>ねこ<br><i style="color:var(--azul)">neko</i><br>gato</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0917/raamen.png" alt="Ramen"><figcaption>ラーメン<br><i style="color:var(--azul)">rāmen</i><br>ramen</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0917/piza.png" alt="Pizza"><figcaption>ピザ<br><i style="color:var(--azul)">piza</i><br>pizza</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0917/benkyou.png" alt="Estudio"><figcaption>べんきょう<br><i style="color:var(--azul)">benkyō</i><br>estudio</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0917/eiga.png" alt="Película"><figcaption>えいが<br><i style="color:var(--azul)">eiga</i><br>película</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0917/costarica_ryouri.png" alt="Comida costarricense"><figcaption>コスタリカのりょうり<br><i style="color:var(--azul)">kosutarika no ryōri</i><br>comida costarricense</figcaption></figure>
       </div>
       <table>
         <tr><th>Japonés</th><th>Romaji</th><th>Español</th></tr>
@@ -1141,15 +1180,15 @@
       </div>
       <div class="nota morado">🔁 <b>どんな</b> <i style="color:var(--azul)">(donna)</i> ya apareció en la L8 (どんな〜ですか？ <i style="color:var(--azul)">donna ~ desu ka?</i>). Acá lo combinás con すき <i style="color:var(--azul)">(suki)</i>: <b>どんな〔sustantivo〕が すきですか？</b> <i style="color:var(--azul)">(donna 〔sustantivo〕 ga suki desu ka?)</i></div>
       <div class="ilustra">
-        <figure><img src="clase_japones_img_0917/donna_supootsu.png" alt="¿Qué deporte te gusta?"><figcaption><b class="hl">どんな</b> スポーツが すきですか？<br><i style="color:var(--azul)">donna supōtsu ga suki desu ka?</i><br>¿Qué deportes te gustan?</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0917/donna_supootsu.png" alt="¿Qué deporte te gusta?"><figcaption><b class="hl">どんな</b> スポーツが すきですか？<br><i style="color:var(--azul)">donna supōtsu ga suki desu ka?</i><br>¿Qué deportes te gustan?</figcaption></figure>
       </div>
       <div class="ilustra">
-        <figure><img src="clase_japones_img_0917/supootsu.png" alt="Deportes"><figcaption>どんな スポーツ？<br><i style="color:var(--azul)">donna supōtsu?</i><br>¿qué deporte?</figcaption></figure>
-        <figure><img src="clase_japones_img_0917/tabemono.png" alt="Comida"><figcaption>どんな たべもの？<br><i style="color:var(--azul)">donna tabemono?</i><br>¿qué comida?</figcaption></figure>
-        <figure><img src="clase_japones_img_0917/eigakan.png" alt="Cine"><figcaption>どんな えいが？<br><i style="color:var(--azul)">donna eiga?</i><br>¿qué películas?</figcaption></figure>
-        <figure><img src="clase_japones_img_0917/nomimono.png" alt="Bebidas"><figcaption>どんな のみもの？<br><i style="color:var(--azul)">donna nomimono?</i><br>¿qué bebidas?</figcaption></figure>
-        <figure><img src="clase_japones_img_0917/ongaku_janru.png" alt="Géneros musicales"><figcaption>どんな おんがく？<br><i style="color:var(--azul)">donna ongaku?</i><br>→ J-POP・クラシック・ロック・ジャズ<br><i style="color:var(--azul)">jei-poppu · kurashikku · rokku · jazu</i></figcaption></figure>
-        <figure><img src="clase_japones_img_0917/nihon_tabemono.png" alt="Comida japonesa"><figcaption>日本の たべもの<br><i style="color:var(--azul)">nihon no tabemono</i><br>comida japonesa</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0917/supootsu.png" alt="Deportes"><figcaption>どんな スポーツ？<br><i style="color:var(--azul)">donna supōtsu?</i><br>¿qué deporte?</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0917/tabemono.png" alt="Comida"><figcaption>どんな たべもの？<br><i style="color:var(--azul)">donna tabemono?</i><br>¿qué comida?</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0917/eigakan.png" alt="Cine"><figcaption>どんな えいが？<br><i style="color:var(--azul)">donna eiga?</i><br>¿qué películas?</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0917/nomimono.png" alt="Bebidas"><figcaption>どんな のみもの？<br><i style="color:var(--azul)">donna nomimono?</i><br>¿qué bebidas?</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0917/ongaku_janru.png" alt="Géneros musicales"><figcaption>どんな おんがく？<br><i style="color:var(--azul)">donna ongaku?</i><br>→ J-POP・クラシック・ロック・ジャズ<br><i style="color:var(--azul)">jei-poppu · kurashikku · rokku · jazu</i></figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0917/nihon_tabemono.png" alt="Comida japonesa"><figcaption>日本の たべもの<br><i style="color:var(--azul)">nihon no tabemono</i><br>comida japonesa</figcaption></figure>
       </div>
       <table class="morado">
         <tr><th>Japonés</th><th>Romaji</th><th>Español</th></tr>
@@ -1168,7 +1207,11 @@
       </table>
       <div class="nota">🍵 <b>ちゃ</b> <i style="color:var(--azul)">(cha)</i> = té. Lo más común es decirlo con お <i style="color:var(--azul)">(o)</i> de cortesía: <b>おちゃ</b> <i style="color:var(--azul)">(ocha)</i>.</div>
 
+      </details>
+
       <!-- Clase 24/09 -->
+      <details class="clase" id="c-2409" data-fecha="24/09">
+        <summary><span class="c-fecha">Clase 24/09</span> <span class="c-temas">じょうず／へた <i style="color:var(--azul)">(jōzu / heta)</i> · 〜こと <i style="color:var(--azul)">(~koto)</i> · わかります <i style="color:var(--azul)">(wakarimasu)</i></span></summary>
       <h3 style="color:var(--verde)">👏 Habilidad — 〜が じょうず／へたです <i style="color:var(--azul); font-size:0.75em; font-weight:400">~ga jōzu / heta desu</i></h3>
       <div class="formula" style="border-color:var(--verde)">
         <span class="obj">〔sustantivo〕</span><span class="hlp">が</span>　じょうず／へた　です
@@ -1177,12 +1220,12 @@
       <div class="destacado">
         <h3>🧪 Práctica — 〜が じょうず／へたです <i style="color:var(--azul); font-size:0.75em; font-weight:400">~ga jōzu / heta desu</i></h3>
         <div class="ilustra">
-          <figure><img src="clase_japones_img_0924/karaoke_duo.png" alt="Karaoke"><figcaption>1) カラオケ<span class="hlp">が</span> へたです<br><i style="color:var(--azul)">karaoke ga heta desu</i><br>Soy malo en el karaoke</figcaption></figure>
-          <figure><img src="clase_japones_img_0924/ryouri.png" alt="Cocinar"><figcaption>2) りょうり<span class="hlp">が</span> じょうずです<br><i style="color:var(--azul)">ryōri ga jōzu desu</i><br>Cocina bien</figcaption></figure>
-          <figure><img src="clase_japones_img_0917/dansu.png" alt="Baile"><figcaption>3) ダンス<span class="hlp">が</span> とても へたです<br><i style="color:var(--azul)">dansu ga totemo heta desu</i><br>Baila muy mal</figcaption></figure>
-          <figure><img src="clase_japones_img_0917/yakyuu.png" alt="Béisbol"><figcaption>4) やきゅう<span class="hlp">が</span> へたです<br><i style="color:var(--azul)">yakyū ga heta desu</i><br>Es malo en béisbol</figcaption></figure>
-          <figure><img src="clase_japones_img_0924/tenisu.png" alt="Tenis"><figcaption>5) テニス<span class="hlp">が</span> あまり じょうずじゃありません<br><i style="color:var(--azul)">tenisu ga amari jōzu ja arimasen</i><br>No es muy bueno en tenis</figcaption></figure>
-          <figure><img src="clase_japones_img_0924/e.png" alt="Pintura"><figcaption>6) え<span class="hlp">が</span> じょうずです<br><i style="color:var(--azul)">e ga jōzu desu</i><br>Dibuja / pinta bien</figcaption></figure>
+          <figure><img loading="lazy" decoding="async" src="clase_japones_img_0924/karaoke_duo.png" alt="Karaoke"><figcaption>1) カラオケ<span class="hlp">が</span> へたです<br><i style="color:var(--azul)">karaoke ga heta desu</i><br>Soy malo en el karaoke</figcaption></figure>
+          <figure><img loading="lazy" decoding="async" src="clase_japones_img_0924/ryouri.png" alt="Cocinar"><figcaption>2) りょうり<span class="hlp">が</span> じょうずです<br><i style="color:var(--azul)">ryōri ga jōzu desu</i><br>Cocina bien</figcaption></figure>
+          <figure><img loading="lazy" decoding="async" src="clase_japones_img_0917/dansu.png" alt="Baile"><figcaption>3) ダンス<span class="hlp">が</span> とても へたです<br><i style="color:var(--azul)">dansu ga totemo heta desu</i><br>Baila muy mal</figcaption></figure>
+          <figure><img loading="lazy" decoding="async" src="clase_japones_img_0917/yakyuu.png" alt="Béisbol"><figcaption>4) やきゅう<span class="hlp">が</span> へたです<br><i style="color:var(--azul)">yakyū ga heta desu</i><br>Es malo en béisbol</figcaption></figure>
+          <figure><img loading="lazy" decoding="async" src="clase_japones_img_0924/tenisu.png" alt="Tenis"><figcaption>5) テニス<span class="hlp">が</span> あまり じょうずじゃありません<br><i style="color:var(--azul)">tenisu ga amari jōzu ja arimasen</i><br>No es muy bueno en tenis</figcaption></figure>
+          <figure><img loading="lazy" decoding="async" src="clase_japones_img_0924/e.png" alt="Pintura"><figcaption>6) え<span class="hlp">が</span> じょうずです<br><i style="color:var(--azul)">e ga jōzu desu</i><br>Dibuja / pinta bien</figcaption></figure>
         </div>
       </div>
       <table>
@@ -1226,15 +1269,15 @@
         <small><i style="color:var(--azul)">〔sustantivo〕 ga wakarimasu / wakarimasen</i> — entiendo / no entiendo ~ (lo que se entiende lleva <b>が</b> <i style="color:var(--azul)">(ga)</i>, no を <i style="color:var(--azul)">(o)</i>)</small>
       </div>
       <div class="ilustra">
-        <figure><img src="clase_japones_img_0924/wakarimasu.png" alt="De no entender a entender"><figcaption>わかりません → わかります<br><i style="color:var(--azul)">wakarimasen → wakarimasu</i><br>no entiendo ❓ → ¡entiendo! ❗</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0924/wakarimasu.png" alt="De no entender a entender"><figcaption>わかりません → わかります<br><i style="color:var(--azul)">wakarimasen → wakarimasu</i><br>no entiendo ❓ → ¡entiendo! ❗</figcaption></figure>
       </div>
       <div class="ilustra">
-          <figure><img src="clase_japones_img_0924/kanji.png" alt="Kanji"><figcaption>1) かんじ<span class="hlp">が</span> わかりません<br><i style="color:var(--azul)">kanji ga wakarimasen</i><br>No entiendo los kanji</figcaption></figure>
-          <figure><img src="clase_japones_img_0924/hiragana.png" alt="Hiragana"><figcaption>2) ひらがな<span class="hlp">が</span> わかります<br><i style="color:var(--azul)">hiragana ga wakarimasu</i><br>Entiendo hiragana</figcaption></figure>
-          <figure><img src="clase_japones_img_0924/katakana.png" alt="Katakana"><figcaption>3) カタカナ<span class="hlp">が</span> だいたい わかります<br><i style="color:var(--azul)">katakana ga daitai wakarimasu</i><br>Entiendo katakana más o menos</figcaption></figure>
-          <figure><img src="clase_japones_img_0924/roomaji.png" alt="Romaji"><figcaption>4) ローマじ<span class="hlp">が</span> わかります<br><i style="color:var(--azul)">rōmaji ga wakarimasu</i><br>Entiendo el romaji</figcaption></figure>
-          <figure><img src="clase_japones_img_0924/chuugokugo.png" alt="Chino"><figcaption>5) ちゅうごくご<span class="hlp">が</span> ぜんぜん わかりません<br><i style="color:var(--azul)">chūgokugo ga zenzen wakarimasen</i><br>No entiendo nada de chino</figcaption></figure>
-          <figure><img src="clase_japones_img_0924/kankokugo.png" alt="Coreano"><figcaption>6) かんこくご<span class="hlp">が</span> すこし わかります<br><i style="color:var(--azul)">kankokugo ga sukoshi wakarimasu</i><br>Entiendo un poco de coreano</figcaption></figure>
+          <figure><img loading="lazy" decoding="async" src="clase_japones_img_0924/kanji.png" alt="Kanji"><figcaption>1) かんじ<span class="hlp">が</span> わかりません<br><i style="color:var(--azul)">kanji ga wakarimasen</i><br>No entiendo los kanji</figcaption></figure>
+          <figure><img loading="lazy" decoding="async" src="clase_japones_img_0924/hiragana.png" alt="Hiragana"><figcaption>2) ひらがな<span class="hlp">が</span> わかります<br><i style="color:var(--azul)">hiragana ga wakarimasu</i><br>Entiendo hiragana</figcaption></figure>
+          <figure><img loading="lazy" decoding="async" src="clase_japones_img_0924/katakana.png" alt="Katakana"><figcaption>3) カタカナ<span class="hlp">が</span> だいたい わかります<br><i style="color:var(--azul)">katakana ga daitai wakarimasu</i><br>Entiendo katakana más o menos</figcaption></figure>
+          <figure><img loading="lazy" decoding="async" src="clase_japones_img_0924/roomaji.png" alt="Romaji"><figcaption>4) ローマじ<span class="hlp">が</span> わかります<br><i style="color:var(--azul)">rōmaji ga wakarimasu</i><br>Entiendo el romaji</figcaption></figure>
+          <figure><img loading="lazy" decoding="async" src="clase_japones_img_0924/chuugokugo.png" alt="Chino"><figcaption>5) ちゅうごくご<span class="hlp">が</span> ぜんぜん わかりません<br><i style="color:var(--azul)">chūgokugo ga zenzen wakarimasen</i><br>No entiendo nada de chino</figcaption></figure>
+          <figure><img loading="lazy" decoding="async" src="clase_japones_img_0924/kankokugo.png" alt="Coreano"><figcaption>6) かんこくご<span class="hlp">が</span> すこし わかります<br><i style="color:var(--azul)">kankokugo ga sukoshi wakarimasu</i><br>Entiendo un poco de coreano</figcaption></figure>
       </div>
 
       <h3 style="color:var(--verde)">📶 ¿Cuánto entendés? — よく・だいたい・すこし・あまり・ぜんぜん <i style="color:var(--azul); font-size:0.75em; font-weight:400">yoku · daitai · sukoshi · amari · zenzen</i></h3>
@@ -1249,7 +1292,11 @@
       </table>
       <div class="nota morado">⭐ <b>あまり</b> <i style="color:var(--azul)">(amari)</i> y <b>ぜんぜん</b> <i style="color:var(--azul)">(zenzen)</i> van <u>siempre</u> con el verbo en negativo: 〜ません <i style="color:var(--azul)">(~masen)</i>. Los otros tres (よく・だいたい・すこし <i style="color:var(--azul)">yoku · daitai · sukoshi</i>) van con afirmativo.</div>
 
+      </details>
+
       <!-- Clase 01/10 -->
+      <details class="clase" id="c-0110" data-fecha="01/10">
+        <summary><span class="c-fecha">Clase 01/10</span> <span class="c-temas">わかりますか？ <i style="color:var(--azul)">(wakarimasu ka?)</i> · あります <i style="color:var(--azul)">(arimasu)</i> · たくさん <i style="color:var(--azul)">(takusan)</i> · じかん／ようじ／やくそく <i style="color:var(--azul)">(jikan / yōji / yakusoku)</i></span></summary>
       <h3 style="color:var(--morado)">❓ Preguntar — 〜が わかりますか？ <i style="color:var(--azul); font-size:0.75em; font-weight:400">~ga wakarimasu ka?</i></h3>
       <div class="formula morado">
         <span class="obj">〔sustantivo〕</span><span class="hlp">が</span>　わかります<span class="hl">か</span>？
@@ -1277,11 +1324,11 @@
         <small><i style="color:var(--azul)">〔sustantivo〕 ga arimasu / arimasen</i> — tengo / no tengo ~ (para <u>cosas</u>). Lo que se tiene lleva <b>が</b> <i style="color:var(--azul)">(ga)</i>.</small>
       </div>
       <div class="ilustra">
-        <figure><img src="clase_japones_img_1001/ie_ookii.png" alt="Casa grande"><figcaption>おおきい いえ<span class="hlp">が</span> あります<br><i style="color:var(--azul)">ōkii ie ga arimasu</i><br>Tengo una casa grande</figcaption></figure>
-        <figure><img src="clase_japones_img_1001/tokei_takai.png" alt="Reloj caro"><figcaption>たかい とけい<span class="hlp">が</span> ありません<br><i style="color:var(--azul)">takai tokei ga arimasen</i><br>No tengo un reloj caro</figcaption></figure>
-        <figure><img src="clase_japones_img_1001/kuruma_atarashii.png" alt="Auto nuevo"><figcaption>あたらしい くるま<span class="hlp">が</span> ありません<br><i style="color:var(--azul)">atarashii kuruma ga arimasen</i><br>No tengo un auto nuevo</figcaption></figure>
-        <figure><img src="clase_japones_img_1001/pasokon_ii.png" alt="Computadora"><figcaption>いい パソコン<span class="hlp">が</span> あります<br><i style="color:var(--azul)">ii pasokon ga arimasu</i><br>Tengo una buena computadora</figcaption></figure>
-        <figure><img src="clase_japones_img_1001/okane_takusan.png" alt="Dinero"><figcaption>たくさん おかね<span class="hlp">が</span> ありません<br><i style="color:var(--azul)">takusan okane ga arimasen</i><br>No tengo mucho dinero</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_1001/ie_ookii.png" alt="Casa grande"><figcaption>おおきい いえ<span class="hlp">が</span> あります<br><i style="color:var(--azul)">ōkii ie ga arimasu</i><br>Tengo una casa grande</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_1001/tokei_takai.png" alt="Reloj caro"><figcaption>たかい とけい<span class="hlp">が</span> ありません<br><i style="color:var(--azul)">takai tokei ga arimasen</i><br>No tengo un reloj caro</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_1001/kuruma_atarashii.png" alt="Auto nuevo"><figcaption>あたらしい くるま<span class="hlp">が</span> ありません<br><i style="color:var(--azul)">atarashii kuruma ga arimasen</i><br>No tengo un auto nuevo</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_1001/pasokon_ii.png" alt="Computadora"><figcaption>いい パソコン<span class="hlp">が</span> あります<br><i style="color:var(--azul)">ii pasokon ga arimasu</i><br>Tengo una buena computadora</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_1001/okane_takusan.png" alt="Dinero"><figcaption>たくさん おかね<span class="hlp">が</span> ありません<br><i style="color:var(--azul)">takusan okane ga arimasen</i><br>No tengo mucho dinero</figcaption></figure>
       </div>
       <p class="sub">Las imágenes traen el adjetivo escrito: 大きい <i style="color:var(--azul)">(ōkii)</i>, 高い <i style="color:var(--azul)">(takai)</i>, 新しい <i style="color:var(--azul)">(atarashii)</i>, いい <i style="color:var(--azul)">(ii)</i>, たくさん <i style="color:var(--azul)">(takusan)</i>.</p>
       <table>
@@ -1324,30 +1371,30 @@
 
       <h3 style="color:var(--rojo)">⏰ Tiempo, asuntos y compromisos — じかん／ようじ／やくそく が あります <i style="color:var(--azul); font-size:0.75em; font-weight:400">jikan / yōji / yakusoku ga arimasu</i></h3>
       <div class="ilustra">
-        <figure><img src="clase_japones_img_1001/jikan.png" alt="Reloj"><figcaption>じかん（時間）<br><i style="color:var(--azul)">jikan</i><br>tiempo</figcaption></figure>
-        <figure><img src="clase_japones_img_1001/youji.png" alt="Calendario"><figcaption>ようじ（用事）<br><i style="color:var(--azul)">yōji</i><br>asunto / algo que hacer</figcaption></figure>
-        <figure><img src="clase_japones_img_1001/yakusoku.png" alt="Promesa con el meñique"><figcaption>やくそく（約束）<br><i style="color:var(--azul)">yakusoku</i><br>compromiso / cita / promesa</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_1001/jikan.png" alt="Reloj"><figcaption>じかん（時間）<br><i style="color:var(--azul)">jikan</i><br>tiempo</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_1001/youji.png" alt="Calendario"><figcaption>ようじ（用事）<br><i style="color:var(--azul)">yōji</i><br>asunto / algo que hacer</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_1001/yakusoku.png" alt="Promesa con el meñique"><figcaption>やくそく（約束）<br><i style="color:var(--azul)">yakusoku</i><br>compromiso / cita / promesa</figcaption></figure>
       </div>
 
       <h4 class="kana-h" style="color:var(--rojo)">🕒 じかんが あります ＝ ひまです <i style="color:var(--azul); font-size:0.75em; font-weight:400">jikan ga arimasu = hima desu</i></h4>
       <div class="ilustra">
-        <figure><img src="clase_japones_img_1001/hima_ojisan.png" alt="Señor descansando"><figcaption>じかん<span class="hlp">が</span> あります<br><i style="color:var(--azul)">jikan ga arimasu</i><br>Tengo tiempo</figcaption></figure>
-        <figure><img src="clase_japones_img_1001/hima_nekorogaru.png" alt="Chico acostado sin hacer nada"><figcaption>ひまです<br><i style="color:var(--azul)">hima desu</i><br>Estoy libre / no tengo nada que hacer</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_1001/hima_ojisan.png" alt="Señor descansando"><figcaption>じかん<span class="hlp">が</span> あります<br><i style="color:var(--azul)">jikan ga arimasu</i><br>Tengo tiempo</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_1001/hima_nekorogaru.png" alt="Chico acostado sin hacer nada"><figcaption>ひまです<br><i style="color:var(--azul)">hima desu</i><br>Estoy libre / no tengo nada que hacer</figcaption></figure>
       </div>
 
       <h4 class="kana-h" style="color:var(--rojo)">🤙 ともだちと やくそくが あります <i style="color:var(--azul); font-size:0.75em; font-weight:400">tomodachi to yakusoku ga arimasu</i></h4>
       <div class="ilustra">
-        <figure><img src="clase_japones_img_1001/shokuji.png" alt="Cena con amigos"><figcaption>p. ej.: quedar para cenar con amigos</figcaption></figure>
-        <figure><img src="clase_japones_img_1001/asobi.png" alt="Amigos jugando en casa"><figcaption>p. ej.: juntarse en casa</figcaption></figure>
-        <figure><img src="clase_japones_img_1001/machiawase.png" alt="Encuentro bajo la lluvia"><figcaption>p. ej.: encontrarse en un lugar</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_1001/shokuji.png" alt="Cena con amigos"><figcaption>p. ej.: quedar para cenar con amigos</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_1001/asobi.png" alt="Amigos jugando en casa"><figcaption>p. ej.: juntarse en casa</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_1001/machiawase.png" alt="Encuentro bajo la lluvia"><figcaption>p. ej.: encontrarse en un lugar</figcaption></figure>
       </div>
       <div class="nota">🤝 <b>と</b> <i style="color:var(--azul)">(to)</i> = con: ともだち<b>と</b> <i style="color:var(--azul)">(tomodachi to)</i> = con un amigo. <b>ともだちと やくそくが あります</b> <i style="color:var(--azul)">(tomodachi to yakusoku ga arimasu)</i> = tengo un compromiso con un amigo.</div>
 
       <h4 class="kana-h" style="color:var(--rojo)">📮 ようじが あります <i style="color:var(--azul); font-size:0.75em; font-weight:400">yōji ga arimasu</i></h4>
       <div class="ilustra">
-        <figure><img src="clase_japones_img_1001/yuubinkyoku.png" alt="Correo"><figcaption>p. ej.: ir al correo</figcaption></figure>
-        <figure><img src="clase_japones_img_1001/madoguchi.png" alt="Trámite en una ventanilla"><figcaption>p. ej.: hacer un trámite</figcaption></figure>
-        <figure><img src="clase_japones_img_1001/byouin.png" alt="Ir al hospital"><figcaption>病院に 行きます。用事が あります<br><i style="color:var(--azul)">byōin ni ikimasu. yōji ga arimasu</i><br>Voy al hospital. Tengo algo que hacer</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_1001/yuubinkyoku.png" alt="Correo"><figcaption>p. ej.: ir al correo</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_1001/madoguchi.png" alt="Trámite en una ventanilla"><figcaption>p. ej.: hacer un trámite</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_1001/byouin.png" alt="Ir al hospital"><figcaption>病院に 行きます。用事が あります<br><i style="color:var(--azul)">byōin ni ikimasu. yōji ga arimasu</i><br>Voy al hospital. Tengo algo que hacer</figcaption></figure>
       </div>
       <div class="nota morado">📌 <b>ようじ</b> <i style="color:var(--azul)">(yōji)</i> = un asunto, algo que tenés que hacer (ir al correo, al banco, al médico). Es la excusa típica para decir que no podés: <b>ようじが あります</b> <i style="color:var(--azul)">(yōji ga arimasu)</i> = “tengo algo que hacer”.</div>
 
@@ -1361,15 +1408,19 @@
         <tr><td class="jp-cell">☆ しゅうまつ　じかん<span class="hlp">が</span>　<span class="hl">たくさん</span>　あります</td><td class="ro-cell">Shūmatsu jikan ga takusan arimasu</td><td class="es-cell">El fin de semana tengo mucho tiempo</td></tr>
       </table>
 
+      </details>
+
       <!-- Clase 08/10 -->
+      <details class="clase" id="c-0810" data-fecha="08/10">
+        <summary><span class="c-fecha">Clase 08/10</span> <span class="c-temas">ありますか？ <i style="color:var(--azul)">(arimasu ka?)</i> · わたしも <i style="color:var(--azul)">(watashi mo)</i></span></summary>
       <h3 style="color:var(--azul)">❓ Preguntar — 〜が ありますか？ <i style="color:var(--azul); font-size:0.75em; font-weight:400">~ga arimasu ka?</i></h3>
       <div class="formula" style="border-color:var(--azul)">
         <span class="obj">〔sustantivo〕</span><span class="hlp">が</span>　あります<span class="hl">か</span>？
         <small><i style="color:var(--azul)">〔sustantivo〕 ga arimasu ka?</i> — ¿tenés ~? → はい、(たくさん／すこし) あります <i style="color:var(--azul)">(hai, (takusan / sukoshi) arimasu)</i> ／ いいえ、(あまり／ぜんぜん) ありません <i style="color:var(--azul)">(iie, (amari / zenzen) arimasen)</i></small>
       </div>
       <div class="ilustra">
-        <figure><img src="clase_japones_img_1008/okane_takusan_ueda.png" alt="Hombre feliz con mucho dinero"><figcaption>A：うえださんは おかね<span class="hlp">が</span> ありますか。<br><i style="color:var(--azul)">A: Ueda-san wa okane ga arimasu ka.</i><br>B：はい、たくさん あります。<br><i style="color:var(--azul)">B: Hai, takusan arimasu.</i><br>¿Ueda tiene dinero? — Sí, mucho 😄</figcaption></figure>
-        <figure><img src="clase_japones_img_1008/okane_amari_shimoda.png" alt="Hombre triste con la billetera vacía"><figcaption>A：しもださんは おかね<span class="hlp">が</span> ありますか。<br><i style="color:var(--azul)">A: Shimoda-san wa okane ga arimasu ka.</i><br>B：いいえ、あまり ありません。<br><i style="color:var(--azul)">B: Iie, amari arimasen.</i><br>¿Shimoda tiene dinero? — No, no mucho 😞</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_1008/okane_takusan_ueda.png" alt="Hombre feliz con mucho dinero"><figcaption>A：うえださんは おかね<span class="hlp">が</span> ありますか。<br><i style="color:var(--azul)">A: Ueda-san wa okane ga arimasu ka.</i><br>B：はい、たくさん あります。<br><i style="color:var(--azul)">B: Hai, takusan arimasu.</i><br>¿Ueda tiene dinero? — Sí, mucho 😄</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_1008/okane_amari_shimoda.png" alt="Hombre triste con la billetera vacía"><figcaption>A：しもださんは おかね<span class="hlp">が</span> ありますか。<br><i style="color:var(--azul)">A: Shimoda-san wa okane ga arimasu ka.</i><br>B：いいえ、あまり ありません。<br><i style="color:var(--azul)">B: Iie, amari arimasen.</i><br>¿Shimoda tiene dinero? — No, no mucho 😞</figcaption></figure>
       </div>
       <div class="nota">💡 Para preguntar por <u>otra persona</u>: <b>〔persona〕は 〔cosa〕が ありますか</b> <i style="color:var(--azul)">(〔persona〕 wa 〔cosa〕 ga arimasu ka)</i>. Las palabras de tiempo van al principio, sin partícula: <b>あした</b> <i style="color:var(--azul)">(ashita)</i> = mañana, <b>らいしゅう</b> <i style="color:var(--azul)">(raishū)</i> = la semana que viene, <b>しゅうまつ</b> <i style="color:var(--azul)">(shūmatsu)</i> = el fin de semana.</div>
 
@@ -1377,32 +1428,32 @@
         <h3>🧪 Práctica — 〜が ありますか？ <i style="color:var(--azul); font-size:0.75em; font-weight:400">~ga arimasu ka?</i></h3>
         <p class="sub">Hoja de ejercicios de 日本語あれこれ <i style="color:var(--azul)">(Nihongo Arekore)</i> · nihongo-arekore.com</p>
         <div class="ilustra">
-          <figure><img src="clase_japones_img_1008/pasokon.png" alt="Computadora"><figcaption>1) Q：パソコン<span class="hlp">が</span> ありますか？<br><i style="color:var(--azul)">Pasokon ga arimasu ka?</i><br>A：はい。パソコン<span class="hlp">が</span>　あります<br><i style="color:var(--azul)">Hai. Pasokon ga arimasu</i><br>¿Tenés computadora? — Sí, tengo</figcaption></figure>
-          <figure><img src="clase_japones_img_1008/okane.png" alt="Dinero"><figcaption>2) Q：おかね<span class="hlp">が</span> ありますか？<br><i style="color:var(--azul)">Okane ga arimasu ka?</i><br>A：いいえ。おかね<span class="hlp">が</span>　<span class="hl">あまり</span>　ありません<br><i style="color:var(--azul)">Iie. Okane ga amari arimasen</i><br>¿Tenés dinero? — No, no tengo mucho</figcaption></figure>
-          <figure><img src="clase_japones_img_1008/kuruma.png" alt="Auto"><figcaption>3) Q：くるま<span class="hlp">が</span> ありますか？<br><i style="color:var(--azul)">Kuruma ga arimasu ka?</i><br>A：はい。くるま<span class="hlp">が</span>　あります<br><i style="color:var(--azul)">Hai. Kuruma ga arimasu</i><br>¿Tenés auto? — Sí, tengo</figcaption></figure>
-          <figure><img src="clase_japones_img_1008/sumaho.png" alt="Celular"><figcaption>4) Q：スマホ<span class="hlp">が</span> ありますか？<br><i style="color:var(--azul)">Sumaho ga arimasu ka?</i><br>A：はい。スマホ<span class="hlp">が</span>　あります<br><i style="color:var(--azul)">Hai. Sumaho ga arimasu</i><br>¿Tenés celular? — Sí, tengo</figcaption></figure>
-          <figure><img src="clase_japones_img_1008/fax.png" alt="Fax"><figcaption>5) Q：FAX<span class="hlp">が</span> ありますか？<br><i style="color:var(--azul)">Fakkusu ga arimasu ka?</i><br>A：いいえ。FAX<span class="hlp">が</span>　ありません<br><i style="color:var(--azul)">Iie. Fakkusu ga arimasen</i><br>¿Tenés fax? — No, no tengo</figcaption></figure>
-          <figure><img src="clase_japones_img_1008/pureisuteeshon.png" alt="PlayStation"><figcaption>6) Q：プレイステーション<span class="hlp">が</span> ありますか？<br><i style="color:var(--azul)">Pureisutēshon ga arimasu ka?</i><br>A：いいえ。プレイステーション<span class="hlp">が</span>　ありません<br><i style="color:var(--azul)">Iie. Pureisutēshon ga arimasen</i><br>¿Tenés PlayStation? — No, no tengo</figcaption></figure>
-          <figure><img src="clase_japones_img_1008/tokei.png" alt="Reloj"><figcaption>7) Q：とけい<span class="hlp">が</span> ありますか？<br><i style="color:var(--azul)">Tokei ga arimasu ka?</i><br>A：いいえ。とけい<span class="hlp">が</span>　ありません<br><i style="color:var(--azul)">Iie. Tokei ga arimasen</i><br>¿Tenés reloj? — No, no tengo</figcaption></figure>
-          <figure><img src="clase_japones_img_1008/jisho.png" alt="Diccionario"><figcaption>8) Q：じしょ<span class="hlp">が</span> ありますか？<br><i style="color:var(--azul)">Jisho ga arimasu ka?</i><br>A：いいえ。じしょ<span class="hlp">が</span>　ありません<br><i style="color:var(--azul)">Iie. Jisho ga arimasen</i><br>¿Tenés diccionario? — No, no tengo</figcaption></figure>
-          <figure><img src="clase_japones_img_1008/jikan_sunadokei.png" alt="Reloj de arena"><figcaption>9) Q：<span class="hl">あした</span>　じかん<span class="hlp">が</span> ありますか？<br><i style="color:var(--azul)">Ashita jikan ga arimasu ka?</i><br>A：はい。<span class="hl">たくさん</span>　あります<br><i style="color:var(--azul)">Hai. Takusan arimasu</i><br>¿Mañana tenés tiempo? — Sí, mucho</figcaption></figure>
-          <figure><img src="clase_japones_img_1008/youji_techou.png" alt="Agenda"><figcaption>10) Q：<span class="hl">らいしゅう</span>　ようじ<span class="hlp">が</span> ありますか？<br><i style="color:var(--azul)">Raishū yōji ga arimasu ka?</i><br>A：はい。ようじ<span class="hlp">が</span>　あります<br><i style="color:var(--azul)">Hai. Yōji ga arimasu</i><br>¿La semana que viene tenés cosas que hacer? — Sí, tengo</figcaption></figure>
-          <figure><img src="clase_japones_img_1008/yakusoku_karenda.png" alt="Calendario"><figcaption>11) Q：<span class="hl">しゅうまつ</span>　やくそく<span class="hlp">が</span> ありますか？<br><i style="color:var(--azul)">Shūmatsu yakusoku ga arimasu ka?</i><br>A：いいえ。やくそく<span class="hlp">が</span>　ありません<br><i style="color:var(--azul)">Iie. Yakusoku ga arimasen</i><br>¿El fin de semana tenés algún compromiso? — No, no tengo</figcaption></figure>
-          <figure><img src="clase_japones_img_1008/rajio.png" alt="Radio"><figcaption>12) Q：ラジオ<span class="hlp">が</span> ありますか？<br><i style="color:var(--azul)">Rajio ga arimasu ka?</i><br>A：いいえ。ラジオ<span class="hlp">が</span>　ありません<br><i style="color:var(--azul)">Iie. Rajio ga arimasen</i><br>¿Tenés radio? — No, no tengo</figcaption></figure>
-          <figure><img src="clase_japones_img_1008/kamera.png" alt="Cámara"><figcaption>13) Q：カメラ<span class="hlp">が</span> ありますか？<br><i style="color:var(--azul)">Kamera ga arimasu ka?</i><br>A：はい。カメラ<span class="hlp">が</span>　あります<br><i style="color:var(--azul)">Hai. Kamera ga arimasu</i><br>¿Tenés cámara? — Sí, tengo</figcaption></figure>
-          <figure><img src="clase_japones_img_1008/nekutai.png" alt="Corbata"><figcaption>14) Q：ネクタイ<span class="hlp">が</span> ありますか？<br><i style="color:var(--azul)">Nekutai ga arimasu ka?</i><br>A：はい。ネクタイ<span class="hlp">が</span>　<span class="hl">すこし</span>　あります<br><i style="color:var(--azul)">Hai. Nekutai ga sukoshi arimasu</i><br>¿Tenés corbatas? — Sí, algunas</figcaption></figure>
+          <figure><img loading="lazy" decoding="async" src="clase_japones_img_1008/pasokon.png" alt="Computadora"><figcaption>1) Q：パソコン<span class="hlp">が</span> ありますか？<br><i style="color:var(--azul)">Pasokon ga arimasu ka?</i><br>A：はい。パソコン<span class="hlp">が</span>　あります<br><i style="color:var(--azul)">Hai. Pasokon ga arimasu</i><br>¿Tenés computadora? — Sí, tengo</figcaption></figure>
+          <figure><img loading="lazy" decoding="async" src="clase_japones_img_1008/okane.png" alt="Dinero"><figcaption>2) Q：おかね<span class="hlp">が</span> ありますか？<br><i style="color:var(--azul)">Okane ga arimasu ka?</i><br>A：いいえ。おかね<span class="hlp">が</span>　<span class="hl">あまり</span>　ありません<br><i style="color:var(--azul)">Iie. Okane ga amari arimasen</i><br>¿Tenés dinero? — No, no tengo mucho</figcaption></figure>
+          <figure><img loading="lazy" decoding="async" src="clase_japones_img_1008/kuruma.png" alt="Auto"><figcaption>3) Q：くるま<span class="hlp">が</span> ありますか？<br><i style="color:var(--azul)">Kuruma ga arimasu ka?</i><br>A：はい。くるま<span class="hlp">が</span>　あります<br><i style="color:var(--azul)">Hai. Kuruma ga arimasu</i><br>¿Tenés auto? — Sí, tengo</figcaption></figure>
+          <figure><img loading="lazy" decoding="async" src="clase_japones_img_1008/sumaho.png" alt="Celular"><figcaption>4) Q：スマホ<span class="hlp">が</span> ありますか？<br><i style="color:var(--azul)">Sumaho ga arimasu ka?</i><br>A：はい。スマホ<span class="hlp">が</span>　あります<br><i style="color:var(--azul)">Hai. Sumaho ga arimasu</i><br>¿Tenés celular? — Sí, tengo</figcaption></figure>
+          <figure><img loading="lazy" decoding="async" src="clase_japones_img_1008/fax.png" alt="Fax"><figcaption>5) Q：FAX<span class="hlp">が</span> ありますか？<br><i style="color:var(--azul)">Fakkusu ga arimasu ka?</i><br>A：いいえ。FAX<span class="hlp">が</span>　ありません<br><i style="color:var(--azul)">Iie. Fakkusu ga arimasen</i><br>¿Tenés fax? — No, no tengo</figcaption></figure>
+          <figure><img loading="lazy" decoding="async" src="clase_japones_img_1008/pureisuteeshon.png" alt="PlayStation"><figcaption>6) Q：プレイステーション<span class="hlp">が</span> ありますか？<br><i style="color:var(--azul)">Pureisutēshon ga arimasu ka?</i><br>A：いいえ。プレイステーション<span class="hlp">が</span>　ありません<br><i style="color:var(--azul)">Iie. Pureisutēshon ga arimasen</i><br>¿Tenés PlayStation? — No, no tengo</figcaption></figure>
+          <figure><img loading="lazy" decoding="async" src="clase_japones_img_1008/tokei.png" alt="Reloj"><figcaption>7) Q：とけい<span class="hlp">が</span> ありますか？<br><i style="color:var(--azul)">Tokei ga arimasu ka?</i><br>A：いいえ。とけい<span class="hlp">が</span>　ありません<br><i style="color:var(--azul)">Iie. Tokei ga arimasen</i><br>¿Tenés reloj? — No, no tengo</figcaption></figure>
+          <figure><img loading="lazy" decoding="async" src="clase_japones_img_1008/jisho.png" alt="Diccionario"><figcaption>8) Q：じしょ<span class="hlp">が</span> ありますか？<br><i style="color:var(--azul)">Jisho ga arimasu ka?</i><br>A：いいえ。じしょ<span class="hlp">が</span>　ありません<br><i style="color:var(--azul)">Iie. Jisho ga arimasen</i><br>¿Tenés diccionario? — No, no tengo</figcaption></figure>
+          <figure><img loading="lazy" decoding="async" src="clase_japones_img_1008/jikan_sunadokei.png" alt="Reloj de arena"><figcaption>9) Q：<span class="hl">あした</span>　じかん<span class="hlp">が</span> ありますか？<br><i style="color:var(--azul)">Ashita jikan ga arimasu ka?</i><br>A：はい。<span class="hl">たくさん</span>　あります<br><i style="color:var(--azul)">Hai. Takusan arimasu</i><br>¿Mañana tenés tiempo? — Sí, mucho</figcaption></figure>
+          <figure><img loading="lazy" decoding="async" src="clase_japones_img_1008/youji_techou.png" alt="Agenda"><figcaption>10) Q：<span class="hl">らいしゅう</span>　ようじ<span class="hlp">が</span> ありますか？<br><i style="color:var(--azul)">Raishū yōji ga arimasu ka?</i><br>A：はい。ようじ<span class="hlp">が</span>　あります<br><i style="color:var(--azul)">Hai. Yōji ga arimasu</i><br>¿La semana que viene tenés cosas que hacer? — Sí, tengo</figcaption></figure>
+          <figure><img loading="lazy" decoding="async" src="clase_japones_img_1008/yakusoku_karenda.png" alt="Calendario"><figcaption>11) Q：<span class="hl">しゅうまつ</span>　やくそく<span class="hlp">が</span> ありますか？<br><i style="color:var(--azul)">Shūmatsu yakusoku ga arimasu ka?</i><br>A：いいえ。やくそく<span class="hlp">が</span>　ありません<br><i style="color:var(--azul)">Iie. Yakusoku ga arimasen</i><br>¿El fin de semana tenés algún compromiso? — No, no tengo</figcaption></figure>
+          <figure><img loading="lazy" decoding="async" src="clase_japones_img_1008/rajio.png" alt="Radio"><figcaption>12) Q：ラジオ<span class="hlp">が</span> ありますか？<br><i style="color:var(--azul)">Rajio ga arimasu ka?</i><br>A：いいえ。ラジオ<span class="hlp">が</span>　ありません<br><i style="color:var(--azul)">Iie. Rajio ga arimasen</i><br>¿Tenés radio? — No, no tengo</figcaption></figure>
+          <figure><img loading="lazy" decoding="async" src="clase_japones_img_1008/kamera.png" alt="Cámara"><figcaption>13) Q：カメラ<span class="hlp">が</span> ありますか？<br><i style="color:var(--azul)">Kamera ga arimasu ka?</i><br>A：はい。カメラ<span class="hlp">が</span>　あります<br><i style="color:var(--azul)">Hai. Kamera ga arimasu</i><br>¿Tenés cámara? — Sí, tengo</figcaption></figure>
+          <figure><img loading="lazy" decoding="async" src="clase_japones_img_1008/nekutai.png" alt="Corbata"><figcaption>14) Q：ネクタイ<span class="hlp">が</span> ありますか？<br><i style="color:var(--azul)">Nekutai ga arimasu ka?</i><br>A：はい。ネクタイ<span class="hlp">が</span>　<span class="hl">すこし</span>　あります<br><i style="color:var(--azul)">Hai. Nekutai ga sukoshi arimasu</i><br>¿Tenés corbatas? — Sí, algunas</figcaption></figure>
         </div>
       </div>
 
       <h3 style="color:var(--verde)">🗣️ Conversación — ¿tenés tiempo hoy? <i style="color:var(--azul); font-size:0.75em; font-weight:400">kyō jikan ga arimasu ka?</i></h3>
       <div class="ilustra">
-        <figure><img src="clase_japones_img_0917/kaiwa_ab.png" alt="Dos personas conversando"><figcaption>A：Bさんは きょう じかん<span class="hlp">が</span> ありますか？<br><i style="color:var(--azul)">A: B-san wa kyō jikan ga arimasu ka?</i><br>B：はい／いいえ、〜。Aさんは？<br><i style="color:var(--azul)">B: hai / iie, ~. A-san wa?</i><br>A：わたしは 〜。<br><i style="color:var(--azul)">A: watashi wa ~.</i></figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0917/kaiwa_ab.png" alt="Dos personas conversando"><figcaption>A：Bさんは きょう じかん<span class="hlp">が</span> ありますか？<br><i style="color:var(--azul)">A: B-san wa kyō jikan ga arimasu ka?</i><br>B：はい／いいえ、〜。Aさんは？<br><i style="color:var(--azul)">B: hai / iie, ~. A-san wa?</i><br>A：わたしは 〜。<br><i style="color:var(--azul)">A: watashi wa ~.</i></figcaption></figure>
       </div>
       <div class="ilustra">
-        <figure><img src="clase_japones_img_1008/shigoto.png" alt="Trabajo"><figcaption>しごと<br><i style="color:var(--azul)">shigoto</i><br>trabajo</figcaption></figure>
-        <figure><img src="clase_japones_img_1001/youji.png" alt="Calendario"><figcaption>ようじ<br><i style="color:var(--azul)">yōji</i><br>algo que hacer</figcaption></figure>
-        <figure><img src="clase_japones_img_1001/yakusoku.png" alt="Promesa con el meñique"><figcaption>やくそく<br><i style="color:var(--azul)">yakusoku</i><br>compromiso</figcaption></figure>
-        <figure><img src="clase_japones_img_1008/shukudai.png" alt="Tarea"><figcaption>しゅくだい<br><i style="color:var(--azul)">shukudai</i><br>tarea</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_1008/shigoto.png" alt="Trabajo"><figcaption>しごと<br><i style="color:var(--azul)">shigoto</i><br>trabajo</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_1001/youji.png" alt="Calendario"><figcaption>ようじ<br><i style="color:var(--azul)">yōji</i><br>algo que hacer</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_1001/yakusoku.png" alt="Promesa con el meñique"><figcaption>やくそく<br><i style="color:var(--azul)">yakusoku</i><br>compromiso</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_1008/shukudai.png" alt="Tarea"><figcaption>しゅくだい<br><i style="color:var(--azul)">shukudai</i><br>tarea</figcaption></figure>
       </div>
       <table>
         <tr><th>Japonés</th><th>Romaji</th><th>Español</th></tr>
@@ -1417,6 +1468,169 @@
         <tr><td class="jp-cell">↳ A：わたし<span class="part">は</span>　しゅくだい<span class="hlp">が</span>　あります</td><td class="ro-cell">Watashi wa shukudai ga arimasu</td><td class="es-cell">Yo tengo tarea</td></tr>
       </table>
       <div class="nota morado">📌 <b>わたしも</b> <i style="color:var(--azul)">(watashi mo)</i> = yo también: <b>も</b> <i style="color:var(--azul)">(mo)</i> reemplaza a は <i style="color:var(--azul)">(wa)</i> cuando lo tuyo es igual a lo del otro (②). Si es distinto, usás <b>わたしは</b> <i style="color:var(--azul)">(watashi wa)</i> = “yo, en cambio…” (③ y ④).</div>
+
+      </details>
+
+      <!-- Clase 15/10 -->
+      <details class="clase" id="c-1510" data-fecha="15/10">
+        <summary><span class="c-fecha">Clase 15/10</span> <span class="c-temas">¿Por qué? どうして／から <i style="color:var(--azul)">(dōshite / kara)</i> · B3 · variaciones del diálogo</span></summary>
+      <div class="destacado">
+        <h3>🧪 Ejercicio B3 — 〜が じょうず／へたです <i style="color:var(--azul); font-size:0.75em; font-weight:400">~ga jōzu / heta desu</i></h3>
+        <table>
+          <tr><th>Japonés</th><th>Romaji</th><th>Español</th></tr>
+          <tr><td class="jp-cell">1) マリアさん<span class="part">は</span>　ダンス<span class="hlp">が</span>　じょうずです</td><td class="ro-cell">Maria-san wa dansu ga jōzu desu</td><td class="es-cell">María baila bien</td></tr>
+          <tr><td class="jp-cell">2) まつもとさん<span class="part">は</span>　テニス<span class="hlp">が</span>　へたです</td><td class="ro-cell">Matsumoto-san wa tenisu ga heta desu</td><td class="es-cell">Matsumoto juega mal al tenis</td></tr>
+          <tr><td class="jp-cell">3) やまださん<span class="part">は</span>　りょうり<span class="hlp">が</span>　<span class="hl">あまり</span>　じょうずじゃありません</td><td class="ro-cell">Yamada-san wa ryōri ga amari jōzu ja arimasen</td><td class="es-cell">Yamada no cocina muy bien</td></tr>
+          <tr><td class="jp-cell">4) カリナさん<span class="part">は</span>　え<span class="hlp">が</span>　<span class="hl">とても</span>　じょうずです</td><td class="ro-cell">Karina-san wa e ga totemo jōzu desu</td><td class="es-cell">Karina dibuja muy bien</td></tr>
+        </table>
+      </div>
+
+      <h3 style="color:var(--rojo)">🤔 ¿Por qué? — どうして 〜か？ → 〜から <i style="color:var(--azul); font-size:0.75em; font-weight:400">dōshite ~ka? → ~kara</i></h3>
+      <div class="formula" style="border-color:var(--rojo)">
+        <span class="hl">どうして</span>　〜Vます<span class="hl">か</span>？／〜Vません<span class="hl">か</span>？
+        <small><i style="color:var(--azul)">dōshite ~V-masu ka? / ~V-masen ka?</i> — se usa cuando querés preguntar <u>la razón</u>. Sola: <b>どうしてですか？</b> <i style="color:var(--azul)">(dōshite desu ka?)</i> = ¿por qué?</small>
+      </div>
+      <div class="formula" style="border-color:var(--verde)">
+        <span class="obj">〔razón〕</span><span class="hl">から</span>
+        <small><i style="color:var(--azul)">〔razón〕 kara</i> — “porque ~”. La razón va primero y <b>から</b> <i style="color:var(--azul)">(kara)</i> al final de la respuesta.</small>
+      </div>
+      <div class="ilustra">
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_1015/doushite.png" alt="Hombre encogiéndose de hombros"><figcaption>どうしてですか？<br><i style="color:var(--azul)">dōshite desu ka?</i><br>¿Por qué?</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_1015/youbi.png" alt="Días de la semana, de lunes a domingo"><figcaption>De lunes a domingo…</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_1015/sushi.png" alt="Bandeja de sushi"><figcaption>…come sushi todos los días</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_1015/sushi_suki.png" alt="Persona soñando con sushi"><figcaption>〔razón〕から<br><i style="color:var(--azul)">〔razón〕 kara</i><br>¿la razón? ¡le encanta el sushi! 🍣</figcaption></figure>
+      </div>
+      <div class="nota">💡 Ejemplo armado a partir de la diapositiva (la diapo no trae frase): どうして すしを たべますか？ <i style="color:var(--azul)">(dōshite sushi o tabemasu ka?)</i> → すし<span class="hlp">が</span> すきです<span class="hl">から</span>。 <i style="color:var(--azul)">(sushi ga suki desu kara.)</i> = ¿Por qué comés sushi? — Porque me gusta el sushi.</div>
+
+      <div class="destacado">
+        <h3>🧪 Práctica — どうして 〜か？ <i style="color:var(--azul); font-size:0.75em; font-weight:400">dōshite ~ka?</i></h3>
+        <p class="sub">Respondé cada pregunta con 〔razón〕から <i style="color:var(--azul)">(〔razón〕 kara)</i>.</p>
+        <table>
+          <tr><th>Japonés</th><th>Romaji</th><th>Español</th></tr>
+          <tr><td class="jp-cell">① <span class="hl">どうして</span>　スパイダーマン<span class="part">を</span>　みましたか？</td><td class="ro-cell">Dōshite Supaidāman o mimashita ka?</td><td class="es-cell">¿Por qué viste Spider-Man?</td></tr>
+          <tr><td class="jp-cell">② <span class="hl">どうして</span>　ラーメン<span class="hlp">が</span>　すきですか？</td><td class="ro-cell">Dōshite rāmen ga suki desu ka?</td><td class="es-cell">¿Por qué te gusta el ramen?</td></tr>
+          <tr><td class="jp-cell">③ <span class="hl">どうして</span>　BTS<span class="hlp">が</span>　すきですか？</td><td class="ro-cell">Dōshite BTS ga suki desu ka?</td><td class="es-cell">¿Por qué te gusta BTS?</td></tr>
+          <tr><td class="jp-cell">④ <span class="hl">どうして</span>　ガジョピント<span class="part">を</span>　たべましたか？</td><td class="ro-cell">Dōshite gajopinto o tabemashita ka?</td><td class="es-cell">¿Por qué comiste gallo pinto?</td></tr>
+          <tr><td class="jp-cell">⑤ <span class="hl">どうして</span>　テニス<span class="part">を</span>　しましたか？</td><td class="ro-cell">Dōshite tenisu o shimashita ka?</td><td class="es-cell">¿Por qué jugaste al tenis?</td></tr>
+          <tr><td class="jp-cell">⑥ <span class="hl">どうして</span>　メキシコ<span class="part">へ</span>　いきましたか？</td><td class="ro-cell">Dōshite Mekishiko e ikimashita ka?</td><td class="es-cell">¿Por qué fuiste a México?</td></tr>
+          <tr><td class="jp-cell">⑦ <span class="hl">どうして</span>　にほんご<span class="part">を</span>　べんきょうしますか？</td><td class="ro-cell">Dōshite nihongo o benkyō shimasu ka?</td><td class="es-cell">¿Por qué estudiás japonés?</td></tr>
+        </table>
+      </div>
+
+      <h3 style="color:var(--verde)">🗣️ Conversación — gusto, tipo y razón <i style="color:var(--azul); font-size:0.75em; font-weight:400">suki · donna · dōshite</i></h3>
+      <p class="sub">Une las tres preguntas de L9: すきですか？ <i style="color:var(--azul)">(suki desu ka?)</i> → どんな〜？ <i style="color:var(--azul)">(donna ~?)</i> → どうして？ <i style="color:var(--azul)">(dōshite?)</i></p>
+      <div class="ilustra">
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_1015/kaiwa_otoko.png" alt="Dos chicos conversando"><figcaption>アニメ<br><i style="color:var(--azul)">anime</i><br>anime</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_1015/one_piece.png" alt="Personajes de One Piece"><figcaption>p. ej.: One Piece</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_1015/kaguya_sama.png" alt="Personajes de Kaguya-sama"><figcaption>p. ej.: Kaguya-sama: Love is War</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_1015/beruseruku.png" alt="Portada de Berserk"><figcaption>p. ej.: Berserk</figcaption></figure>
+      </div>
+      <table>
+        <tr><th>Japonés</th><th>Romaji</th><th>Español</th></tr>
+        <tr><td class="jp-cell">A：アニメ<span class="hlp">が</span>　すきですか？</td><td class="ro-cell">Anime ga suki desu ka?</td><td class="es-cell">¿Te gusta el anime?</td></tr>
+        <tr><td class="jp-cell">B：すきです</td><td class="ro-cell">Suki desu</td><td class="es-cell">Sí, me gusta</td></tr>
+        <tr><td class="jp-cell">A：<span class="hl">どんな</span>　アニメ<span class="hlp">が</span>　すきですか？</td><td class="ro-cell">Donna anime ga suki desu ka?</td><td class="es-cell">¿Qué tipo de anime te gusta?</td></tr>
+        <tr><td class="jp-cell">B：〔＿＿〕の　アニメ<span class="hlp">が</span>　すきです</td><td class="ro-cell">〔＿＿〕 no anime ga suki desu</td><td class="es-cell">Me gusta el anime de ~</td></tr>
+        <tr><td class="jp-cell">A：<span class="hl">どうして</span>　すきですか？</td><td class="ro-cell">Dōshite suki desu ka?</td><td class="es-cell">¿Por qué te gusta?</td></tr>
+        <tr><td class="jp-cell">B：〔razón〕<span class="hl">から</span></td><td class="ro-cell">〔razón〕 kara</td><td class="es-cell">Porque ~</td></tr>
+      </table>
+      <div class="ilustra">
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_0917/kaiwa_ab.png" alt="Dos personas conversando"><figcaption>にほん りょうり<br><i style="color:var(--azul)">nihon ryōri</i><br>comida japonesa</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_1015/seviche.png" alt="Ceviche"><figcaption>p. ej.: ceviche</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_1015/gajopinto.png" alt="Gallo pinto con huevo y plátano"><figcaption>ガジョピント<br><i style="color:var(--azul)">gajopinto</i><br>gallo pinto</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_1015/casado.png" alt="Casado: arroz, frijoles, carne y ensalada"><figcaption>p. ej.: casado</figcaption></figure>
+      </div>
+      <table>
+        <tr><th>Japonés</th><th>Romaji</th><th>Español</th></tr>
+        <tr><td class="jp-cell">A：にほん　りょうり<span class="hlp">が</span>　すきですか？</td><td class="ro-cell">Nihon ryōri ga suki desu ka?</td><td class="es-cell">¿Te gusta la comida japonesa?</td></tr>
+        <tr><td class="jp-cell">B：〔＿＿〕</td><td class="ro-cell">〔＿＿〕</td><td class="es-cell">(respuesta)</td></tr>
+        <tr><td class="jp-cell">A：<span class="hl">どんな</span>　にほん　りょうり<span class="hlp">が</span>　すきですか？</td><td class="ro-cell">Donna nihon ryōri ga suki desu ka?</td><td class="es-cell">¿Qué comida japonesa te gusta?</td></tr>
+        <tr><td class="jp-cell">B：〔＿＿〕<span class="hlp">が</span>　すきです</td><td class="ro-cell">〔＿＿〕 ga suki desu</td><td class="es-cell">Me gusta ~</td></tr>
+        <tr><td class="jp-cell">A：<span class="hl">どうして</span>　すきですか？</td><td class="ro-cell">Dōshite suki desu ka?</td><td class="es-cell">¿Por qué te gusta?</td></tr>
+        <tr><td class="jp-cell">B：〔razón〕<span class="hl">から</span></td><td class="ro-cell">〔razón〕 kara</td><td class="es-cell">Porque ~</td></tr>
+      </table>
+      <div class="nota">📸 Ojo: la diapositiva pregunta por にほん りょうり <i style="color:var(--azul)">(nihon ryōri)</i>, pero las fotos son platos costarricenses (ceviche, gallo pinto, casado) — así que sirve igual para practicar con comida de acá.</div>
+
+      <h3 style="color:var(--verde)">🔁 Variaciones del diálogo <i style="color:var(--azul); font-size:0.75em; font-weight:400">suki · donna · dōshite</i></h3>
+      <p class="sub">El mismo molde que el de anime, con otros temas. Cambiá el género y la razón para armar tus propias respuestas.</p>
+      <h4 style="color:var(--rojo)">🎬 Películas — えいが <i style="color:var(--azul); font-size:0.75em; font-weight:400">eiga</i></h4>
+      <table>
+        <tr><th>Japonés</th><th>Romaji</th><th>Español</th></tr>
+        <tr><td class="jp-cell">A：えい<span class="hlp">が</span>　<span class="hlp">が</span>　すきですか。</td><td class="ro-cell">Eiga ga suki desu ka.</td><td class="es-cell">¿Te gustan las películas?</td></tr>
+        <tr><td class="jp-cell">B：すきです。</td><td class="ro-cell">Suki desu.</td><td class="es-cell">Me gustan.</td></tr>
+        <tr><td class="jp-cell">A：<span class="hl">どんな</span>　えい<span class="hlp">が</span>　<span class="hlp">が</span>　すきですか。</td><td class="ro-cell">Donna eiga ga suki desu ka.</td><td class="es-cell">¿Qué películas te gustan?</td></tr>
+        <tr><td class="jp-cell">B：アクションえい<span class="hlp">が</span>　<span class="hlp">が</span>　すきです。</td><td class="ro-cell">Akushon eiga ga suki desu.</td><td class="es-cell">Me gustan las de acción.</td></tr>
+        <tr><td class="jp-cell">A：<span class="hl">どうして</span>　すきですか。</td><td class="ro-cell">Dōshite suki desu ka.</td><td class="es-cell">¿Por qué te gustan?</td></tr>
+        <tr><td class="jp-cell">B：おもしろいです<span class="hl">から</span>。</td><td class="ro-cell">Omoshiroi desu kara.</td><td class="es-cell">Porque son interesantes.</td></tr>
+        <tr><th colspan="3">Variantes para el género</th></tr>
+        <tr><td class="jp-cell">コメディーえい<span class="hlp">が</span>　<span class="hlp">が</span>　すきです。</td><td class="ro-cell">Komedī eiga ga suki desu.</td><td class="es-cell">las de comedia</td></tr>
+        <tr><td class="jp-cell">ホラーえい<span class="hlp">が</span>　<span class="hlp">が</span>　すきです。</td><td class="ro-cell">Horā eiga ga suki desu.</td><td class="es-cell">las de terror</td></tr>
+        <tr><td class="jp-cell">アメリカの　えい<span class="hlp">が</span>　<span class="hlp">が</span>　すきです。</td><td class="ro-cell">Amerika no eiga ga suki desu.</td><td class="es-cell">las americanas</td></tr>
+        <tr><td class="jp-cell">にほんの　えい<span class="hlp">が</span>　<span class="hlp">が</span>　すきです。</td><td class="ro-cell">Nihon no eiga ga suki desu.</td><td class="es-cell">las japonesas</td></tr>
+        <tr><th colspan="3">Variantes para la razón</th></tr>
+        <tr><td class="jp-cell">たのしいです<span class="hl">から</span>。</td><td class="ro-cell">Tanoshii desu kara.</td><td class="es-cell">Porque son divertidas.</td></tr>
+        <tr><td class="jp-cell">ストーリー　<span class="hlp">が</span>　おもしろいです<span class="hl">から</span>。</td><td class="ro-cell">Sutōrī ga omoshiroi desu kara.</td><td class="es-cell">Porque las historias son interesantes.</td></tr>
+        <tr><td class="jp-cell">ドキドキします<span class="hl">から</span>。</td><td class="ro-cell">Dokidoki shimasu kara.</td><td class="es-cell">Porque emocionan (ドキドキ = el “pum-pum” del corazón 💓)</td></tr>
+      </table>
+      <h4 style="color:var(--azul)">🎵 Música — おんがく <i style="color:var(--azul); font-size:0.75em; font-weight:400">ongaku</i></h4>
+      <table>
+        <tr><th>Japonés</th><th>Romaji</th><th>Español</th></tr>
+        <tr><td class="jp-cell">A：おんがく　<span class="hlp">が</span>　すきですか。</td><td class="ro-cell">Ongaku ga suki desu ka.</td><td class="es-cell">¿Te gusta la música?</td></tr>
+        <tr><td class="jp-cell">B：すきです。</td><td class="ro-cell">Suki desu.</td><td class="es-cell">Me gusta.</td></tr>
+        <tr><td class="jp-cell">A：<span class="hl">どんな</span>　おんがく　<span class="hlp">が</span>　すきですか。</td><td class="ro-cell">Donna ongaku ga suki desu ka.</td><td class="es-cell">¿Qué música te gusta?</td></tr>
+        <tr><td class="jp-cell">B：ロック　<span class="hlp">が</span>　すきです。</td><td class="ro-cell">Rokku ga suki desu.</td><td class="es-cell">Me gusta el rock.</td></tr>
+        <tr><td class="jp-cell">A：<span class="hl">どうして</span>　すきですか。</td><td class="ro-cell">Dōshite suki desu ka.</td><td class="es-cell">¿Por qué te gusta?</td></tr>
+        <tr><td class="jp-cell">B：わくわくします<span class="hl">から</span>。</td><td class="ro-cell">Wakuwaku shimasu kara.</td><td class="es-cell">Porque me emociona ✨</td></tr>
+        <tr><th colspan="3">Variantes para el género</th></tr>
+        <tr><td class="jp-cell">ジャズ　<span class="hlp">が</span>　すきです。</td><td class="ro-cell">Jazu ga suki desu.</td><td class="es-cell">jazz</td></tr>
+        <tr><td class="jp-cell">J-POP　<span class="hlp">が</span>　すきです。</td><td class="ro-cell">Jei-poppu ga suki desu.</td><td class="es-cell">J-pop</td></tr>
+        <tr><td class="jp-cell">クラシック　<span class="hlp">が</span>　すきです。</td><td class="ro-cell">Kurashikku ga suki desu.</td><td class="es-cell">música clásica</td></tr>
+        <tr><td class="jp-cell">ラテンおんがく　<span class="hlp">が</span>　すきです。</td><td class="ro-cell">Raten ongaku ga suki desu.</td><td class="es-cell">música latina 🇨🇷</td></tr>
+        <tr><th colspan="3">Variantes para la razón</th></tr>
+        <tr><td class="jp-cell">たのしいです<span class="hl">から</span>。</td><td class="ro-cell">Tanoshii desu kara.</td><td class="es-cell">Porque es divertida.</td></tr>
+        <tr><td class="jp-cell">きれいです<span class="hl">から</span>。</td><td class="ro-cell">Kirei desu kara.</td><td class="es-cell">Porque es hermosa (ideal para la clásica).</td></tr>
+        <tr><td class="jp-cell">リズム　<span class="hlp">が</span>　いいです<span class="hl">から</span>。</td><td class="ro-cell">Rizumu ga ii desu kara.</td><td class="es-cell">Porque tiene buen ritmo (ideal para la latina o el rock).</td></tr>
+      </table>
+      <h4 style="color:var(--verde)">⚽ Deportes — スポーツ <i style="color:var(--azul); font-size:0.75em; font-weight:400">supōtsu</i></h4>
+      <table>
+        <tr><th>Japonés</th><th>Romaji</th><th>Español</th></tr>
+        <tr><td class="jp-cell">A：スポーツ　<span class="hlp">が</span>　すきですか。</td><td class="ro-cell">Supōtsu ga suki desu ka.</td><td class="es-cell">¿Te gustan los deportes?</td></tr>
+        <tr><td class="jp-cell">B：すきです。</td><td class="ro-cell">Suki desu.</td><td class="es-cell">Me gustan.</td></tr>
+        <tr><td class="jp-cell">A：<span class="hl">どんな</span>　スポーツ　<span class="hlp">が</span>　すきですか。</td><td class="ro-cell">Donna supōtsu ga suki desu ka.</td><td class="es-cell">¿Qué deporte te gusta?</td></tr>
+        <tr><td class="jp-cell">B：テニス　<span class="hlp">が</span>　すきです。</td><td class="ro-cell">Tenisu ga suki desu.</td><td class="es-cell">Me gusta el tenis.</td></tr>
+        <tr><td class="jp-cell">A：<span class="hl">どうして</span>　すきですか。</td><td class="ro-cell">Dōshite suki desu ka.</td><td class="es-cell">¿Por qué te gusta?</td></tr>
+        <tr><td class="jp-cell">B：たのしいです<span class="hl">から</span>。</td><td class="ro-cell">Tanoshii desu kara.</td><td class="es-cell">Porque es divertido.</td></tr>
+        <tr><th colspan="3">Variantes para el deporte</th></tr>
+        <tr><td class="jp-cell">サッカー　<span class="hlp">が</span>　すきです。</td><td class="ro-cell">Sakkā ga suki desu.</td><td class="es-cell">fútbol ⚽</td></tr>
+        <tr><td class="jp-cell">やきゅう　<span class="hlp">が</span>　すきです。</td><td class="ro-cell">Yakyū ga suki desu.</td><td class="es-cell">béisbol ⚾</td></tr>
+        <tr><td class="jp-cell">バスケットボール　<span class="hlp">が</span>　すきです。</td><td class="ro-cell">Basukettobōru ga suki desu.</td><td class="es-cell">básquet 🏀</td></tr>
+        <tr><td class="jp-cell">すいえい　<span class="hlp">が</span>　すきです。</td><td class="ro-cell">Suiei ga suki desu.</td><td class="es-cell">natación 🏊</td></tr>
+        <tr><th colspan="3">Variantes para la razón</th></tr>
+        <tr><td class="jp-cell">わくわくします<span class="hl">から</span>。</td><td class="ro-cell">Wakuwaku shimasu kara.</td><td class="es-cell">Porque me emociona.</td></tr>
+        <tr><td class="jp-cell">むずかしいです<span class="hl">が</span>、おもしろいです<span class="hl">から</span>。</td><td class="ro-cell">Muzukashii desu ga, omoshiroi desu kara.</td><td class="es-cell">Porque es difícil pero interesante (が de contraste).</td></tr>
+        <tr><td class="jp-cell">けんこうに　いいです<span class="hl">から</span>。</td><td class="ro-cell">Kenkō ni ii desu kara.</td><td class="es-cell">Porque es bueno para la salud.</td></tr>
+      </table>
+      <h4 style="color:var(--morado)">🌮 Comida mexicana — メキシコりょうり <i style="color:var(--azul); font-size:0.75em; font-weight:400">Mekishiko ryōri</i></h4>
+      <table>
+        <tr><th>Japonés</th><th>Romaji</th><th>Español</th></tr>
+        <tr><td class="jp-cell">A：メキシコりょうり　<span class="hlp">が</span>　すきですか。</td><td class="ro-cell">Mekishiko ryōri ga suki desu ka.</td><td class="es-cell">¿Te gusta la comida mexicana?</td></tr>
+        <tr><td class="jp-cell">B：すきです。</td><td class="ro-cell">Suki desu.</td><td class="es-cell">Me gusta.</td></tr>
+        <tr><td class="jp-cell">A：<span class="hl">どんな</span>　メキシコりょうり　<span class="hlp">が</span>　すきですか。</td><td class="ro-cell">Donna Mekishiko ryōri ga suki desu ka.</td><td class="es-cell">¿Qué comida mexicana te gusta?</td></tr>
+        <tr><td class="jp-cell">B：タコス　<span class="hlp">が</span>　すきです。</td><td class="ro-cell">Takosu ga suki desu.</td><td class="es-cell">Me gustan los tacos.</td></tr>
+        <tr><td class="jp-cell">A：<span class="hl">どうして</span>　すきですか。</td><td class="ro-cell">Dōshite suki desu ka.</td><td class="es-cell">¿Por qué te gustan?</td></tr>
+        <tr><td class="jp-cell">B：おいしいです<span class="hl">から</span>。</td><td class="ro-cell">Oishii desu kara.</td><td class="es-cell">Porque son ricos.</td></tr>
+        <tr><th colspan="3">Variantes para el platillo</th></tr>
+        <tr><td class="jp-cell">ブリトー　<span class="hlp">が</span>　すきです。</td><td class="ro-cell">Buritō ga suki desu.</td><td class="es-cell">burrito</td></tr>
+        <tr><td class="jp-cell">ケサディージャ　<span class="hlp">が</span>　すきです。</td><td class="ro-cell">Kesadīja ga suki desu.</td><td class="es-cell">quesadilla</td></tr>
+        <tr><td class="jp-cell">ナチョス　<span class="hlp">が</span>　すきです。</td><td class="ro-cell">Nachosu ga suki desu.</td><td class="es-cell">nachos</td></tr>
+        <tr><td class="jp-cell">ワカモレ　<span class="hlp">が</span>　すきです。</td><td class="ro-cell">Wakamore ga suki desu.</td><td class="es-cell">guacamole 🥑</td></tr>
+        <tr><th colspan="3">Variantes para la razón</th></tr>
+        <tr><td class="jp-cell">からいです。<span class="hl">そして</span>、おいしいです<span class="hl">から</span>。</td><td class="ro-cell">Karai desu. Soshite, oishii desu kara.</td><td class="es-cell">Es picante. Y además, porque es rica 🌶️</td></tr>
+        <tr><td class="jp-cell">からいです<span class="hl">が</span>、おいしいです<span class="hl">から</span>。</td><td class="ro-cell">Karai desu ga, oishii desu kara.</td><td class="es-cell">Porque pica, pero es rica.</td></tr>
+      </table>
+      <div class="nota">💡 En <b>からいです。そして、おいしいですから。</b> <i style="color:var(--azul)">(karai desu. soshite, oishii desu kara.)</i> el から <i style="color:var(--azul)">(kara)</i> solo toca la última oración: “Es picante. Y además, porque es rica”. Para que las dos cosas sean la razón, más adelante se usa la forma て <i style="color:var(--azul)">(te)</i>: からくて おいしいですから <i style="color:var(--azul)">(karakute oishii desu kara)</i>.</div>
+
+      </details>
 
       <h3 style="color:var(--morado)">🗂️ Vocabulario nuevo (L9)</h3>
       <p class="sub">En el mismo orden en que aparece en el PDF de la clase.</p>
@@ -1512,6 +1726,14 @@
         <div class="vchip"><b>しゅくだい（宿題）</b> <span>shukudai</span> — tarea</div>
         <div class="vchip"><b>〜も（わたしも）</b> <span>~mo (watashi mo)</span> — también (yo también)</div>
       </div>
+      <p class="sub">➕ Clase 15/10:</p>
+      <div class="vocab">
+        <div class="vchip"><b>〜から</b> <span>~kara</span> — porque ~ (razón)</div>
+        <div class="vchip"><b>どうしてですか</b> <span>dōshite desu ka</span> — ¿por qué?</div>
+        <div class="vchip"><b>アニメ</b> <span>anime</span> — anime</div>
+        <div class="vchip"><b>ガジョピント</b> <span>gajopinto</span> — gallo pinto</div>
+        <div class="vchip"><b>メキシコ</b> <span>Mekishiko</span> — México</div>
+      </div>
       <div class="nota">💍 <b>Esposo:</b> <b>ごしゅじん</b> <i style="color:var(--azul)">(goshujin)</i> = el esposo de otra persona, respetuoso · <b>しゅじん／おっと</b> <i style="color:var(--azul)">(shujin / otto)</i> = mi esposo. <b>Esposa:</b> <b>おくさん</b> <i style="color:var(--azul)">(okusan)</i> = la esposa de otra persona, respetuoso · <b>つま／かない</b> <i style="color:var(--azul)">(tsuma / kanai)</i> = mi esposa.</div>
     </section>
 
@@ -1521,8 +1743,8 @@
       <h2 style="color:var(--azul); border-left-color:var(--azul)">⚽ Copa Mundial — ワールドカップ</h2>
       <p class="sub">Vocabulario y expresiones para ver y hablar del Mundial. <b>わたしは にほんの ファンです</b> = soy fan de Japón.</p>
       <div class="ilustra">
-        <figure><img src="clase_japones_img_wc/estadio.png" alt="Estadio con la copa"><figcaption>🏟️ ワールドカップ <i style="color:var(--azul)">wārudokappu</i> — Copa Mundial</figcaption></figure>
-        <figure><img src="clase_japones_img_wc/camiseta_japon.png" alt="Camiseta de Japón"><figcaption>わたしは にほんの ファンです 💙<br><i style="color:var(--azul)">watashi wa Nihon no fan desu</i></figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_wc/estadio.png" alt="Estadio con la copa"><figcaption>🏟️ ワールドカップ <i style="color:var(--azul)">wārudokappu</i> — Copa Mundial</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_wc/camiseta_japon.png" alt="Camiseta de Japón"><figcaption>わたしは にほんの ファンです 💙<br><i style="color:var(--azul)">watashi wa Nihon no fan desu</i></figcaption></figure>
       </div>
 
       <h3>🏟️ Lo básico</h3>
@@ -1559,12 +1781,12 @@
         <tr><td class="jp-cell">1<span class="hl">たい</span>1</td><td class="ro-cell">ichi tai ichi</td><td class="es-cell">1 a 1 (たい = “a / versus” en el marcador)</td></tr>
       </table>
       <div class="ilustra">
-        <figure><img src="clase_japones_img_wc/flag_japon.png" alt="Japón"><figcaption>にほん <i style="color:var(--azul)">Nihon</i> (Japón)</figcaption></figure>
-        <figure><img src="clase_japones_img_wc/flag_costarica.png" alt="Costa Rica"><figcaption>コスタリカ <i style="color:var(--azul)">Kosutarika</i></figcaption></figure>
-        <figure><img src="clase_japones_img_wc/flag_francia.png" alt="Francia"><figcaption>フランス <i style="color:var(--azul)">Furansu</i></figcaption></figure>
-        <figure><img src="clase_japones_img_wc/flag_argentina.png" alt="Argentina"><figcaption>アルゼンチン <i style="color:var(--azul)">Aruzenchin</i></figcaption></figure>
-        <figure><img src="clase_japones_img_wc/flag_brasil.png" alt="Brasil"><figcaption>ブラジル <i style="color:var(--azul)">Burajiru</i></figcaption></figure>
-        <figure><img src="clase_japones_img_wc/flag_espana.png" alt="España"><figcaption>スペイン <i style="color:var(--azul)">Supein</i></figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_wc/flag_japon.png" alt="Japón"><figcaption>にほん <i style="color:var(--azul)">Nihon</i> (Japón)</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_wc/flag_costarica.png" alt="Costa Rica"><figcaption>コスタリカ <i style="color:var(--azul)">Kosutarika</i></figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_wc/flag_francia.png" alt="Francia"><figcaption>フランス <i style="color:var(--azul)">Furansu</i></figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_wc/flag_argentina.png" alt="Argentina"><figcaption>アルゼンチン <i style="color:var(--azul)">Aruzenchin</i></figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_wc/flag_brasil.png" alt="Brasil"><figcaption>ブラジル <i style="color:var(--azul)">Burajiru</i></figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_wc/flag_espana.png" alt="España"><figcaption>スペイン <i style="color:var(--azul)">Supein</i></figcaption></figure>
       </div>
       <div class="nota">📊 Ejemplos del marcador:
         <ul>
@@ -1576,8 +1798,8 @@
 
       <h3>🎉 Emociones y porras</h3>
       <div class="ilustra">
-        <figure><img src="clase_japones_img_wc/ureshii.png" alt="Feliz"><figcaption><b style="color:var(--verde)">うれしい</b> <i style="color:var(--azul)">ureshii</i> — feliz 😄 (cuando ganas)</figcaption></figure>
-        <figure><img src="clase_japones_img_wc/kuyashii.png" alt="Frustrado"><figcaption><b style="color:var(--rojo)">くやしい</b> <i style="color:var(--azul)">kuyashii</i> — frustrado / dolido 😤 (cuando pierdes)</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_wc/ureshii.png" alt="Feliz"><figcaption><b style="color:var(--verde)">うれしい</b> <i style="color:var(--azul)">ureshii</i> — feliz 😄 (cuando ganas)</figcaption></figure>
+        <figure><img loading="lazy" decoding="async" src="clase_japones_img_wc/kuyashii.png" alt="Frustrado"><figcaption><b style="color:var(--rojo)">くやしい</b> <i style="color:var(--azul)">kuyashii</i> — frustrado / dolido 😤 (cuando pierdes)</figcaption></figure>
       </div>
       <div class="vocab">
         <div class="vchip"><b>がんばれー！</b> <span>ganbarē!</span> — ¡Vamos! / ¡Dale!</div>
@@ -2103,6 +2325,21 @@
           <tr data-cat="objeto"><td class="jp-cell">FAX／ファックス</td><td class="ro-cell">fakkusu</td><td class="es-cell">fax</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
           <tr data-cat="objeto"><td class="jp-cell">プレイステーション</td><td class="ro-cell">pureisutēshon</td><td class="es-cell">PlayStation</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
           <tr data-cat="expresion"><td class="jp-cell">〜も（わたしも）</td><td class="ro-cell">~mo (watashi mo)</td><td class="es-cell">también (yo también)</td><td>💬 Expresión</td><td><span class="lz">L9</span></td></tr>
+          <tr data-cat="expresion"><td class="jp-cell">〜から</td><td class="ro-cell">~kara</td><td class="es-cell">porque ~ (razón)</td><td>💬 Expresión</td><td><span class="lz">L9</span></td></tr>
+          <tr data-cat="expresion"><td class="jp-cell">どうしてですか</td><td class="ro-cell">dōshite desu ka</td><td class="es-cell">¿por qué?</td><td>💬 Expresión</td><td><span class="lz">L9</span></td></tr>
+          <tr data-cat="objeto"><td class="jp-cell">アニメ</td><td class="ro-cell">anime</td><td class="es-cell">anime</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
+          <tr data-cat="objeto"><td class="jp-cell">ガジョピント</td><td class="ro-cell">gajopinto</td><td class="es-cell">gallo pinto</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
+          <tr data-cat="lugar"><td class="jp-cell">メキシコ</td><td class="ro-cell">Mekishiko</td><td class="es-cell">México</td><td>📍 Lugar</td><td><span class="lz">L9</span></td></tr>
+          <tr data-cat="expresion"><td class="jp-cell">アクション</td><td class="ro-cell">akushon</td><td class="es-cell">acción (género)</td><td>💬 Expresión</td><td><span class="lz">L9</span></td></tr>
+          <tr data-cat="objeto"><td class="jp-cell">タコス</td><td class="ro-cell">takosu</td><td class="es-cell">tacos</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
+          <tr data-cat="expresion"><td class="jp-cell">ホラー</td><td class="ro-cell">horā</td><td class="es-cell">terror (género)</td><td>💬 Expresión</td><td><span class="lz">L9</span></td></tr>
+          <tr data-cat="objeto"><td class="jp-cell">ストーリー</td><td class="ro-cell">sutōrī</td><td class="es-cell">historia / trama</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
+          <tr data-cat="expresion"><td class="jp-cell">ドキドキします</td><td class="ro-cell">dokidoki shimasu</td><td class="es-cell">me late el corazón / me emociona</td><td>💬 Expresión</td><td><span class="lz">L9</span></td></tr>
+          <tr data-cat="expresion"><td class="jp-cell">わくわくします</td><td class="ro-cell">wakuwaku shimasu</td><td class="es-cell">me entusiasma / me emociona</td><td>💬 Expresión</td><td><span class="lz">L9</span></td></tr>
+          <tr data-cat="objeto"><td class="jp-cell">リズム</td><td class="ro-cell">rizumu</td><td class="es-cell">ritmo</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
+          <tr data-cat="evento"><td class="jp-cell">バスケットボール</td><td class="ro-cell">basukettobōru</td><td class="es-cell">básquet</td><td>🎉 Evento</td><td><span class="lz">L9</span></td></tr>
+          <tr data-cat="evento"><td class="jp-cell">すいえい（水泳）</td><td class="ro-cell">suiei</td><td class="es-cell">natación</td><td>🎉 Evento</td><td><span class="lz">L9</span></td></tr>
+          <tr data-cat="adji"><td class="jp-cell">からい（辛い）</td><td class="ro-cell">karai</td><td class="es-cell">picante</td><td>🎨 Adjetivo</td><td><span class="lz">L9</span></td></tr>
         </tbody>
       </table>
     </section>
@@ -2150,6 +2387,7 @@
         <tr><td class="jp-cell">〔sustantivo〕が ありますか？ → はい、あります／いいえ、ありません<div class="ro-cell">~ga arimasu ka? → hai, arimasu / iie, arimasen</div></td><td class="es-cell">¿tenés ~? → sí / no</td><td><span class="lz">L9</span></td></tr>
         <tr><td class="jp-cell">〔persona〕は 〔tiempo〕 じかん／ようじ／やくそくが ありますか？<div class="ro-cell">~wa ~ jikan / yōji / yakusoku ga arimasu ka?</div></td><td class="es-cell">¿tenés tiempo / algo que hacer / un compromiso (hoy, mañana…)?</td><td><span class="lz">L9</span></td></tr>
         <tr><td class="jp-cell">わたしも 〜／わたしは 〜<div class="ro-cell">watashi mo ~ / watashi wa ~</div></td><td class="es-cell">yo también ~ / yo, en cambio, ~</td><td><span class="lz">L9</span></td></tr>
+        <tr><td class="jp-cell">どうして 〜か？ → 〔razón〕から<div class="ro-cell">dōshite ~ka? → 〔razón〕 kara</div></td><td class="es-cell">¿por qué ~? → porque ~</td><td><span class="lz">L9</span></td></tr>
       </table>
       <div class="nota">📌 Las palabras de pregunta del tema: <b>なに/何</b> (qué) y <b>だれ</b> (quién) → だれに = a quién / de quién.</div>
     </section>
@@ -2192,8 +2430,67 @@
     document.getElementById(id).classList.add('active');
     if (el) el.classList.add('active');
     document.querySelector('.sidebar').classList.remove('open');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (!location.hash) window.scrollTo({ top: 0, behavior: 'smooth' });
+    requestAnimationFrame(() => document.querySelectorAll('#' + id + ' .clases-nav').forEach(centrarChip));
   }
+  function centrarChip(nav){
+    const c = [...nav.querySelectorAll('.clase-chip[aria-current="true"]')].pop() || nav.lastElementChild;
+    nav.scrollLeft = c.offsetLeft - nav.clientWidth / 2 + c.offsetWidth / 2;
+  }
+
+  // Clases plegables: la última abierta, barra de fechas y acceso desde Inicio
+  function abrirClase(d){
+    const page = d.closest('.page');
+    if (!page.classList.contains('active')) showPage(page.id, document.querySelector(`.nav-link[onclick*="'${page.id}'"]`));
+    d.open = true;
+    setTimeout(() => d.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+  }
+  function initClases(){
+    let imprimiendo = false;
+    const btn = document.querySelector('.menu-btn');
+    const setMenuH = () => document.documentElement.style.setProperty('--menu-h', (btn.offsetHeight || 0) + 'px');
+    setMenuH(); window.addEventListener('resize', setMenuH);
+    document.querySelectorAll('.page').forEach(page => {
+      const cs = [...page.querySelectorAll('details.clase')];
+      if (!cs.length) return;
+      const last = cs[cs.length - 1];
+      last.open = true; last.classList.add('nueva');
+      const nav = document.createElement('nav');
+      nav.className = 'clases-nav'; nav.setAttribute('aria-label', 'Clases de la lección');
+      nav.innerHTML = '<span class="lbl">🗓️</span>';
+      const chips = cs.map(d => {
+        const b = document.createElement('button');
+        b.className = 'clase-chip' + (d === last ? ' nueva' : '');
+        b.textContent = d.dataset.fecha;
+        b.onclick = () => {
+          if (d.open) { d.open = false; history.replaceState(null, '', location.pathname); return; }
+          history.replaceState(null, '', '#' + d.id); abrirClase(d);
+        };
+        nav.appendChild(b);
+        return b;
+      });
+      const marcar = () => cs.forEach((d, i) => chips[i].setAttribute('aria-current', d.open));
+      cs.forEach((d, i) => d.addEventListener('toggle', () => {
+        if (d.open && !imprimiendo) cs.forEach(o => { if (o !== d) o.open = false; });   // acordeón: una abierta por vez
+        marcar();
+        if (d.open) nav.scrollTo({ left: chips[i].offsetLeft - nav.clientWidth / 2 + chips[i].offsetWidth / 2 });
+      }));
+      marcar();
+      cs[0].before(nav);
+      const ini = document.getElementById('ultima-clase');
+      if (ini && page.id !== 'p-inicio') {
+        const lec = page.querySelector('h2').firstChild.textContent.split('—')[0].trim();
+        ini.innerHTML = `<a class="nota morado ultima-clase" href="#${last.id}">🆕 <b>Última clase: ${last.dataset.fecha}</b> (${lec}) → ${last.querySelector('.c-temas').innerHTML}</a>`;
+        ini.firstChild.onclick = e => { e.preventDefault(); history.replaceState(null, '', '#' + last.id); abrirClase(last); };
+      }
+    });
+    const desdeHash = () => { const d = location.hash && document.querySelector('details.clase' + location.hash); if (d) abrirClase(d); };
+    window.addEventListener('hashchange', desdeHash); desdeHash();
+    let abiertas = [];
+    window.addEventListener('beforeprint', () => { imprimiendo = true; abiertas = [...document.querySelectorAll('details.clase')].map(d => d.open); document.querySelectorAll('details.clase').forEach(d => d.open = true); });
+    window.addEventListener('afterprint', () => { document.querySelectorAll('details.clase').forEach((d, i) => d.open = abiertas[i]); imprimiendo = false; });
+  }
+  initClases();
   function toggleGroup(head){ head.parentElement.classList.toggle('collapsed'); }
   function toggleSidebar(){ document.querySelector('.sidebar').classList.toggle('open'); }
   function setCat(cat, btn){
