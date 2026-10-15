@@ -1,0 +1,7 @@
+# A Vercel solo sube la guía y sus imágenes
+*.pdf
+Screenshot*.png
+CLAUDE.md
+README.md
+tools/
+.DS_Store

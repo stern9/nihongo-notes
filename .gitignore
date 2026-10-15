@@ -1,0 +1,17 @@
+# macOS
+.DS_Store
+
+# Notas locales para Claude Code (no se suben)
+CLAUDE.md
+
+# Capturas de pantalla sueltas
+Screenshot*.png
+
+# Python
+__pycache__/
+
+# Vercel
+.vercel/
+
+# Material original de clase (PDFs de la sensei y hojas de ejercicios)
+*.pdf
