@@ -15,3 +15,6 @@ __pycache__/
 
 # Material original de clase (PDFs de la sensei y hojas de ejercicios)
 *.pdf
+
+# Libros de referencia (Minna no Nihongo, kanji N5)
+libros/

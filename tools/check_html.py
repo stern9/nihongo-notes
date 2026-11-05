@@ -33,7 +33,8 @@ b = Bal(); b.feed(html)
 print(f'ETIQUETAS: errores de cierre: {b.err[:10] or "ninguno"}; sin cerrar: {b.stack or "ninguna"}')
 
 # 3) japonés sin romaji
-JP = re.compile(r'[぀-ヿ一-鿿]')
+# ・ (U+30FB) y ゛゜ (U+309B/C) solos son signos sin lectura propia: no cuentan como japonés
+JP = re.compile(r'[぀-゚ゝ-ヺー-ヿ一-鿿]')
 LAT = re.compile(r'[A-Za-zÀ-ÿ]{2,}')
 soup = BeautifulSoup(html, 'html.parser')
 
@@ -69,3 +70,17 @@ for sec, items in problems.items():
     print(f'  [{sec}] {len(items)}')
     if sys.argv[1:]:
         for kind, txt in items: print(f'     {kind:22} {txt}')
+
+# 4) índice de gramática: cada fila con lección (.lz) necesita data-clase="c-MMDD …" con ids que existan
+#    (sin eso la fila no aparece en el 📏 Resumen ni lleva el botón 📅 a su clase)
+gram = soup.find(id='p-gramatica')
+avisos = []
+for tr in (gram.select('tr') if gram else []):
+    if not tr.select_one('.lz'): continue
+    jp = (tr.select_one('.jp-cell') or tr).get_text(' ', strip=True)[:60]
+    ids = (tr.get('data-clase') or '').split()
+    if not ids: avisos.append(('sin data-clase', jp))
+    for i in ids:
+        if not soup.find(id=i): avisos.append((f'id inexistente: {i}', jp))
+print(f'ÍNDICE DE GRAMÁTICA: filas sin data-clase o con id inexistente: {len(avisos)}')
+for kind, txt in avisos: print(f'     {kind:22} {txt}')
