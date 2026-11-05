@@ -1,4 +1,6 @@
-"""Verifica clase_japones.html: imágenes rotas, etiquetas balanceadas y japonés sin romaji.
+"""Verifica clase_japones.html (imágenes rotas, etiquetas balanceadas, japonés sin romaji, índice de
+gramática) y vocab.js, la lista maestra del vocabulario (romaji, japonés en `es` sin `esro`, imágenes,
+opuestos recíprocos, lección y categoría válidas, clase existente, duplicados).
 
 Uso:
     python3 tools/check_html.py            # resumen de todo el documento
@@ -84,3 +86,64 @@ for tr in (gram.select('tr') if gram else []):
         if not soup.find(id=i): avisos.append((f'id inexistente: {i}', jp))
 print(f'ÍNDICE DE GRAMÁTICA: filas sin data-clase o con id inexistente: {len(avisos)}')
 for kind, txt in avisos: print(f'     {kind:22} {txt}')
+
+# 5) vocab.js: la lista maestra del vocabulario (const VOCAB = [ {…}, … ];)
+VALID_LEC = {'L7', 'L8', 'L9', 'práctica', '⚽'}
+VALID_CAT = {'persona', 'verbo', 'objeto', 'estudio', 'lugar', 'evento', 'mundial', 'expresion', 'adjna', 'adji'}
+import json
+vjs = open(os.path.join(ROOT, 'vocab.js'), encoding='utf-8').read()
+m = re.search(r'const\s+VOCAB\s*=\s*(\[.*\])\s*;?\s*$', vjs, re.S)
+errores, avisos_v = [], []
+try:
+    VOCAB = json.loads(re.sub(r',\s*\]$', ']', m.group(1))) if m else None
+except ValueError as e:
+    VOCAB = None; errores.append(f'no se pudo leer (¿coma de más o comillas?): {e}')
+if VOCAB is None and not errores: errores.append('no encontré "const VOCAB = [ … ];"')
+VOCAB = VOCAB or []
+jp_de = lambda e: e.get('kana', '') + (f"（{e['kanji']}）" if e.get('kanji') else '') if not (e.get('kana') or '').endswith('（な）') or not e.get('kanji') \
+    else e['kana'][:-3] + f"（{e['kanji']}）（な）"
+claves = defaultdict(list)
+for i, e in enumerate(VOCAB):
+    jp = jp_de(e); donde = f'#{i} {jp}'
+    if not (e.get('kana') or '').strip(): errores.append(f'{donde}: falta kana')
+    if not (e.get('ro') or '').strip(): errores.append(f'{donde}: romaji vacío')
+    if not (e.get('es') or '').strip(): errores.append(f'{donde}: español vacío')
+    if JP.search(e.get('ro') or ''): errores.append(f'{donde}: el romaji tiene japonés')
+    resto = e.get('es') or ''
+    for tramo, ro in (e.get('esro') or {}).items():
+        if tramo not in resto: errores.append(f'{donde}: esro "{tramo}" no está en es')
+        if not (ro or '').strip(): errores.append(f'{donde}: esro "{tramo}" sin romaji')
+        resto = resto.replace(tramo, '')
+    if JP.search(resto): errores.append(f'{donde}: japonés en es sin romaji (agregalo en esro): {resto}')
+    if e.get('lec') not in VALID_LEC: errores.append(f'{donde}: lec inválida {e.get("lec")!r}')
+    if e.get('cat') not in VALID_CAT: errores.append(f'{donde}: cat inválida {e.get("cat")!r}')
+    if e.get('clase') and not soup.find(id=e['clase']): errores.append(f'{donde}: clase inexistente {e["clase"]}')
+    if not isinstance(e.get('clave'), bool): errores.append(f'{donde}: clave tiene que ser true/false')
+    if e.get('img') and not os.path.exists(os.path.join(ROOT, e['img'])): errores.append(f'{donde}: imagen inexistente {e["img"]}')
+    claves[(jp, e.get('lec'))].append(i)
+por_jp = defaultdict(list)
+for e in VOCAB: por_jp[jp_de(e)].append(e)
+for e in VOCAB:
+    jp = jp_de(e)
+    pares = e.get('par') or []
+    for p in ([pares] if isinstance(pares, str) else pares):
+        if p not in por_jp: errores.append(f'{jp}: par "{p}" no existe en VOCAB'); continue
+        def tiene(o):
+            q = o.get('par') or []
+            return jp in ([q] if isinstance(q, str) else q)
+        if not any(tiene(o) for o in por_jp[p]): errores.append(f'{jp}: par "{p}" no es recíproco')
+for (jp, lec), idx in claves.items():
+    if len(idx) > 1: errores.append(f'duplicado: {jp} ({lec}) en #{idx}')
+# aviso: mismo kana base en la misma lección, sin kanji que los distinga (p. ej. いい / いい（よい）（良い）)
+base = lambda e: re.sub(r'（.*?）', '', e.get('kana') or '').strip()
+grupos = defaultdict(list)
+for i, e in enumerate(VOCAB): grupos[(base(e), e.get('lec'))].append(i)
+for (b_, lec), idx in grupos.items():
+    kj = [VOCAB[i].get('kanji') for i in idx]
+    if len({jp_de(VOCAB[i]) for i in idx}) > 1 and (None in kj or len(set(kj)) < len(kj)):
+        avisos_v.append(f'mismo kana en {lec}: ' + ' · '.join(jp_de(VOCAB[i]) for i in idx))
+con_img = sum(1 for e in VOCAB if e.get('img'))
+con_par = sum(1 for e in VOCAB if e.get('par'))
+print(f'VOCAB.JS: {len(VOCAB)} palabras, {con_img} con imagen, {con_par} con opuesto; errores: {len(errores)}, avisos: {len(avisos_v)}')
+for x in errores: print('     ✗ ' + x)
+for x in avisos_v: print('     ⚠ ' + x)

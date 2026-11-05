@@ -153,7 +153,6 @@
   .cat-chip:hover { background:#e9f0f9; }
   .cat-chip.active { background:var(--azul); color:#fff; }
   .vcount { font-size:0.85rem; color:#9a8f80; margin:6px 2px; }
-  #vocab-table .none-row td { text-align:center; color:#9a8f80; font-style:italic; padding:22px; }
   .lz { display:inline-block; background:#f0e6d8; color:#8a7f6e; border-radius:6px; padding:1px 7px; font-size:0.78rem; }
 
 
@@ -281,7 +280,40 @@
   .como-usar[open], .vc-plegable[open] { padding-bottom:12px; }
   .vc-plegable > summary { color:var(--morado); }
   .vc-plegable table { box-shadow:none; border:1px solid #f0e6d8; }
-  #vocab-table .clave { font-size:0.8rem; margin-left:2px; }
+  /* 🗂️ VOCABULARIO (se arma desde vocab.js) */
+  .v-ctl { display:flex; flex-wrap:wrap; align-items:center; gap:6px 8px; margin:6px 0; }
+  .v-ctl .v-lbl { font-size:0.8rem; color:#9a8f80; font-weight:700; min-width:64px; }
+  .v-ctl .cat-filter { margin:0; }
+  .cat-chip[aria-pressed="true"] { background:var(--azul); color:#fff; }
+  .cat-chip.clave-chip[aria-pressed="true"] { background:#b8860b; color:#fff; }
+  .cat-chip.par-chip { border-color:var(--morado); color:var(--morado); }
+  .cat-chip.par-chip[aria-pressed="true"] { background:var(--morado); color:#fff; }
+  .v-seg { display:inline-flex; border:1.5px solid var(--verde); border-radius:999px; overflow:hidden; }
+  .v-seg button { cursor:pointer; border:none; background:#fff; color:var(--verde); padding:5px 12px; font-size:0.85rem; font-weight:600; font-family:inherit; }
+  .v-seg button + button { border-left:1.5px solid var(--verde); }
+  .v-seg button[aria-pressed="true"] { background:var(--verde); color:#fff; }
+  .v-grupo { margin:16px 0 6px; font-size:1rem; color:var(--morado); display:flex; align-items:baseline; gap:8px; }
+  .v-grupo .n { font-size:0.8rem; color:#9a8f80; font-weight:400; }
+  .v-lista { background:#fff; border-radius:14px; box-shadow:var(--sombra); overflow:hidden; }
+  .v-row { display:flex; align-items:center; gap:10px 14px; padding:8px 14px; border-bottom:1px solid #f0e6d8; }
+  .v-row:last-child { border-bottom:none; }
+  .v-row:nth-child(even) { background:#fdf8f1; }
+  .v-row.v-par { background:#f8f4fc; }
+  .v-pal { display:flex; align-items:center; gap:10px; flex:1 1 0; min-width:0; }
+  .v-pal .jp-cell { font-weight:700; color:var(--rojo); }
+  .v-pal .ro-cell { margin-left:6px; }
+  .v-pal .es-cell { font-size:0.9rem; }
+  .v-par-cuerpo { display:flex; align-items:center; gap:10px 14px; flex:2 1 0; min-width:0; }
+  .v-sep { flex:none; color:var(--morado); font-weight:700; font-size:1.1rem; }
+  .v-meta { flex:none; display:flex; flex-wrap:wrap; align-items:center; justify-content:flex-end; gap:4px 6px; font-size:0.8rem; color:#9a8f80; max-width:210px; }
+  .v-meta .ir-clase { margin:0; }
+  .v-row .v-img, .vchip .v-img { flex:none; width:46px; height:46px; border-radius:50%; overflow:hidden; border:2px solid #f0e6d8; padding:0; cursor:pointer; background:#fff; }
+  .v-row .v-img img { width:100%; height:100%; object-fit:cover; display:block; }
+  .v-row .v-img:focus-visible { outline:2px solid var(--morado); }
+  .v-row .v-img.v-img-par { width:58px; height:58px; border-color:#e3d6ef; }
+  .v-none { text-align:center; color:#9a8f80; font-style:italic; padding:22px; background:#fff; border-radius:14px; box-shadow:var(--sombra); }
+  .vchip.vchip-par { border:1.5px solid #e3d6ef; }
+  .vchip .par-sep { color:var(--morado); font-weight:700; margin:0 4px; }
   .cat-chip.clave-chip { border-color:#b8860b; color:#8a6508; }
   .cat-chip.clave-chip.active { background:#b8860b; color:#fff; }
 
@@ -290,13 +322,19 @@
     #p-gramatica td { padding:9px 8px; overflow-wrap:anywhere; }
     .vc-plegable td, .vc-plegable th { padding:8px 7px; }
     #p-inicio .tabla-scroll td { padding:9px 8px; overflow-wrap:anywhere; }
-    #vocab-table, #vocab-table tbody { display:block; }
-    #vocab-table thead { display:none; }
-    #vocab-table tr { display:flex; flex-wrap:wrap; align-items:baseline; gap:2px 10px; padding:9px 12px; border-bottom:1px solid #f0e6d8; }
-    #vocab-table tr:nth-child(even) { background:#fdf8f1; }
-    #vocab-table td { padding:0; border:none; background:none !important; }
-    #vocab-table .es-cell { flex-basis:100%; }
-    #vocab-table td:nth-child(4), #vocab-table td:nth-child(5) { font-size:0.8rem; color:#9a8f80; }
+    .v-row { flex-wrap:wrap; padding:9px 12px; gap:6px 10px; }
+    .v-par-cuerpo { flex:1 1 0; flex-direction:column; align-items:stretch; gap:2px; }
+    .v-par-cuerpo .v-sep { line-height:1; padding-left:4px; }
+    .v-row > .v-pal { flex:1 1 100%; }
+    .v-ctl { gap:4px 6px; }
+    .v-ctl .v-lbl { flex-basis:100%; min-width:0; }
+    #vocab-cat { -webkit-mask-image:linear-gradient(90deg,#000 88%,transparent); mask-image:linear-gradient(90deg,#000 88%,transparent); flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none; -webkit-overflow-scrolling:touch; max-width:100%; padding-bottom:2px; }
+    #vocab-cat::-webkit-scrollbar { display:none; }
+    #vocab-cat .cat-chip { flex:none; white-space:nowrap; }
+    .v-seg { display:flex; width:100%; }
+    .v-seg button { flex:1 1 0; white-space:nowrap; padding:6px 4px; font-size:0.8rem; }
+    .v-meta { max-width:none; justify-content:flex-start; flex-basis:100%; padding-left:56px; }
+    .v-row.v-sin-img .v-meta, .v-row.v-par.v-sin-img .v-meta { padding-left:0; }
     .vc-plegable { padding:0 8px; }
     #p-gramatica .ir-clase { display:block; margin:5px 0 0; white-space:nowrap; }
     .lec-tabs button { font-size:0.85rem; padding:8px 4px; }
@@ -2644,337 +2682,47 @@
     <section id="p-vocab" class="page">
       <div class="crumb">Vocabulario</div>
       <h2>🗂️ Vocabulario</h2>
-      <p class="sub">Todas las palabras vistas en clase. Busca por kana, romaji o español, o filtra por categoría.</p>
+      <p class="sub">Todas las palabras vistas en clase. Buscá por kana, romaji o español y filtrá por lección o categoría. Tocá la imagen para ir a la clase donde aparece; los opuestos van juntos (↔).</p>
       <div class="vtools">
-        <input type="text" id="vocab-search" placeholder="🔍 Buscar… (ej. flor, はな, hana)" oninput="filterVocab()">
+        <input type="text" id="vocab-search" placeholder="🔍 Buscar… (ej. flor, はな, hana)" aria-label="Buscar palabra">
       </div>
-      <div class="cat-filter">
-        <button class="cat-chip active" onclick="setCat('', this)">Todas</button>
-        <button class="cat-chip" onclick="setCat('persona', this)">👤 Personas</button>
-        <button class="cat-chip" onclick="setCat('verbo', this)">🏃 Verbos</button>
-        <button class="cat-chip" onclick="setCat('objeto', this)">📦 Objetos</button>
-        <button class="cat-chip" onclick="setCat('estudio', this)">📖 Estudio</button>
-        <button class="cat-chip" onclick="setCat('lugar', this)">📍 Lugares</button>
-        <button class="cat-chip" onclick="setCat('evento', this)">🎉 Eventos</button>
-        <button class="cat-chip" onclick="setCat('mundial', this)">⚽ Mundial</button>
-        <button class="cat-chip" onclick="setCat('expresion', this)">💬 Expresiones</button>
-        <button class="cat-chip" onclick="setCat('adjna', this)">🎨 Adj な <i class="rm">na</i></button>
-        <button class="cat-chip" onclick="setCat('adji', this)">🎨 Adj い <i class="rm">i</i></button>
-        <button class="cat-chip clave-chip" onclick="setCat('clave', this)">⭐ Clave examen</button>
+      <div class="v-ctl">
+        <span class="v-lbl">Agrupar:</span>
+        <div class="v-seg" id="vocab-agrupar" role="group" aria-label="Agrupar por">
+          <button type="button" data-v="lec">📚 Lección</button><button type="button" data-v="cat">🏷️ Categoría</button><button type="button" data-v="az">🔤 Todo (A–Z)</button>
+        </div>
       </div>
-      <div class="vcount" id="vcount"></div>
-      <div class="tabla-scroll">
-      <table id="vocab-table">
-        <thead><tr><th>Kana</th><th>Romaji</th><th>Español</th><th>Cat.</th><th>Lec.</th></tr></thead>
-        <tbody>
-          <tr data-cat="verbo"><td class="jp-cell">あげます</td><td class="ro-cell">agemasu</td><td class="es-cell">dar</td><td>🏃 Verbo</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="verbo"><td class="jp-cell">もらいます</td><td class="ro-cell">moraimasu</td><td class="es-cell">recibir</td><td>🏃 Verbo</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="verbo"><td class="jp-cell">おしえます</td><td class="ro-cell">oshiemasu</td><td class="es-cell">enseñar</td><td>🏃 Verbo</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="verbo"><td class="jp-cell">ならいます</td><td class="ro-cell">naraimasu</td><td class="es-cell">aprender</td><td>🏃 Verbo</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="verbo"><td class="jp-cell">かします</td><td class="ro-cell">kashimasu</td><td class="es-cell">prestar</td><td>🏃 Verbo</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="verbo"><td class="jp-cell">かります</td><td class="ro-cell">karimasu</td><td class="es-cell">pedir prestado</td><td>🏃 Verbo</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="persona"><td class="jp-cell">わたし</td><td class="ro-cell">watashi</td><td class="es-cell">yo</td><td>👤 Persona</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="persona"><td class="jp-cell">おとうさん</td><td class="ro-cell">otōsan</td><td class="es-cell">papá</td><td>👤 Persona</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="persona"><td class="jp-cell">おかあさん</td><td class="ro-cell">okāsan</td><td class="es-cell">mamá</td><td>👤 Persona</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="persona"><td class="jp-cell">あに</td><td class="ro-cell">ani</td><td class="es-cell">hermano mayor</td><td>👤 Persona</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="persona"><td class="jp-cell">せんせい</td><td class="ro-cell">sensei</td><td class="es-cell">profesor</td><td>👤 Persona</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="persona"><td class="jp-cell">がくせい</td><td class="ro-cell">gakusei</td><td class="es-cell">estudiante</td><td>👤 Persona</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">はな</td><td class="ro-cell">hana</td><td class="es-cell">flor</td><td>📦 Objeto</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">プレゼント</td><td class="ro-cell">purezento</td><td class="es-cell">regalo</td><td>📦 Objeto</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">とけい</td><td class="ro-cell">tokei</td><td class="es-cell">reloj</td><td>📦 Objeto</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">ボール</td><td class="ro-cell">bōru</td><td class="es-cell">pelota</td><td>📦 Objeto</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">マンガ</td><td class="ro-cell">manga</td><td class="es-cell">manga</td><td>📦 Objeto</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">シャツ</td><td class="ro-cell">shatsu</td><td class="es-cell">camisa</td><td>📦 Objeto</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">おかね</td><td class="ro-cell">okane</td><td class="es-cell">dinero</td><td>📦 Objeto</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">かさ</td><td class="ro-cell">kasa</td><td class="es-cell">paraguas</td><td>📦 Objeto</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">けしごむ</td><td class="ro-cell">keshigomu</td><td class="es-cell">goma de borrar</td><td>📦 Objeto</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">ほん</td><td class="ro-cell">hon</td><td class="es-cell">libro</td><td>📦 Objeto</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">カメラ</td><td class="ro-cell">kamera</td><td class="es-cell">cámara</td><td>📦 Objeto</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">じてんしゃ</td><td class="ro-cell">jitensha</td><td class="es-cell">bicicleta</td><td>📦 Objeto</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">スマホ</td><td class="ro-cell">sumaho</td><td class="es-cell">celular / smartphone</td><td>📦 Objeto</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">パソコン</td><td class="ro-cell">pasokon</td><td class="es-cell">computadora</td><td>📦 Objeto</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="estudio"><td class="jp-cell">にほんご</td><td class="ro-cell">Nihongo</td><td class="es-cell">japonés (idioma)</td><td>📖 Estudio</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="estudio"><td class="jp-cell">えいご</td><td class="ro-cell">Eigo</td><td class="es-cell">inglés (idioma)</td><td>📖 Estudio</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="estudio"><td class="jp-cell">かんじ</td><td class="ro-cell">kanji</td><td class="es-cell">kanji</td><td>📖 Estudio</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="lugar"><td class="jp-cell">ぎんこう</td><td class="ro-cell">ginkō</td><td class="es-cell">banco</td><td>📍 Lugar</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="evento"><td class="jp-cell">クリスマス</td><td class="ro-cell">kurisumasu</td><td class="es-cell">Navidad</td><td>🎉 Evento</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="verbo"><td class="jp-cell">かけます</td><td class="ro-cell">kakemasu</td><td class="es-cell">hacer una llamada (llamar)</td><td>🏃 Verbo</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">でんわ</td><td class="ro-cell">denwa</td><td class="es-cell">teléfono / llamada</td><td>📦 Objeto</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="persona"><td class="jp-cell">おきゃくさん</td><td class="ro-cell">okyakusan</td><td class="es-cell">cliente</td><td>👤 Persona</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="verbo"><td class="jp-cell">かきます</td><td class="ro-cell">kakimasu</td><td class="es-cell">escribir</td><td>🏃 Verbo</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="verbo"><td class="jp-cell">おくります</td><td class="ro-cell">okurimasu</td><td class="es-cell">enviar / mandar</td><td>🏃 Verbo</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">てがみ</td><td class="ro-cell">tegami</td><td class="es-cell">carta</td><td>📦 Objeto</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">メール</td><td class="ro-cell">mēru</td><td class="es-cell">correo electrónico</td><td>📦 Objeto</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">メッセージ</td><td class="ro-cell">messēji</td><td class="es-cell">mensaje</td><td>📦 Objeto</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="persona"><td class="jp-cell">はは</td><td class="ro-cell">haha</td><td class="es-cell">mi mamá (humilde)</td><td>👤 Persona</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="persona"><td class="jp-cell">ちち</td><td class="ro-cell">chichi</td><td class="es-cell">mi papá (humilde)</td><td>👤 Persona</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="mundial"><td class="jp-cell">ワールドカップ</td><td class="ro-cell">wārudokappu</td><td class="es-cell">Copa Mundial</td><td>⚽ Mundial</td><td><span class="lz">⚽</span></td></tr>
-          <tr data-cat="mundial"><td class="jp-cell">たいかい</td><td class="ro-cell">taikai</td><td class="es-cell">torneo / campeonato</td><td>⚽ Mundial</td><td><span class="lz">⚽</span></td></tr>
-          <tr data-cat="mundial"><td class="jp-cell">しあい</td><td class="ro-cell">shiai</td><td class="es-cell">partido</td><td>⚽ Mundial</td><td><span class="lz">⚽</span></td></tr>
-          <tr data-cat="mundial"><td class="jp-cell">チーム</td><td class="ro-cell">chīmu</td><td class="es-cell">equipo</td><td>⚽ Mundial</td><td><span class="lz">⚽</span></td></tr>
-          <tr data-cat="mundial"><td class="jp-cell">ファン</td><td class="ro-cell">fan</td><td class="es-cell">fan / hincha</td><td>⚽ Mundial</td><td><span class="lz">⚽</span></td></tr>
-          <tr data-cat="mundial"><td class="jp-cell">ゴール</td><td class="ro-cell">gōru</td><td class="es-cell">gol</td><td>⚽ Mundial</td><td><span class="lz">⚽</span></td></tr>
-          <tr data-cat="mundial"><td class="jp-cell">かこく</td><td class="ro-cell">kakoku</td><td class="es-cell">contador de países (～かこく)</td><td>⚽ Mundial</td><td><span class="lz">⚽</span></td></tr>
-          <tr data-cat="mundial"><td class="jp-cell">おうえんします</td><td class="ro-cell">ōen shimasu</td><td class="es-cell">apoyar / animar</td><td>⚽ Mundial</td><td><span class="lz">⚽</span></td></tr>
-          <tr data-cat="mundial"><td class="jp-cell">かちます</td><td class="ro-cell">kachimasu</td><td class="es-cell">ganar (victoria = かち)</td><td>⚽ Mundial</td><td><span class="lz">⚽</span></td></tr>
-          <tr data-cat="mundial"><td class="jp-cell">まけます</td><td class="ro-cell">makemasu</td><td class="es-cell">perder (derrota = まけ)</td><td>⚽ Mundial</td><td><span class="lz">⚽</span></td></tr>
-          <tr data-cat="mundial"><td class="jp-cell">ひきわけ</td><td class="ro-cell">hikiwake</td><td class="es-cell">empate</td><td>⚽ Mundial</td><td><span class="lz">⚽</span></td></tr>
-          <tr data-cat="mundial"><td class="jp-cell">どうてん</td><td class="ro-cell">dōten</td><td class="es-cell">mismo puntaje</td><td>⚽ Mundial</td><td><span class="lz">⚽</span></td></tr>
-          <tr data-cat="mundial"><td class="jp-cell">うれしい</td><td class="ro-cell">ureshii</td><td class="es-cell">feliz</td><td>⚽ Mundial</td><td><span class="lz">⚽</span></td></tr>
-          <tr data-cat="mundial"><td class="jp-cell">くやしい</td><td class="ro-cell">kuyashii</td><td class="es-cell">frustrado / dolido</td><td>⚽ Mundial</td><td><span class="lz">⚽</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">もう</td><td class="ro-cell">mō</td><td class="es-cell">ya</td><td>💬 Expresión</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">まだ</td><td class="ro-cell">mada</td><td class="es-cell">todavía no (まだです)</td><td>💬 Expresión</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="verbo"><td class="jp-cell">べんきょうします</td><td class="ro-cell">benkyō shimasu</td><td class="es-cell">estudiar</td><td>🏃 Verbo</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="verbo"><td class="jp-cell">おきます</td><td class="ro-cell">okimasu</td><td class="es-cell">levantarse</td><td>🏃 Verbo</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="verbo"><td class="jp-cell">ねます</td><td class="ro-cell">nemasu</td><td class="es-cell">dormir / acostarse</td><td>🏃 Verbo</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="verbo"><td class="jp-cell">みます</td><td class="ro-cell">mimasu</td><td class="es-cell">ver / mirar</td><td>🏃 Verbo</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="verbo"><td class="jp-cell">かいます</td><td class="ro-cell">kaimasu</td><td class="es-cell">comprar</td><td>🏃 Verbo</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="verbo"><td class="jp-cell">いきます</td><td class="ro-cell">ikimasu</td><td class="es-cell">ir</td><td>🏃 Verbo</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">よるごはん</td><td class="ro-cell">yorugohan</td><td class="es-cell">cena</td><td>📦 Objeto</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="estudio"><td class="jp-cell">しゅくだい</td><td class="ro-cell">shukudai</td><td class="es-cell">tarea</td><td>📖 Estudio</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="estudio"><td class="jp-cell">ちゅうごくご</td><td class="ro-cell">Chūgokugo</td><td class="es-cell">chino (idioma)</td><td>📖 Estudio</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="estudio"><td class="jp-cell">だい〜か</td><td class="ro-cell">dai~ka</td><td class="es-cell">lección nº ~ (第6課 = lección 6)</td><td>📖 Estudio</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">いらっしゃいませ</td><td class="ro-cell">irasshaimase</td><td class="es-cell">bienvenido (a una tienda / casa)</td><td>💬 Expresión</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">どうぞ おあがりください</td><td class="ro-cell">dōzo oagari kudasai</td><td class="es-cell">pase, adelante (entre)</td><td>💬 Expresión</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">いかがですか</td><td class="ro-cell">ikaga desu ka</td><td class="es-cell">¿le gustaría? / ¿qué tal?</td><td>💬 Expresión</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">いただきます</td><td class="ro-cell">itadakimasu</td><td class="es-cell">(antes de comer) gracias por la comida</td><td>💬 Expresión</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">ごちそうさまでした</td><td class="ro-cell">gochisōsama deshita</td><td class="es-cell">(después de comer) gracias por la comida</td><td>💬 Expresión</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">すてきですね</td><td class="ro-cell">suteki desu ne</td><td class="es-cell">qué lindo / qué bonito</td><td>💬 Expresión</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">なんで</td><td class="ro-cell">nan de</td><td class="es-cell">¿con qué? (medio)</td><td>💬 Expresión</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">どこで</td><td class="ro-cell">doko de</td><td class="es-cell">¿dónde? (lugar de acción)</td><td>💬 Expresión</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">おみやげ</td><td class="ro-cell">omiyage</td><td class="es-cell">souvenir / regalo de viaje</td><td>📦 Objeto</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">はし</td><td class="ro-cell">hashi</td><td class="es-cell">palillos</td><td>📦 Objeto</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">レポート</td><td class="ro-cell">repōto</td><td class="es-cell">reporte / informe</td><td>📦 Objeto</td><td><span class="lz">L7</span></td></tr>
-          <tr data-cat="lugar"><td class="jp-cell">しょくどう</td><td class="ro-cell">shokudō</td><td class="es-cell">comedor</td><td>📍 Lugar</td><td><span class="lz">L7</span></td></tr>
-          <tr data-clave data-cat="adjna"><td class="jp-cell">きれい（綺麗）（な）</td><td class="ro-cell">kirei</td><td class="es-cell">bonito / limpio (adj な)</td><td>🎨 Adjetivo</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-clave data-cat="adjna"><td class="jp-cell">げんき（元気）（な）</td><td class="ro-cell">genki</td><td class="es-cell">sano / enérgico (adj な)</td><td>🎨 Adjetivo</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-clave data-cat="adjna"><td class="jp-cell">しんせつ（親切）（な）</td><td class="ro-cell">shinsetsu</td><td class="es-cell">amable (adj な)</td><td>🎨 Adjetivo</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-clave data-cat="adjna"><td class="jp-cell">ゆうめい（有名）（な）</td><td class="ro-cell">yūmei</td><td class="es-cell">famoso (adj な)</td><td>🎨 Adjetivo</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-clave data-cat="adjna"><td class="jp-cell">べんり（便利）（な）</td><td class="ro-cell">benri</td><td class="es-cell">conveniente / práctico (adj な)</td><td>🎨 Adjetivo</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-clave data-cat="adjna"><td class="jp-cell">ひま（暇）（な）</td><td class="ro-cell">hima</td><td class="es-cell">con tiempo libre (adj な)</td><td>🎨 Adjetivo</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-clave data-cat="adjna"><td class="jp-cell">しずか（静か）（な）</td><td class="ro-cell">shizuka</td><td class="es-cell">tranquilo / silencioso (adj な)</td><td>🎨 Adjetivo</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-clave data-cat="adjna"><td class="jp-cell">すてき（素敵）（な）</td><td class="ro-cell">suteki</td><td class="es-cell">encantador / lindo (adj な)</td><td>🎨 Adjetivo</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-clave data-cat="adjna"><td class="jp-cell">ハンサム（な）</td><td class="ro-cell">hansamu</td><td class="es-cell">guapo (adj な)</td><td>🎨 Adjetivo</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-clave data-cat="adji"><td class="jp-cell">おいしい（美味しい）</td><td class="ro-cell">oishii</td><td class="es-cell">rico / delicioso (adj い)</td><td>🎨 Adjetivo</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">とても</td><td class="ro-cell">totemo</td><td class="es-cell">muy (con afirmativo)</td><td>💬 Expresión</td><td><span class="lz">L8</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">あまり</td><td class="ro-cell">amari</td><td class="es-cell">no mucho (con negativo)</td><td>💬 Expresión</td><td><span class="lz">L8</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">どうですか</td><td class="ro-cell">dō desu ka</td><td class="es-cell">¿qué tal? / ¿cómo es?</td><td>💬 Expresión</td><td><span class="lz">L8</span></td></tr>
-          <tr data-clave data-cat="lugar"><td class="jp-cell">ところ（所）</td><td class="ro-cell">tokoro</td><td class="es-cell">lugar</td><td>📍 Lugar</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-cat="lugar"><td class="jp-cell">みせ</td><td class="ro-cell">mise</td><td class="es-cell">tienda / local</td><td>📍 Lugar</td><td><span class="lz">L8</span></td></tr>
-          <tr data-cat="lugar"><td class="jp-cell">コンビニ</td><td class="ro-cell">konbini</td><td class="es-cell">tienda de conveniencia</td><td>📍 Lugar</td><td><span class="lz">L8</span></td></tr>
-          <tr data-cat="lugar"><td class="jp-cell">うみ</td><td class="ro-cell">umi</td><td class="es-cell">mar</td><td>📍 Lugar</td><td><span class="lz">L8</span></td></tr>
-          <tr data-clave data-cat="lugar"><td class="jp-cell">やま（山）</td><td class="ro-cell">yama</td><td class="es-cell">montaña</td><td>📍 Lugar</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-clave data-cat="lugar"><td class="jp-cell">レストラン</td><td class="ro-cell">resutoran</td><td class="es-cell">restaurante</td><td>📍 Lugar</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-cat="persona"><td class="jp-cell">こども</td><td class="ro-cell">kodomo</td><td class="es-cell">niño/a</td><td>👤 Persona</td><td><span class="lz">L8</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">いぬ</td><td class="ro-cell">inu</td><td class="es-cell">perro</td><td>📦 Objeto</td><td><span class="lz">L8</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">にほんりょうり</td><td class="ro-cell">Nihon ryōri</td><td class="es-cell">comida japonesa</td><td>📦 Objeto</td><td><span class="lz">L8</span></td></tr>
-          <tr data-clave data-cat="adji"><td class="jp-cell">あつい（暑い）</td><td class="ro-cell">atsui</td><td class="es-cell">(hace) calor — clima (adj い)</td><td>🎨 Adjetivo</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-clave data-cat="adji"><td class="jp-cell">さむい（寒い）</td><td class="ro-cell">samui</td><td class="es-cell">(hace) frío — clima (adj い)</td><td>🎨 Adjetivo</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-clave data-cat="adji"><td class="jp-cell">あつい（熱い）</td><td class="ro-cell">atsui</td><td class="es-cell">caliente — de una cosa (adj い)</td><td>🎨 Adjetivo</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-clave data-cat="adji"><td class="jp-cell">つめたい（冷たい）</td><td class="ro-cell">tsumetai</td><td class="es-cell">frío — de una cosa (adj い)</td><td>🎨 Adjetivo</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-clave data-cat="adji"><td class="jp-cell">たかい（高い）</td><td class="ro-cell">takai</td><td class="es-cell">alto / caro (adj い)</td><td>🎨 Adjetivo</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-clave data-cat="adji"><td class="jp-cell">ひくい（低い）</td><td class="ro-cell">hikui</td><td class="es-cell">bajo (adj い)</td><td>🎨 Adjetivo</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-clave data-cat="adji"><td class="jp-cell">やすい（安い）</td><td class="ro-cell">yasui</td><td class="es-cell">barato (adj い)</td><td>🎨 Adjetivo</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-clave data-cat="adji"><td class="jp-cell">おおきい（大きい）</td><td class="ro-cell">ōkii</td><td class="es-cell">grande (adj い)</td><td>🎨 Adjetivo</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-clave data-cat="adji"><td class="jp-cell">ちいさい（小さい）</td><td class="ro-cell">chiisai</td><td class="es-cell">pequeño (adj い)</td><td>🎨 Adjetivo</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-clave data-cat="adji"><td class="jp-cell">あたらしい（新しい）</td><td class="ro-cell">atarashii</td><td class="es-cell">nuevo (adj い)</td><td>🎨 Adjetivo</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-clave data-cat="adji"><td class="jp-cell">ふるい（古い）</td><td class="ro-cell">furui</td><td class="es-cell">viejo (adj い)</td><td>🎨 Adjetivo</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-clave data-cat="adji"><td class="jp-cell">むずかしい（難しい）</td><td class="ro-cell">muzukashii</td><td class="es-cell">difícil (adj い)</td><td>🎨 Adjetivo</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-clave data-cat="adji"><td class="jp-cell">やさしい（易しい）</td><td class="ro-cell">yasashii</td><td class="es-cell">fácil (adj い)</td><td>🎨 Adjetivo</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-clave data-cat="adji"><td class="jp-cell">しろい（白い）</td><td class="ro-cell">shiroi</td><td class="es-cell">blanco (adj い)</td><td>🎨 Adjetivo</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-clave data-cat="adji"><td class="jp-cell">くろい（黒い）</td><td class="ro-cell">kuroi</td><td class="es-cell">negro (adj い)</td><td>🎨 Adjetivo</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-clave data-cat="adji"><td class="jp-cell">あかい（赤い）</td><td class="ro-cell">akai</td><td class="es-cell">rojo (adj い)</td><td>🎨 Adjetivo</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-clave data-cat="adji"><td class="jp-cell">あおい（青い）</td><td class="ro-cell">aoi</td><td class="es-cell">azul (adj い)</td><td>🎨 Adjetivo</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-clave data-cat="adji"><td class="jp-cell">こわい</td><td class="ro-cell">kowai</td><td class="es-cell">de miedo / aterrador (adj い)</td><td>🎨 Adjetivo</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-cat="adji"><td class="jp-cell">いい</td><td class="ro-cell">ii</td><td class="es-cell">bueno (adj い, neg. よくない)</td><td>🎨 Adjetivo</td><td><span class="lz">L8</span></td></tr>
-          <tr data-clave data-cat="adjna"><td class="jp-cell">にぎやか（な）</td><td class="ro-cell">nigiyaka</td><td class="es-cell">animado / bullicioso (adj な)</td><td>🎨 Adjetivo</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">どんな</td><td class="ro-cell">donna</td><td class="es-cell">¿qué tipo de ~?</td><td>💬 Expresión</td><td><span class="lz">L8</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">さいきん</td><td class="ro-cell">saikin</td><td class="es-cell">últimamente / recientemente</td><td>💬 Expresión</td><td><span class="lz">L8</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">ラーメン</td><td class="ro-cell">rāmen</td><td class="es-cell">ramen</td><td>📦 Objeto</td><td><span class="lz">L8</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">おんがく</td><td class="ro-cell">ongaku</td><td class="es-cell">música</td><td>📦 Objeto</td><td><span class="lz">L8</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">えいが</td><td class="ro-cell">eiga</td><td class="es-cell">película</td><td>📦 Objeto</td><td><span class="lz">L8</span></td></tr>
-          <tr data-clave data-cat="adji"><td class="jp-cell">いい（よい）（良い）</td><td class="ro-cell">ii (yoi)</td><td class="es-cell">bueno (adj い, neg. よくない)</td><td>🎨 Adjetivo</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-clave data-cat="adji"><td class="jp-cell">わるい（悪い）</td><td class="ro-cell">warui</td><td class="es-cell">malo (adj い)</td><td>🎨 Adjetivo</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-clave data-cat="adji"><td class="jp-cell">おもしろい（面白い）</td><td class="ro-cell">omoshiroi</td><td class="es-cell">interesante / divertido (adj い)</td><td>🎨 Adjetivo</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-clave data-cat="adji"><td class="jp-cell">いそがしい（忙しい）</td><td class="ro-cell">isogashii</td><td class="es-cell">ocupado (adj い)</td><td>🎨 Adjetivo</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-clave data-cat="adji"><td class="jp-cell">たのしい（楽しい）</td><td class="ro-cell">tanoshii</td><td class="es-cell">divertido / entretenido (adj い)</td><td>🎨 Adjetivo</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">かばん</td><td class="ro-cell">kaban</td><td class="es-cell">bolso / maletín</td><td>📦 Objeto</td><td><span class="lz">L8</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">くつ</td><td class="ro-cell">kutsu</td><td class="es-cell">zapatos</td><td>📦 Objeto</td><td><span class="lz">L8</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">とけい</td><td class="ro-cell">tokei</td><td class="es-cell">reloj</td><td>📦 Objeto</td><td><span class="lz">L8</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">アイス</td><td class="ro-cell">aisu</td><td class="es-cell">helado</td><td>📦 Objeto</td><td><span class="lz">L8</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">テスト</td><td class="ro-cell">tesuto</td><td class="es-cell">examen / prueba</td><td>📦 Objeto</td><td><span class="lz">L8</span></td></tr>
-          <tr data-cat="evento"><td class="jp-cell">パーティー</td><td class="ro-cell">pātī</td><td class="es-cell">fiesta</td><td>🎉 Evento</td><td><span class="lz">L8</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">コーヒー</td><td class="ro-cell">kōhī</td><td class="es-cell">café</td><td>📦 Objeto</td><td><span class="lz">L8</span></td></tr>
-          <tr data-clave data-cat="objeto"><td class="jp-cell">さくら（桜）</td><td class="ro-cell">sakura</td><td class="es-cell">cerezo / flor de cerezo</td><td>📦 Objeto</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-clave data-cat="lugar"><td class="jp-cell">まち（町）</td><td class="ro-cell">machi</td><td class="es-cell">pueblo / ciudad</td><td>📍 Lugar</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-clave data-cat="lugar"><td class="jp-cell">りょう（寮）</td><td class="ro-cell">ryō</td><td class="es-cell">residencia estudiantil</td><td>📍 Lugar</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-clave data-cat="lugar"><td class="jp-cell">ばしょ（場所）</td><td class="ro-cell">basho</td><td class="es-cell">lugar / sitio (físico)</td><td>📍 Lugar</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-clave data-cat="objeto"><td class="jp-cell">たべもの（食べ物）</td><td class="ro-cell">tabemono</td><td class="es-cell">comida (en general)</td><td>📦 Objeto</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-clave data-cat="objeto"><td class="jp-cell">りょうり（料理）</td><td class="ro-cell">ryōri</td><td class="es-cell">comida cocinada / plato</td><td>📦 Objeto</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-clave data-cat="estudio"><td class="jp-cell">せいかつ（生活）</td><td class="ro-cell">seikatsu</td><td class="es-cell">vida (cotidiana)</td><td>📖 Estudio</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-clave data-cat="estudio"><td class="jp-cell">しごと（仕事）</td><td class="ro-cell">shigoto</td><td class="es-cell">trabajo</td><td>📖 Estudio</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-clave data-cat="adji"><td class="jp-cell">すずしい（涼しい）</td><td class="ro-cell">suzushii</td><td class="es-cell">fresco (clima agradable) (adj い)</td><td>🎨 Adjetivo</td><td><span class="lz">L8</span> <span class="clave" title="Clave para el examen">⭐</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">うさぎ</td><td class="ro-cell">usagi</td><td class="es-cell">conejo</td><td>📦 Objeto</td><td><span class="lz">L8</span></td></tr>
-          <tr data-cat="evento"><td class="jp-cell">サルサダンス</td><td class="ro-cell">sarusa dansu</td><td class="es-cell">baile de salsa</td><td>🎉 Evento</td><td><span class="lz">L8</span></td></tr>
-          <tr data-cat="adji"><td class="jp-cell">かわいい</td><td class="ro-cell">kawaii</td><td class="es-cell">tierno / lindo (adj い)</td><td>🎨 Adj い</td><td><span class="lz">L8</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">のみもの（飲み物）</td><td class="ro-cell">nomimono</td><td class="es-cell">bebida</td><td>📦 Objeto</td><td><span class="lz">L8</span></td></tr>
-          <tr data-cat="estudio"><td class="jp-cell">げんご（言語）</td><td class="ro-cell">gengo</td><td class="es-cell">idioma / lengua</td><td>📖 Estudio</td><td><span class="lz">L8</span></td></tr>
-          <tr data-cat="evento"><td class="jp-cell">ダンス</td><td class="ro-cell">dansu</td><td class="es-cell">baile / danza</td><td>🎉 Evento</td><td><span class="lz">L8</span></td></tr>
-          <tr data-cat="evento"><td class="jp-cell">テニス</td><td class="ro-cell">tenisu</td><td class="es-cell">tenis</td><td>🎉 Evento</td><td><span class="lz">L8</span></td></tr>
-          <tr data-cat="persona"><td class="jp-cell">おすもうさん</td><td class="ro-cell">osumōsan</td><td class="es-cell">luchador de sumo</td><td>👤 Persona</td><td><span class="lz">L8</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">おすし</td><td class="ro-cell">osushi</td><td class="es-cell">sushi</td><td>📦 Objeto</td><td><span class="lz">L8</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">ピザ</td><td class="ro-cell">piza</td><td class="es-cell">pizza</td><td>📦 Objeto</td><td><span class="lz">L8</span></td></tr>
-          <tr data-cat="lugar"><td class="jp-cell">ほっかいどう（北海道）</td><td class="ro-cell">Hokkaidō</td><td class="es-cell">Hokkaido (región de Japón)</td><td>📍 Lugar</td><td><span class="lz">L8</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">そして</td><td class="ro-cell">soshite</td><td class="es-cell">y / además (une cualidades iguales)</td><td>💬 Expresión</td><td><span class="lz">L8</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">〜が</td><td class="ro-cell">~ga</td><td class="es-cell">pero (une cualidades opuestas)</td><td>💬 Expresión</td><td><span class="lz">L8</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">くるま（車）</td><td class="ro-cell">kuruma</td><td class="es-cell">auto / coche</td><td>📦 Objeto</td><td><span class="lz">práctica</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">ねこ（猫）</td><td class="ro-cell">neko</td><td class="es-cell">gato</td><td>📦 Objeto</td><td><span class="lz">práctica</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">おちゃ（お茶）</td><td class="ro-cell">ocha</td><td class="es-cell">té</td><td>📦 Objeto</td><td><span class="lz">práctica</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">じしょ（辞書）</td><td class="ro-cell">jisho</td><td class="es-cell">diccionario</td><td>📦 Objeto</td><td><span class="lz">práctica</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">さかな（魚）</td><td class="ro-cell">sakana</td><td class="es-cell">pescado / pez</td><td>📦 Objeto</td><td><span class="lz">práctica</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">ざっし（雑誌）</td><td class="ro-cell">zasshi</td><td class="es-cell">revista</td><td>📦 Objeto</td><td><span class="lz">práctica</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">テレビ</td><td class="ro-cell">terebi</td><td class="es-cell">televisión</td><td>📦 Objeto</td><td><span class="lz">práctica</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">ケータイ（携帯）</td><td class="ro-cell">kētai</td><td class="es-cell">celular</td><td>📦 Objeto</td><td><span class="lz">práctica</span></td></tr>
-          <tr data-cat="lugar"><td class="jp-cell">こうえん（公園）</td><td class="ro-cell">kōen</td><td class="es-cell">parque</td><td>📍 Lugar</td><td><span class="lz">práctica</span></td></tr>
-          <tr data-cat="lugar"><td class="jp-cell">がっこう（学校）</td><td class="ro-cell">gakkō</td><td class="es-cell">escuela</td><td>📍 Lugar</td><td><span class="lz">práctica</span></td></tr>
-          <tr data-cat="lugar"><td class="jp-cell">かいしゃ（会社）</td><td class="ro-cell">kaisha</td><td class="es-cell">empresa</td><td>📍 Lugar</td><td><span class="lz">práctica</span></td></tr>
-          <tr data-cat="lugar"><td class="jp-cell">くに（国）</td><td class="ro-cell">kuni</td><td class="es-cell">país</td><td>📍 Lugar</td><td><span class="lz">práctica</span></td></tr>
-          <tr data-cat="lugar"><td class="jp-cell">びじゅつかん（美術館）</td><td class="ro-cell">bijutsukan</td><td class="es-cell">museo (de arte)</td><td>📍 Lugar</td><td><span class="lz">práctica</span></td></tr>
-          <tr data-cat="lugar"><td class="jp-cell">スーパー</td><td class="ro-cell">sūpā</td><td class="es-cell">supermercado</td><td>📍 Lugar</td><td><span class="lz">práctica</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">でんしゃ（電車）</td><td class="ro-cell">densha</td><td class="es-cell">tren</td><td>📦 Objeto</td><td><span class="lz">práctica</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">タクシー</td><td class="ro-cell">takushī</td><td class="es-cell">taxi</td><td>📦 Objeto</td><td><span class="lz">práctica</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">バス</td><td class="ro-cell">basu</td><td class="es-cell">autobús</td><td>📦 Objeto</td><td><span class="lz">práctica</span></td></tr>
-          <tr data-cat="estudio"><td class="jp-cell">しけん（試験）</td><td class="ro-cell">shiken</td><td class="es-cell">examen</td><td>📖 Estudio</td><td><span class="lz">práctica</span></td></tr>
-          <tr data-cat="estudio"><td class="jp-cell">クラス</td><td class="ro-cell">kurasu</td><td class="es-cell">clase</td><td>📖 Estudio</td><td><span class="lz">práctica</span></td></tr>
-          <tr data-cat="persona"><td class="jp-cell">かのじょ（彼女）</td><td class="ro-cell">kanojo</td><td class="es-cell">ella / novia</td><td>👤 Persona</td><td><span class="lz">práctica</span></td></tr>
-          <tr data-cat="persona"><td class="jp-cell">おばちゃん</td><td class="ro-cell">obachan</td><td class="es-cell">señora / tía</td><td>👤 Persona</td><td><span class="lz">práctica</span></td></tr>
-          <tr data-cat="adjna"><td class="jp-cell">けんこうてき（な）</td><td class="ro-cell">kenkōteki</td><td class="es-cell">saludable (adj な)</td><td>🎨 Adj な</td><td><span class="lz">práctica</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">てちょう（手帳）</td><td class="ro-cell">techō</td><td class="es-cell">agenda / libreta</td><td>📦 Objeto</td><td><span class="lz">práctica</span></td></tr>
-          <tr data-cat="persona"><td class="jp-cell">りょうしん（両親）</td><td class="ro-cell">ryōshin</td><td class="es-cell">padres</td><td>👤 Persona</td><td><span class="lz">práctica</span></td></tr>
-          <tr data-cat="lugar"><td class="jp-cell">いなか（田舎）</td><td class="ro-cell">inaka</td><td class="es-cell">campo / pueblo natal</td><td>📍 Lugar</td><td><span class="lz">práctica</span></td></tr>
-          <tr data-cat="lugar"><td class="jp-cell">うち（家）</td><td class="ro-cell">uchi</td><td class="es-cell">casa / hogar</td><td>📍 Lugar</td><td><span class="lz">práctica</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">てんき（天気）</td><td class="ro-cell">tenki</td><td class="es-cell">clima / tiempo</td><td>📦 Objeto</td><td><span class="lz">práctica</span></td></tr>
-          <tr data-cat="lugar"><td class="jp-cell">タイ</td><td class="ro-cell">Tai</td><td class="es-cell">Tailandia</td><td>📍 Lugar</td><td><span class="lz">práctica</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">もういっぱい いかがですか</td><td class="ro-cell">mō ippai ikaga desu ka</td><td class="es-cell">¿le gustaría otra taza/porción?</td><td>💬 Expresión</td><td><span class="lz">L8</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">けっこうです</td><td class="ro-cell">kekkō desu</td><td class="es-cell">no, gracias (rechazo cortés)</td><td>💬 Expresión</td><td><span class="lz">L8</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">そろそろ しつれいします（失礼します）</td><td class="ro-cell">sorosoro shitsurei shimasu</td><td class="es-cell">ya me tengo que ir (cortés)</td><td>💬 Expresión</td><td><span class="lz">L8</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">また いらっしゃってください</td><td class="ro-cell">mata irasshatte kudasai</td><td class="es-cell">vuelva a visitarnos</td><td>💬 Expresión</td><td><span class="lz">L8</span></td></tr>
-          <tr data-cat="adjna"><td class="jp-cell">すき（好き）</td><td class="ro-cell">suki</td><td class="es-cell">gustar (adj な, con が)</td><td>🎨 Adj な</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="adjna"><td class="jp-cell">きらい（嫌い）</td><td class="ro-cell">kirai</td><td class="es-cell">no gustar (adj な, con が)</td><td>🎨 Adj な</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="adjna"><td class="jp-cell">じょうず（上手）</td><td class="ro-cell">jōzu</td><td class="es-cell">bueno / hábil en algo (adj な)</td><td>🎨 Adj な</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="adjna"><td class="jp-cell">へた（下手）</td><td class="ro-cell">heta</td><td class="es-cell">malo / torpe en algo (adj な)</td><td>🎨 Adj な</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="verbo"><td class="jp-cell">わかります</td><td class="ro-cell">wakarimasu</td><td class="es-cell">entender (〜が わかります)</td><td>🏃 Verbo</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="verbo"><td class="jp-cell">あります</td><td class="ro-cell">arimasu</td><td class="es-cell">haber / tener (〜が あります)</td><td>🏃 Verbo</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="evento"><td class="jp-cell">スポーツ</td><td class="ro-cell">supōtsu</td><td class="es-cell">deporte</td><td>🎉 Evento</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="evento"><td class="jp-cell">やきゅう（野球）</td><td class="ro-cell">yakyū</td><td class="es-cell">béisbol</td><td>🎉 Evento</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="evento"><td class="jp-cell">コンサート</td><td class="ro-cell">konsāto</td><td class="es-cell">concierto</td><td>🎉 Evento</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="evento"><td class="jp-cell">カラオケ</td><td class="ro-cell">karaoke</td><td class="es-cell">karaoke</td><td>🎉 Evento</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="evento"><td class="jp-cell">かぶき（歌舞伎）</td><td class="ro-cell">kabuki</td><td class="es-cell">kabuki (teatro tradicional)</td><td>🎉 Evento</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">うた（歌）</td><td class="ro-cell">uta</td><td class="es-cell">canción</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">クラシック</td><td class="ro-cell">kurashikku</td><td class="es-cell">música clásica</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">え（絵）</td><td class="ro-cell">e</td><td class="es-cell">cuadro / dibujo</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="estudio"><td class="jp-cell">ひらがな</td><td class="ro-cell">hiragana</td><td class="es-cell">hiragana</td><td>📖 Estudio</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="estudio"><td class="jp-cell">カタカナ</td><td class="ro-cell">katakana</td><td class="es-cell">katakana</td><td>📖 Estudio</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="estudio"><td class="jp-cell">ローマじ（ローマ字）</td><td class="ro-cell">rōmaji</td><td class="es-cell">alfabeto latino (romaji)</td><td>📖 Estudio</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">りょこう（旅行）</td><td class="ro-cell">ryokō</td><td class="es-cell">viaje</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">こまかいおかね／こぜに</td><td class="ro-cell">komakai okane / kozeni</td><td class="es-cell">moneda / cambio (dinero suelto)</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">チケット</td><td class="ro-cell">chiketto</td><td class="es-cell">boleto / entrada</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">じかん（時間）</td><td class="ro-cell">jikan</td><td class="es-cell">tiempo / hora</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">ようじ（用事）</td><td class="ro-cell">yōji</td><td class="es-cell">asunto / cosa que hacer</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">やくそく（約束）</td><td class="ro-cell">yakusoku</td><td class="es-cell">promesa / cita</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">アルバイト</td><td class="ro-cell">arubaito</td><td class="es-cell">trabajo de medio tiempo</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">どうして</td><td class="ro-cell">dōshite</td><td class="es-cell">¿por qué?</td><td>💬 Expresión</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">ビール</td><td class="ro-cell">bīru</td><td class="es-cell">cerveza</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">おさけ（お酒）</td><td class="ro-cell">osake</td><td class="es-cell">alcohol / sake</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">アイスコーヒー</td><td class="ro-cell">aisu kōhī</td><td class="es-cell">café helado</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="persona"><td class="jp-cell">ごしゅじん</td><td class="ro-cell">goshujin</td><td class="es-cell">esposo (de otra persona, respetuoso)</td><td>👤 Persona</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="persona"><td class="jp-cell">しゅじん／おっと（主人／夫）</td><td class="ro-cell">shujin / otto</td><td class="es-cell">mi esposo</td><td>👤 Persona</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="persona"><td class="jp-cell">おくさん（奥さん）</td><td class="ro-cell">okusan</td><td class="es-cell">esposa (de otra persona, respetuoso)</td><td>👤 Persona</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="persona"><td class="jp-cell">つま／かない（妻／家内）</td><td class="ro-cell">tsuma / kanai</td><td class="es-cell">mi esposa</td><td>👤 Persona</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">また こんど おねがいします</td><td class="ro-cell">mata kondo onegai shimasu</td><td class="es-cell">la próxima vez, por favor</td><td>💬 Expresión</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="adjna"><td class="jp-cell">にがて（苦手）</td><td class="ro-cell">nigate</td><td class="es-cell">no se me da / no es lo mío (adj な, con が)</td><td>🎨 Adj な</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">たばこ</td><td class="ro-cell">tabako</td><td class="es-cell">cigarrillo / tabaco</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">やさい（野菜）</td><td class="ro-cell">yasai</td><td class="es-cell">verdura</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">コメディー（えいが）</td><td class="ro-cell">komedī (eiga)</td><td class="es-cell">comedia (película de comedia)</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">ちゃ（茶）</td><td class="ro-cell">cha</td><td class="es-cell">té (más común: おちゃ)</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">ロック</td><td class="ro-cell">rokku</td><td class="es-cell">rock (música)</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">ジャズ</td><td class="ro-cell">jazu</td><td class="es-cell">jazz</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">J-POP</td><td class="ro-cell">Jei-poppu</td><td class="es-cell">pop japonés</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">こと</td><td class="ro-cell">koto</td><td class="es-cell">el hecho de ~ (verbo dicc. + こと = sustantivo)</td><td>💬 Expresión</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="verbo"><td class="jp-cell">うたいます／うたう</td><td class="ro-cell">utaimasu / utau</td><td class="es-cell">cantar</td><td>🏃 Verbo</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="verbo"><td class="jp-cell">はしります／はしる</td><td class="ro-cell">hashirimasu / hashiru</td><td class="es-cell">correr</td><td>🏃 Verbo</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="verbo"><td class="jp-cell">よみます／よむ</td><td class="ro-cell">yomimasu / yomu</td><td class="es-cell">leer</td><td>🏃 Verbo</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="evento"><td class="jp-cell">サッカー</td><td class="ro-cell">sakkā</td><td class="es-cell">fútbol</td><td>🎉 Evento</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="estudio"><td class="jp-cell">かんこくご（韓国語）</td><td class="ro-cell">Kankokugo</td><td class="es-cell">idioma coreano</td><td>📖 Estudio</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">よく</td><td class="ro-cell">yoku</td><td class="es-cell">bien / mucho (よく わかります)</td><td>💬 Expresión</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">だいたい</td><td class="ro-cell">daitai</td><td class="es-cell">más o menos / casi todo</td><td>💬 Expresión</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">すこし（少し）</td><td class="ro-cell">sukoshi</td><td class="es-cell">un poco</td><td>💬 Expresión</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">ぜんぜん（全然）</td><td class="ro-cell">zenzen</td><td class="es-cell">nada en absoluto (siempre con negativo)</td><td>💬 Expresión</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">ぎゅうにゅう（牛乳）</td><td class="ro-cell">gyūnyū</td><td class="es-cell">leche</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">CD</td><td class="ro-cell">shīdī</td><td class="es-cell">CD</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">きのうの ばん</td><td class="ro-cell">kinō no ban</td><td class="es-cell">anoche</td><td>💬 Expresión</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="lugar"><td class="jp-cell">いえ（家）</td><td class="ro-cell">ie</td><td class="es-cell">casa</td><td>📍 Lugar</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">たくさん</td><td class="ro-cell">takusan</td><td class="es-cell">mucho / muchos (con afirmativo)</td><td>💬 Expresión</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">たまご（卵）</td><td class="ro-cell">tamago</td><td class="es-cell">huevo</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">フルーツ</td><td class="ro-cell">furūtsu</td><td class="es-cell">fruta</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">おこめ（お米）</td><td class="ro-cell">okome</td><td class="es-cell">arroz (crudo)</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">グッズ</td><td class="ro-cell">guzzu</td><td class="es-cell">artículos / merch (BTSの グッズ)</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="evento"><td class="jp-cell">しゅうまつ（週末）</td><td class="ro-cell">shūmatsu</td><td class="es-cell">fin de semana</td><td>🎉 Evento</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="persona"><td class="jp-cell">ともだち（友達）</td><td class="ro-cell">tomodachi</td><td class="es-cell">amigo/a</td><td>👤 Persona</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">〜と</td><td class="ro-cell">~to</td><td class="es-cell">con ~ (ともだちと = con un amigo)</td><td>💬 Expresión</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">あした（明日）</td><td class="ro-cell">ashita</td><td class="es-cell">mañana</td><td>💬 Expresión</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">らいしゅう（来週）</td><td class="ro-cell">raishū</td><td class="es-cell">la semana que viene</td><td>💬 Expresión</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">ラジオ</td><td class="ro-cell">rajio</td><td class="es-cell">radio</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">ネクタイ</td><td class="ro-cell">nekutai</td><td class="es-cell">corbata</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">FAX／ファックス</td><td class="ro-cell">fakkusu</td><td class="es-cell">fax</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">プレイステーション</td><td class="ro-cell">Pureisutēshon</td><td class="es-cell">PlayStation</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">〜も（わたしも）</td><td class="ro-cell">~mo (watashi mo)</td><td class="es-cell">también (yo también)</td><td>💬 Expresión</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">〜から</td><td class="ro-cell">~kara</td><td class="es-cell">porque ~ (razón)</td><td>💬 Expresión</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">どうしてですか</td><td class="ro-cell">dōshite desu ka</td><td class="es-cell">¿por qué?</td><td>💬 Expresión</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">アニメ</td><td class="ro-cell">anime</td><td class="es-cell">anime</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">ガジョピント</td><td class="ro-cell">gajopinto</td><td class="es-cell">gallo pinto</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="lugar"><td class="jp-cell">メキシコ</td><td class="ro-cell">Mekishiko</td><td class="es-cell">México</td><td>📍 Lugar</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">アクション</td><td class="ro-cell">akushon</td><td class="es-cell">acción (género)</td><td>💬 Expresión</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">タコス</td><td class="ro-cell">takosu</td><td class="es-cell">tacos</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">ホラー</td><td class="ro-cell">horā</td><td class="es-cell">terror (género)</td><td>💬 Expresión</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">ストーリー</td><td class="ro-cell">sutōrī</td><td class="es-cell">historia / trama</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">ドキドキします</td><td class="ro-cell">dokidoki shimasu</td><td class="es-cell">me late el corazón / me emociona</td><td>💬 Expresión</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">わくわくします</td><td class="ro-cell">wakuwaku shimasu</td><td class="es-cell">me entusiasma / me emociona</td><td>💬 Expresión</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">リズム</td><td class="ro-cell">rizumu</td><td class="es-cell">ritmo</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="evento"><td class="jp-cell">バスケットボール</td><td class="ro-cell">basukettobōru</td><td class="es-cell">básquet</td><td>🎉 Evento</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="evento"><td class="jp-cell">すいえい（水泳）</td><td class="ro-cell">suiei</td><td class="es-cell">natación</td><td>🎉 Evento</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="adji"><td class="jp-cell">からい（辛い）</td><td class="ro-cell">karai</td><td class="es-cell">picante</td><td>🎨 Adjetivo</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">たんじょうび（誕生日）</td><td class="ro-cell">tanjōbi</td><td class="es-cell">cumpleaños</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">やすみ（休み）</td><td class="ro-cell">yasumi</td><td class="es-cell">descanso / día libre</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">ケーキ</td><td class="ro-cell">kēki</td><td class="es-cell">torta / pastel</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">みず（水）</td><td class="ro-cell">mizu</td><td class="es-cell">agua</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">あさごはん（朝ごはん）</td><td class="ro-cell">asagohan</td><td class="es-cell">desayuno</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">にく（肉）</td><td class="ro-cell">niku</td><td class="es-cell">carne</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">にんじん</td><td class="ro-cell">ninjin</td><td class="es-cell">zanahoria</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">おなか</td><td class="ro-cell">onaka</td><td class="es-cell">panza / estómago</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">たいよう（太陽）</td><td class="ro-cell">taiyō</td><td class="es-cell">sol</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="adji"><td class="jp-cell">にがい（苦い）</td><td class="ro-cell">nigai</td><td class="es-cell">amargo</td><td>🎨 Adjetivo</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="adji"><td class="jp-cell">いたい（痛い）</td><td class="ro-cell">itai</td><td class="es-cell">doler / dolorido (おなかが いたい)</td><td>🎨 Adjetivo</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="adji"><td class="jp-cell">つよい（強い）</td><td class="ro-cell">tsuyoi</td><td class="es-cell">fuerte</td><td>🎨 Adjetivo</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">ひとりで（一人で）</td><td class="ro-cell">hitori de</td><td class="es-cell">solo/a, sin compañía</td><td>💬 Expresión</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="verbo"><td class="jp-cell">りょこうします（旅行します）</td><td class="ro-cell">ryokō shimasu</td><td class="es-cell">viajar</td><td>🏃 Verbo</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="estudio"><td class="jp-cell">タイご（タイ語）</td><td class="ro-cell">Taigo</td><td class="es-cell">idioma tailandés</td><td>📖 Estudio</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="lugar"><td class="jp-cell">かんこく（韓国）</td><td class="ro-cell">Kankoku</td><td class="es-cell">Corea</td><td>📍 Lugar</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="persona"><td class="jp-cell">〜ちゃん</td><td class="ro-cell">~chan</td><td class="es-cell">sufijo cariñoso para chicos y chicas</td><td>👤 Persona</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">〜たい（たべたい）</td><td class="ro-cell">~tai (tabetai)</td><td class="es-cell">querer hacer ~ (adelanto de L13)</td><td>💬 Expresión</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">めいし（名刺）</td><td class="ro-cell">meishi</td><td class="es-cell">tarjeta personal</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">ひこうき（飛行機）</td><td class="ro-cell">hikōki</td><td class="es-cell">avión</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">スウェット</td><td class="ro-cell">suetto</td><td class="es-cell">buzo</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="verbo"><td class="jp-cell">きます（着ます）</td><td class="ro-cell">kimasu</td><td class="es-cell">ponerse (ropa, de la cintura para arriba)</td><td>🏃 Verbo</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="lugar"><td class="jp-cell">ジム</td><td class="ro-cell">jimu</td><td class="es-cell">gimnasio</td><td>📍 Lugar</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="expresion"><td class="jp-cell">はやく（早く）</td><td class="ro-cell">hayaku</td><td class="es-cell">temprano</td><td>💬 Expresión</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="lugar"><td class="jp-cell">びょういん（病院）</td><td class="ro-cell">byōin</td><td class="es-cell">hospital</td><td>📍 Lugar</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="objeto"><td class="jp-cell">あたま（頭）</td><td class="ro-cell">atama</td><td class="es-cell">cabeza</td><td>📦 Objeto</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="verbo"><td class="jp-cell">つかれます（疲れます）</td><td class="ro-cell">tsukaremasu</td><td class="es-cell">cansarse</td><td>🏃 Verbo</td><td><span class="lz">L9</span></td></tr>
-          <tr data-cat="verbo"><td class="jp-cell">かえります（帰ります）</td><td class="ro-cell">kaerimasu</td><td class="es-cell">volver (a casa)</td><td>🏃 Verbo</td><td><span class="lz">L9</span></td></tr>
-        </tbody>
-      </table>
+      <div class="v-ctl">
+        <span class="v-lbl">Lección:</span>
+        <div class="cat-filter" id="vocab-lec" role="group" aria-label="Filtrar por lección">
+          <button type="button" class="cat-chip" data-v="">Todas</button>
+          <button type="button" class="cat-chip" data-v="L7">L7</button>
+          <button type="button" class="cat-chip" data-v="L8">L8</button>
+          <button type="button" class="cat-chip" data-v="L9">L9</button>
+          <button type="button" class="cat-chip" data-v="práctica">🏫 Práctica</button>
+          <button type="button" class="cat-chip" data-v="⚽">⚽ Mundial</button>
+        </div>
       </div>
+      <div class="v-ctl">
+        <span class="v-lbl">Mostrar:</span>
+        <div class="cat-filter" id="vocab-cat" role="group" aria-label="Filtrar por categoría">
+          <button type="button" class="cat-chip" data-v="">Todas</button>
+          <button type="button" class="cat-chip clave-chip" data-v="clave">⭐ Clave examen</button>
+          <button type="button" class="cat-chip par-chip" data-v="par">↔ Opuestos</button>
+          <button type="button" class="cat-chip" data-v="persona">👤 Personas</button>
+          <button type="button" class="cat-chip" data-v="verbo">🏃 Verbos</button>
+          <button type="button" class="cat-chip" data-v="objeto">📦 Objetos</button>
+          <button type="button" class="cat-chip" data-v="estudio">📖 Estudio</button>
+          <button type="button" class="cat-chip" data-v="lugar">📍 Lugares</button>
+          <button type="button" class="cat-chip" data-v="evento">🎉 Eventos</button>
+          <button type="button" class="cat-chip" data-v="mundial">⚽ Mundial</button>
+          <button type="button" class="cat-chip" data-v="expresion">💬 Expresiones</button>
+          <button type="button" class="cat-chip" data-v="adjna">🎨 Adj な <i class="rm">na</i></button>
+          <button type="button" class="cat-chip" data-v="adji">🎨 Adj い <i class="rm">i</i></button>
+        </div>
+      </div>
+      <div class="vcount" id="vcount" aria-live="polite"></div>
+      <div id="vocab-lista"></div>
       <!-- VOCAB CLAVE (para exámenes): antes era una página aparte; el contenido está entero acá -->
       <details class="vc-plegable" id="vocab-clave">
         <summary>🎴 Vocab clave para el examen (L7–L8)</summary>
@@ -3128,8 +2876,8 @@
   </main>
 </div>
 
+<script src="vocab.js"></script>
 <script>
-  let vCat = '';
   function showPage(id, el){
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
@@ -3207,7 +2955,7 @@
 
   // ===== Pestañas por lección: 📏 Resumen | 🗓️ Clases | 🗂️ Vocab =====
   // Todo se arma solo desde el HTML: las clases (details.clase), el bloque "🗂️ Vocabulario nuevo",
-  // el índice de gramática (filas con data-clase) y la tabla #vocab-table. No hay que tocar nada acá.
+  // el índice de gramática (filas con data-clase) y la lista VOCAB de vocab.js. No hay que tocar nada acá.
   const lsGet = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
   const lsSet = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
   const esLeccion = page => /^p-l\d+$/.test(page.id) && !!page.querySelector('details.clase');
@@ -3269,33 +3017,99 @@
         tramos[t].forEach(n => p.appendChild(n));
         ant.after(p); ant = p;
       });
-      if (!vh) vocabDesdeTabla(page, page.querySelector(':scope > .tab-panel[data-tab="vocab"]'));
+      if (!vh) vocabDesdeLista(page, page.querySelector(':scope > .tab-panel[data-tab="vocab"]'));
       const guardada = lsGet('tab-' + page.id);
       setTab(page, TABS.some(([t]) => t === guardada) ? guardada : 'resumen', false);
     });
     window.addEventListener('resize', medirTabs);
   }
 
-  // En la tabla, el romaji de la columna es el de la palabra; el japonés suelto del español lleva el suyo acá
-  const ES_ROMAJI = [[/adj な/g, 'na'], [/adj い/g, 'i'], [/まだです/g, 'mada desu'], [/第6課/g, 'dai 6 ka'], [/よくない/g, 'yokunai']];
-  const conRomaji = html => ES_ROMAJI.reduce((h, [re, ro]) => h.replace(re, m => `${m} <i style="color:var(--azul)">(${ro})</i>`), html);
-  // L7/L8 no tienen bloque de fichas: se arman desde la tabla 🗂️ Vocabulario (filas con su etiqueta de lección)
-  function vocabDesdeTabla(page, panel){
+  // ===== Lista maestra del vocabulario: VOCAB (vocab.js) =====
+  const V = typeof VOCAB !== 'undefined' ? VOCAB : [];
+  const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+  const ROI = t => `<i style="color:var(--azul)">(${esc(t)})</i>`;
+  // cómo se muestra la palabra: きれい（綺麗）（な）, しゅじん／おっと（主人／夫）
+  const jpDe = e => !e.kanji ? e.kana : e.kana.endsWith('（な）') ? `${e.kana.slice(0, -3)}（${e.kanji}）（な）` : `${e.kana}（${e.kanji}）`;
+  // el español con el romaji de cada tramo japonés (esro: { "adj な": "na" } → adj な (na))
+  function esHTML(e){
+    let h = esc(e.es);
+    Object.entries(e.esro || {}).forEach(([jp, ro]) => { h = h.split(esc(jp)).join(`${esc(jp)} ${ROI(ro)}`); });
+    return h;
+  }
+  const CATS = { persona: '👤 Persona', verbo: '🏃 Verbo', objeto: '📦 Objeto', estudio: '📖 Estudio', lugar: '📍 Lugar', evento: '🎉 Evento',
+    mundial: '⚽ Mundial', expresion: '💬 Expresión', adjna: `🎨 Adj な ${ROI('na')}`, adji: `🎨 Adj い ${ROI('i')}` };
+  const CATS_PL = { persona: '👤 Personas', verbo: '🏃 Verbos', objeto: '📦 Objetos', estudio: '📖 Estudio', lugar: '📍 Lugares', evento: '🎉 Eventos',
+    mundial: '⚽ Mundial', expresion: '💬 Expresiones', adjna: `🎨 Adjetivos な ${ROI('na')}`, adji: `🎨 Adjetivos い ${ROI('i')}` };
+  const LECS = { L7: '📗 Lección 7', L8: '📘 Lección 8', L9: '📙 Lección 9', 'práctica': '🏫 Práctica en clase', '⚽': '⚽ Mundial' };
+  const paresDe = e => e.par ? [].concat(e.par) : [];
+  function opuesto(e, jp){   // la palabra que se muestra como jp; si hay varias, la de la misma lección
+    const cs = V.filter(o => jpDe(o) === jp);
+    return cs.find(o => o.lec === e.lec) || cs[0] || null;
+  }
+  // filas: cada palabra sola, o un par A ↔ B (una palabra con dos opuestos sale en dos pares)
+  function itemsVocab(lista){
+    const hechos = new Set(), items = [];
+    lista.forEach(e => {
+      const ops = paresDe(e).map(p => opuesto(e, p)).filter(Boolean);
+      if (!ops.length) { items.push({ ws: [e] }); return; }
+      ops.forEach(o => {
+        const k = [V.indexOf(e), V.indexOf(o)].sort((x, y) => x - y).join('-');
+        if (hechos.has(k)) return;
+        hechos.add(k); items.push({ ws: [e, o], par: true });
+      });
+    });
+    return items;
+  }
+  // la figura de la imagen en las clases: primero en su clase, después en su lección, después en cualquier página
+  function figuraDe(e){
+    if (!e.img) return null;
+    const figs = [...document.querySelectorAll('section.page figure')].filter(f => { const im = f.querySelector('img'); return im && im.getAttribute('src') === e.img; });
+    const enClase = e.clase && figs.find(f => { const d = f.closest('details.clase'); return d && d.id === e.clase; });
+    const enLec = figs.find(f => f.closest('section.page').id === 'p-' + e.lec.toLowerCase());
+    return enClase || enLec || figs[0] || null;
+  }
+  function botonImagen(e, cls){
+    const fig = figuraDe(e);
+    const btn = document.createElement('button');
+    btn.type = 'button'; btn.className = 'v-img' + (cls ? ' ' + cls : '');
+    btn.title = fig ? 'Ver la imagen en su clase' : 'Imagen';
+    btn.setAttribute('aria-label', 'Ver la imagen de ' + e.ro);
+    const im = document.createElement('img');
+    Object.assign(im, { loading: 'lazy', decoding: 'async', alt: '', src: e.img });
+    btn.appendChild(im);
+    if (fig) btn.onclick = () => irAFigura(fig);
+    return btn;
+  }
+  // En un par (A ↔ B) la imagen va si es la misma para los dos o si cada uno tiene la suya. Si solo uno tiene
+  // (たかい ↔ やすい), no se muestra: la figura de たかい es "alto", y al lado de "caro ↔ barato" confundiría.
+  const imagenesDe = it => { const c = it.ws.filter(e => e.img); return it.par && c.length === 1 ? [] : c; };
+  // L7/L8 no tienen bloque de fichas: se arman desde VOCAB (las palabras con su lección), con imagen y opuesto
+  function chipDe(item){
+    const c = document.createElement('div');
+    c.className = 'vchip' + (item.par ? ' vchip-par' : '');
+    c.dataset.gen = '';   // armada desde VOCAB: vocabConImagen no la toca
+    const txt = item.ws.map(e => `<b>${esc(jpDe(e))}</b> <span>${esc(e.ro)}</span> — ${esHTML(e)}`).join(' <span class="par-sep">↔</span> ');
+    const conImg = imagenesDe(item);
+    const unaImg = conImg.length > 0 && conImg.every(e => e.img === conImg[0].img);
+    if (!conImg.length) { c.innerHTML = txt; return c; }
+    c.classList.add('con-img');
+    const t = document.createElement('div');
+    t.className = 'v-txt'; t.innerHTML = txt;
+    if (unaImg) c.append(botonImagen(conImg[0]), t);
+    else { conImg.forEach(e => c.appendChild(botonImagen(e))); c.appendChild(t); }
+    return c;
+  }
+  function vocabDesdeLista(page, panel){
     const lec = lecDe(page);
-    const filas = [...document.querySelectorAll('#vocab-table tbody tr')].filter(tr => (tr.querySelector('.lz') || {}).textContent === lec);
+    const lista = V.filter(e => e.lec === lec);
     const h = document.createElement('h3');
     h.style.color = 'var(--morado)'; h.textContent = `🗂️ Vocabulario de la ${lec}`;
     const nota = document.createElement('p');
     nota.className = 'vocab-gen-nota';
-    nota.textContent = `${filas.length} palabras, tomadas de la tabla 🗂️ Vocabulario (las que tienen la etiqueta ${lec}).`;
+    nota.textContent = `${lista.length} palabras, tomadas de la lista 🗂️ Vocabulario (las de la ${lec}). Los opuestos van juntos (↔).`;
     const box = document.createElement('div');
     box.className = 'vocab';
-    filas.forEach(tr => {
-      const c = document.createElement('div');
-      c.className = 'vchip';
-      c.innerHTML = `<b>${tr.querySelector('.jp-cell').innerHTML}</b> <span>${tr.querySelector('.ro-cell').innerHTML}</span> — ${conRomaji(tr.querySelector('.es-cell').innerHTML)}`;
-      box.appendChild(c);
-    });
+    itemsVocab(lista).forEach(it => box.appendChild(chipDe(it)));
     panel.append(h, nota, box);
   }
 
@@ -3342,34 +3156,49 @@
   }
   function irAFigura(fig){
     const d = fig.closest('details.clase');
-    if (d) abrirClase(d, fig); else fig.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (d) return abrirClase(d, fig);
+    const page = fig.closest('.page');
+    if (!page.classList.contains('active')) showPage(page.id, document.querySelector(`.nav-link[onclick*="'${page.id}'"]`));
+    const panel = fig.closest('.tab-panel');
+    if (panel) setTab(page, panel.dataset.tab, false);
+    setTimeout(() => {
+      fig.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      fig.classList.add('salto'); setTimeout(() => fig.classList.remove('salto'), 1700);
+    }, 50);
+  }
+  // Fichas escritas a mano (L9): la imagen sale de VOCAB (la palabra de la misma lección; si no, cualquiera)
+  function entradaDeFicha(txt, lec){
+    const vs = new Set(variantes(txt));
+    const cs = V.filter(e => variantes(jpDe(e)).some(v => vs.has(v)));
+    return cs.find(e => e.lec === lec && e.img) || cs.find(e => e.lec === lec) || cs.find(e => e.img) || null;
   }
   function vocabConImagen(){
-    const figs = figurasLecciones();
     const usados = [];
-    document.querySelectorAll('.tab-panel[data-tab="vocab"] .vchip').forEach(chip => {
+    document.querySelectorAll('.tab-panel[data-tab="vocab"] .vchip:not([data-gen])').forEach(chip => {
       const b = chip.querySelector('b');
       if (!b) return;
       const page = chip.closest('section.page');
-      const f = buscarFigura(b.textContent.trim(), figs, page);
-      if (!f) return;
-      const btn = document.createElement('button');
-      btn.type = 'button'; btn.className = 'v-img';
-      btn.title = 'Ver la imagen en su clase';
-      btn.setAttribute('aria-label', 'Ver la imagen en su clase');
-      const im = document.createElement('img');
-      Object.assign(im, { loading: 'lazy', decoding: 'async', alt: '', src: f.img.getAttribute('src') });
-      btn.appendChild(im);
-      btn.onclick = () => irAFigura(f.fig);
+      const e = entradaDeFicha(b.textContent.trim(), lecDe(page));
+      if (!e || !e.img) return;
       const txt = document.createElement('div');   // el texto de la ficha en un bloque, la imagen al lado
       txt.className = 'v-txt';
       txt.append(...chip.childNodes);
       chip.classList.add('con-img');
-      chip.append(btn, txt);
-      usados.push(b.textContent.trim() + ' → ' + f.img.getAttribute('src'));
+      chip.append(botonImagen(e), txt);
+      usados.push(b.textContent.trim() + ' → ' + e.img);
     });
     window.vocabImagenes = usados;   // para revisar desde la consola
   }
+  // Para agregar palabras: en la consola, sugerirImagenes() propone una figura (por el epígrafe) para las
+  // palabras de VOCAB sin img. Revisá cada una mirando la imagen antes de copiarla a vocab.js.
+  window.sugerirImagenes = function(){
+    const figs = figurasLecciones();
+    return V.filter(e => !e.img).map(e => {
+      const page = document.getElementById('p-' + e.lec.toLowerCase());
+      const f = buscarFigura(jpDe(e), figs, page);
+      return f && { palabra: jpDe(e), lec: e.lec, img: f.img.getAttribute('src'), epigrafe: f.todo.replace(/\s+/g, ' ').trim() };
+    }).filter(Boolean);
+  };
 
   // ===== Ejercicios del libro (練習B) detectados en los títulos de cada clase =====
   // "Repaso B3 — …", "Ejercicio B5 — …", "Repaso B7 — … (de L7)"; en Práctica en clase, h3 con data-lec="LN".
@@ -3492,7 +3321,7 @@
   function initInicio(){
     const ultima = [...document.querySelectorAll('details.clase')].pop();
     const lecciones = [...document.querySelectorAll('section.page')].filter(esLeccion);
-    const palabras = document.querySelectorAll('#vocab-table tbody tr[data-cat]').length;
+    const palabras = V.length;
     const nClases = document.querySelectorAll('details.clase').length;
     const av = document.getElementById('avance');
     if (av) av.textContent = `📈 ${lecciones.length} lecciones · ${nClases} clases · ${palabras} palabras`;
@@ -3542,39 +3371,98 @@
   initInicio();
   function toggleGroup(head){ head.parentElement.classList.toggle('collapsed'); }
   function toggleSidebar(){ document.querySelector('.sidebar').classList.toggle('open'); }
-  function setCat(cat, btn){
-    vCat = cat;
-    document.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('active'));
-    btn.classList.add('active');
-    filterVocab();
+  // ===== 🗂️ Vocabulario: búsqueda, filtros y agrupar, todo desde VOCAB =====
+  const vEstado = { q: '', lec: '', cat: '', agrupar: ['lec', 'cat', 'az'].includes(lsGet('vocab-agrupar')) ? lsGet('vocab-agrupar') : 'lec' };
+  const sinTildes = t => t.normalize('NFD').replace(/[̀-ͯ]/g, '');
+  const kataAHira = t => t.replace(/[ァ-ヶ]/g, c => String.fromCharCode(c.charCodeAt(0) - 0x60));
+  const textoDe = e => sinTildes([jpDe(e), kataAHira(jpDe(e)), e.ro, e.es, Object.values(e.esro || {}).join(' '), CATS[e.cat].replace(/<[^>]+>/g, ''), e.lec].join(' ').toLowerCase());
+  const GYO = [['あ', 'a'], ['か', 'ka'], ['さ', 'sa'], ['た', 'ta'], ['な', 'na'], ['は', 'ha'], ['ま', 'ma'], ['や', 'ya'], ['ら', 'ra'], ['わ', 'wa']];
+  const GYO_FIN = 'かさたなはまやらわん';   // primera kana de cada fila siguiente (orden あいうえお)
+  function gyoDe(e){
+    const c = kataAHira(e.kana.replace(/^[〜～〔]+/, '')).normalize('NFD')[0];
+    if (!/[ぁ-ゖ]/.test(c || '')) return 'otros';
+    const i = [...GYO_FIN].findIndex(f => c < f);
+    return GYO[i < 0 ? GYO.length - 1 : i][0];
   }
-  function filterVocab(){
-    const q = (document.getElementById('vocab-search').value || '').toLowerCase().trim();
-    const rows = document.querySelectorAll('#vocab-table tbody tr');
-    let shown = 0;
-    rows.forEach(tr => {
-      if (tr.classList.contains('none-row')) return;
-      const text = tr.textContent.toLowerCase();
-      const okQ = !q || text.includes(q);
-      const okCat = !vCat || (vCat === 'clave' ? tr.hasAttribute('data-clave') : tr.dataset.cat === vCat);
-      const visible = okQ && okCat;
-      tr.style.display = visible ? '' : 'none';
-      if (visible) shown++;
+  const ordenKana = (a, b) => kataAHira(a.kana.replace(/^[〜～〔]+/, '')).localeCompare(kataAHira(b.kana.replace(/^[〜～〔]+/, '')), 'ja');
+  function filaVocab(it){
+    const row = document.createElement('div');
+    row.className = 'v-row' + (it.par ? ' v-par' : '');
+    const conImg = imagenesDe(it);
+    const unaImg = it.par && conImg.length === 2 && conImg[0].img === conImg[1].img;
+    if (!conImg.length) row.classList.add('v-sin-img');
+    if (unaImg) row.appendChild(botonImagen(conImg[0], 'v-img-par'));
+    const cuerpo = it.par ? document.createElement('div') : row;   // el par: A ↔ B en un bloque (en el celular, uno abajo del otro)
+    if (it.par) { cuerpo.className = 'v-par-cuerpo'; row.appendChild(cuerpo); }
+    it.ws.forEach((e, i) => {
+      if (i) cuerpo.insertAdjacentHTML('beforeend', '<span class="v-sep" aria-label="opuesto">↔</span>');
+      const pal = document.createElement('div');
+      pal.className = 'v-pal';
+      if (conImg.includes(e) && !unaImg) pal.appendChild(botonImagen(e));
+      const t = document.createElement('div');
+      t.innerHTML = `<span class="jp-cell">${esc(jpDe(e))}</span><span class="ro-cell">${esc(e.ro)}</span><div class="es-cell">${esHTML(e)}</div>`;
+      pal.appendChild(t);
+      cuerpo.appendChild(pal);
     });
-    const tbody = document.querySelector('#vocab-table tbody');
-    let none = tbody.querySelector('.none-row');
-    if (shown === 0){
-      if (!none){
-        none = document.createElement('tr');
-        none.className = 'none-row';
-        none.innerHTML = '<td colspan="5">Sin resultados 🤔</td>';
-        tbody.appendChild(none);
-      }
-      none.style.display = '';
-    } else if (none){ none.style.display = 'none'; }
-    document.getElementById('vcount').textContent = shown + ' palabra(s)';
+    const meta = document.createElement('div');
+    meta.className = 'v-meta';
+    const lecs = [...new Set(it.ws.map(e => e.lec))];
+    meta.innerHTML = `<span>${[...new Set(it.ws.map(e => CATS[e.cat]))].join(' · ')}</span>` + lecs.map(l => `<span class="lz">${l === '⚽' ? '⚽' : esc(l)}</span>`).join(' ')
+      + (it.ws.some(e => e.clave) ? ' <span class="clave" title="Clave para el examen">⭐</span>' : '');
+    [...new Set(it.ws.map(e => e.clase).filter(Boolean))].map(id => document.getElementById(id)).filter(Boolean).forEach(d => meta.appendChild(botonClase(d)));
+    row.appendChild(meta);
+    return row;
   }
-  filterVocab();
+  function renderVocab(){
+    const caja = document.getElementById('vocab-lista');
+    if (!caja) return;
+    const q = sinTildes(vEstado.q.toLowerCase().trim());
+    const okE = e => (!vEstado.lec || e.lec === vEstado.lec)
+      && (!vEstado.cat || vEstado.cat === 'par' || (vEstado.cat === 'clave' ? e.clave : e.cat === vEstado.cat));
+    const lista = vEstado.agrupar === 'az' ? [...V].sort(ordenKana) : V;
+    const items = itemsVocab(lista).filter(it => (vEstado.cat !== 'par' || it.par)
+      && it.ws.some(okE) && (!q || it.ws.some(e => textoDe(e).includes(q) || textoDe(e).includes(kataAHira(q)))));
+    const grupoDe = { lec: it => it.ws[0].lec, cat: it => it.ws[0].cat, az: it => gyoDe(it.ws[0]) }[vEstado.agrupar];
+    const orden = { lec: Object.keys(LECS), cat: Object.keys(CATS), az: GYO.map(g => g[0]).concat('otros') }[vEstado.agrupar];
+    const titulo = { lec: k => LECS[k], cat: k => CATS_PL[k],
+      az: k => k === 'otros' ? '🔤 Otros (letras latinas y 〔…〕)' : `${k} 行 ${ROI(GYO.find(g => g[0] === k)[1] + '-gyō')}` }[vEstado.agrupar];
+    const grupos = new Map(orden.map(k => [k, []]));
+    items.forEach(it => { const k = grupoDe(it); if (!grupos.has(k)) grupos.set(k, []); grupos.get(k).push(it); });
+    caja.textContent = '';
+    grupos.forEach((its, k) => {
+      if (!its.length) return;
+      const n = new Set(its.flatMap(it => it.ws)).size;
+      const h = document.createElement('h3');
+      h.className = 'v-grupo';
+      h.innerHTML = `${titulo(k)} <span class="n">${n} palabra${n === 1 ? '' : 's'}</span>`;
+      const ul = document.createElement('div');
+      ul.className = 'v-lista';
+      its.forEach(it => ul.appendChild(filaVocab(it)));
+      caja.append(h, ul);
+    });
+    const total = new Set(items.flatMap(it => it.ws)).size;
+    if (!total) caja.innerHTML = '<div class="v-none">Sin resultados 🤔</div>';
+    document.getElementById('vcount').textContent = total + ' palabra(s)' + (vEstado.cat === 'par' ? ` · ${items.length} pares de opuestos` : '');
+  }
+  function initVocab(){
+    const marcar = (id, v) => document.querySelectorAll(`#${id} button`).forEach(b => b.setAttribute('aria-pressed', b.dataset.v === v));
+    [['vocab-agrupar', 'agrupar'], ['vocab-lec', 'lec'], ['vocab-cat', 'cat']].forEach(([id, k]) => {
+      const box = document.getElementById(id);
+      if (!box) return;
+      box.addEventListener('click', ev => {
+        const b = ev.target.closest('button');
+        if (!b) return;
+        vEstado[k] = b.dataset.v;
+        if (k === 'agrupar') lsSet('vocab-agrupar', b.dataset.v);
+        marcar(id, b.dataset.v); renderVocab();
+      });
+      marcar(id, vEstado[k]);
+    });
+    const inp = document.getElementById('vocab-search');
+    if (inp) inp.addEventListener('input', () => { vEstado.q = inp.value; renderVocab(); });
+    renderVocab();
+  }
+  initVocab();
 </script>
 </body>
 </html>
